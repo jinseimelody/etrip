@@ -1,0 +1,46 @@
+.h2 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard {
+}
+
+.card {
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.search__box {
+  display: flex;
+  position: relative;
+  align-items: center;
+
+  .search__icon {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    height: 3rem;
+    padding: 0 1rem;
+    border: 1px solid transparent;
+    font-size: 1.6rem;
+  }
+
+  input {
+    color: #7e7e7e;
+    border: none;
+    padding-left: 3.8rem;
+    background: var(--silver);
+  }
+}
+
+.carousel__container {
+  display: flex;
+  justify-content: space-between;
+
+  .carousel__item {
+    flex-grow: 1;
+    max-width: 160px;
+  }
+}

@@ -1,0 +1,35 @@
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+    padding-left: 2rem;
+    padding-right: 2.4rem;
+    overflow: hidden;
+    font-weight: 600;
+
+    .nav__action {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.upload__btn {
+    display: flex;
+    align-items: center;
+    height: var(--button-height);
+    padding: 0 1.6rem;
+    border: 1px solid (var(--grey));
+
+    img {
+        margin-right: 1rem;
+    }
+}
+
+.login__button {
+    padding: 0 1.6rem;
+    border: 1px solid (var(--grey));
+    color: (var(--white));
+    background-color: var(--primary);
+}
