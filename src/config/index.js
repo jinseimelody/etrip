@@ -1,1 +1,1 @@
-export {publicPaths, privatePaths} from './routes';
+export {RouteConfig} from './routes';

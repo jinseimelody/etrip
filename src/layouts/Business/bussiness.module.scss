@@ -1,9 +1,7 @@
-.container {
-    // max-width: 375px;
-    // height: 812px;
-    // margin: auto;
-    // border: 1px solid var(--grey);
-    // border-radius: .5rem;
+.wrapper {
+    max-width: 400px;
+    margin: auto;
+    border: 1px solid var(--grey);
 
     .content {
         display: flex;

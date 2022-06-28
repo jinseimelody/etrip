@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+
+  .content {
+    max-width: 400px;
+    margin: 0 2rem;
+    text-align: center;
+  }
+}
+
+.title {
+  font-size: 3rem;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  button {
+    background: #1e1c3cdb;
+    color: #fff;
+
+    &:hover {
+      background: #1e1c3c;
+    }
+    &:focus {
+      outline: 2px solid #7952b3;
+    }
+  }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+  .wrapper {
+    min-height: 89vh;
+  }
+}

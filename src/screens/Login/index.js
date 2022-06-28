@@ -1,5 +1,5 @@
 const Login = () => {
-  return <>Login đi thồn lằn</>;
+  return <>login đi thằng lồn</>;
 };
 
 export default Login;

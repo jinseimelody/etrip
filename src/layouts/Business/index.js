@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 
 const Business = ({children}) => {
   return (
-    <div className={cx('container')}>
+    <div className={cx('wrapper')}>
       <Header />
       <div className={cx('content')}>{children}</div>
     </div>
