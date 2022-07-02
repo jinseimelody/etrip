@@ -1,0 +1,146 @@
+.title {
+  font-size: x-large;
+  font-weight: 700;
+}
+
+.ticket {
+  border-radius: 2.5rem;
+  border: 1px solid var(--grey);
+
+  .ticket__header {
+    padding: 1.75rem;
+    padding-bottom: 0;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      left: 0;
+      width: 100%;
+      border: 1px dashed var(--grey);
+    }
+  }
+
+  .ticket__rip {
+    position: relative;
+    height: 30px;
+
+    @mixin dots {
+      content: '';
+      position: absolute;
+      top: -1px;
+      z-index: 999;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      border: 1px solid var(--grey);
+      border-radius: 999px;
+      transform: rotate(45deg);
+    }
+
+    &::before {
+      @include dots;
+      left: -15px;
+      border-bottom: none;
+      border-left: none;
+    }
+
+    &::after {
+      @include dots;
+      right: -15px;
+      border-top: none;
+      border-right: none;
+    }
+  }
+
+  .ticket__body {
+    padding: 1.75rem;
+    padding-top: 0;
+    border-top: none;
+  }
+}
+
+.exchange__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: large;
+  font-weight: 700;
+
+  .decorator {
+    position: relative;
+    align-self: center;
+    flex-grow: 1;
+    border-top: 1px dashed #444c66;
+    margin: 0 1em;
+
+    @mixin decorator_pesudo {
+      content: '';
+      position: absolute;
+      top: -10px;
+      width: 1em;
+      height: 1em;
+      background-size: 1em 1em;
+      z-index: 1;
+    }
+
+    &::before {
+      @include decorator_pesudo;
+      left: -3px;
+      background-image: url(/assets/images/circle_marker.png);
+    }
+    &::after {
+      @include decorator_pesudo;
+      right: -3px;
+      background-image: url(/assets/images/circle_marker_end.png);
+    }
+  }
+}
+
+.info__container {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  justify-content: space-between;
+  text-align: justify;
+
+  .distance {
+    min-width: 66px;
+  }
+
+  .travel__time {
+    min-width: 75px
+  }
+
+  .frequency {
+    min-width: 96px;
+  }
+}
+
+.control__container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+
+    // &:before {
+    //   content: "";
+    //   position:absolute;
+    //   top: 0;
+    //   left: 50%;
+    //   height: 100%;
+    //   border-right: 1px solid var(--grey);
+    // }
+
+  .control {
+    display: flex;
+    align-items: center;
+    color: #808080;
+    cursor: pointer;
+
+    svg {
+      margin-right: 1rem;
+    }
+  }
+}

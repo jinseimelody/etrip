@@ -1,0 +1,25 @@
+.card {
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.card .border {
+  border: 1px solid var(--grey);
+  border-radius: 1.75rem;
+  background: var(--grey);
+}
+
+.title {
+  font-size: x-large;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.sub-title {
+  font-size: large;
+  font-weight: 700;
+}
+
+.text-muted {
+  color: #808080;
+}
