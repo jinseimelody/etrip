@@ -13,6 +13,7 @@ import {
   Dashboard,
   NotSupported
 } from '~/screens';
+import Sample from '~/screens/Sample';
 
 const paths = {
   public: [
@@ -23,7 +24,8 @@ const paths = {
   private: [
     {path: '/dashboard', component: Dashboard, layout: BusinessLayout},
     {path: '/trips', component: Trips, layout: BusinessLayout},
-    {path: '/schedule', component: Schedule, layout: BusinessLayout}
+    {path: '/schedule', component: Schedule, layout: BusinessLayout},
+    {path: '/sample', component: Sample, layout: BusinessLayout}
   ]
 };
 

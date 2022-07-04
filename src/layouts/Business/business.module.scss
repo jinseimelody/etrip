@@ -1,0 +1,10 @@
+.wrapper {
+    max-width: var(--screen-width);
+    margin: auto;
+    outline: var(--screen-border-width) solid var(--grey);
+    position: relative;
+
+    .content {
+        margin: 2rem;
+    }
+}

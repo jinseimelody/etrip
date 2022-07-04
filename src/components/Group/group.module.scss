@@ -1,0 +1,39 @@
+.input__group {
+  display: flex;
+  flex-direction: column;
+  margin: 3rem 0;
+  border-radius: .75rem;
+  color: inherit;
+  background: var(--foreground-color);
+
+  .input__group__item {
+    margin: 0 1.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+
+    input, textarea {
+      width: 100%;
+      min-height: 2.4rem;
+      padding: 0;
+      border: 0;
+      outline: none;
+      border-radius: 0;
+      color: inherit;
+      background-color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    &:last-child {
+      border-bottom: none !important;
+    }
+  }
+
+  &:first-child {
+    margin-top: 1.5rem !important;
+  }
+
+  &:last-child {
+    margin-bottom: 1.5rem !important;
+  }
+}

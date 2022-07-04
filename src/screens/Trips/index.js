@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 import mockup from '~/mockup/alias.json';
 import images from '~/assets';
 import styles from './trips.module.scss';
+import {Link} from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 const Trip = () => {
@@ -53,18 +54,17 @@ const Trip = () => {
         <div className={cx('ticket__rip')}></div>
         <div className={cx('ticket__body')}>
           <div className={cx('control__container')}>
-            <div>
+            <div className={cx('price__label')}>
               <span className={cx('title')}>350,000</span> <span>đ</span>
             </div>
-            <div className={cx('control')}>
-              <BsFillCalendarWeekFill /> Schedule
-            </div>
+            <Link to={'/schedule'}>
+              <div className={cx('control')}>
+                <BsFillCalendarWeekFill /> Schedule
+              </div>
+            </Link>
             <div className={cx('control')}>
               <FaCog /> Setting
             </div>
-            {/* <div className={cx('price')}>
-              <span className={cx('title')}>350,000</span> <span>đ</span>
-            </div> */}
           </div>
         </div>
       </div>

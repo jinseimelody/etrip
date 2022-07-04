@@ -10,14 +10,8 @@ const cx = classNames.bind(styles);
 
 const Dashboard = () => {
   return (
-    <div className={cx('dashboard')}>
-      <div
-        className="card"
-        style={{
-          marginBottom: 0,
-          borderBottom: '1px solid var(--grey)',
-          boxShadow: '0px 6px 10px -6px hsla(var(--hue), var(--sat), 15%, 0.15)'
-        }}>
+    <>
+      <div className={cx('search__container')}>
         <div className="title">Dashboard</div>
         <div className={cx('search__box')}>
           <div className={cx('search__icon')}>
@@ -26,7 +20,7 @@ const Dashboard = () => {
           <input type="text" placeholder="Search" />
         </div>
       </div>
-      <div className="card">
+      <div>
         <div className="title">Category</div>
         <div className={cx('wiget__container')}>
           <Link to="/trips">
@@ -47,7 +41,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Dashboard;

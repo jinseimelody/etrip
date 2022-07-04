@@ -124,14 +124,10 @@
   display: flex;
   justify-content: space-between;
 
-    // &:before {
-    //   content: "";
-    //   position:absolute;
-    //   top: 0;
-    //   left: 50%;
-    //   height: 100%;
-    //   border-right: 1px solid var(--grey);
-    // }
+  
+  .price__label {
+    width: 100px;
+  }
 
   .control {
     display: flex;
@@ -141,6 +137,10 @@
 
     svg {
       margin-right: 1rem;
+    }
+
+    &:hover {
+      color: #2a2929f1;
     }
   }
 }
