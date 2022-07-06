@@ -1,38 +1,36 @@
-.wrapper {
-  margin: -2rem;
+.page__header {
+    margin-bottom: 2rem;
+    .actions {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            color: #2e8fff;
+            border: 1px solid var(--grey);
+        }
+    }
 }
 
-.calendar {
-  .calendar__header {
+.page__filter {
+    display: flex;
+    border-bottom: 1px soild var(--grey);
+}
+
+.select {
     display: flex;
     align-items: center;
-    padding-bottom: .5rem;
-    overflow-x: scroll;
-    cursor: pointer;
-
-    .day__span {
-      width: 16%;
-      padding: 1rem;
-      border-radius: 1rem;
-      text-align: center;
-
-      span {
-        color: #808080;
-      }
-
-      div {
-        font-weight: 700;
-        font-size: x-large;
-      }
-    }
-
-    .day__span--active {
-        background: wheat;
-    }
-  }
-
-  .calendar__body {
-    height: 100px;
-    background: wheat;
-  }
+    padding: .25rem 1rem;
+    border-radius: 5rem;
+    color: #ffffff;
+    background: #2e2f37;
+    position: relative;
+    font-weight: 600;
+    
+    // .select__decorator {
+    //     display: flex;
+    //     align-items: center;
+    //     font-weight: 600;
+    //     position: absolute;
+    //     right: 0;
+    // }
 }

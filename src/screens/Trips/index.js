@@ -1,19 +1,23 @@
-import {ImShare2} from 'react-icons/im';
-import {FaCog, FaRoute} from 'react-icons/fa';
+import {FaCog} from 'react-icons/fa';
+import {IoIosArrowBack} from 'react-icons/io';
 import {BsFillCalendarWeekFill} from 'react-icons/bs';
 import classNames from 'classnames/bind';
-
-import mockup from '~/mockup/alias.json';
-import images from '~/assets';
-import styles from './trips.module.scss';
 import {Link} from 'react-router-dom';
+
+import styles from './trips.module.scss';
+import {Nav} from '~/components';
+
 const cx = classNames.bind(styles);
-
 const Trip = () => {
-  const {endpoints, routes} = mockup;
-
   return (
     <>
+      <Nav>
+        <Link to="/dashboard">
+          <Nav.NavItem>
+            <IoIosArrowBack /> Dashboard
+          </Nav.NavItem>
+        </Link>
+      </Nav>
       <div className="title">Route trips</div>
       <div className={cx('ticket')}>
         <div className={cx('ticket__header')}>

@@ -14,6 +14,7 @@ const image = {
   marker: require('~/assets/images/marker.png'),
   circleMarker: require('~/assets/images/circle_marker.png'),
   circleMarkerEnd: require('~/assets/images/circle_marker_end.png'),
+  arrowDown: require('~/assets/images/arrow-down.png'),
   oldMan: require('~/assets/images/old-man.svg').default
 };
 

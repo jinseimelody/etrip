@@ -1,0 +1,21 @@
+
+.nav {
+  display: flex;
+  padding: .5rem 0;
+  font-size: large;
+  font-weight: 600;
+  color: #2e8fff;
+
+  .nav__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    margin-right: 1rem;
+    cursor: pointer;
+
+    svg {
+        margin-right: .5rem;
+    }
+  }
+}

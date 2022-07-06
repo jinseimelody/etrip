@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import moment from 'moment';
+import {IoIosArrowBack, IoIosAdd, IoIosArrowDown} from 'react-icons/io';
+import {Link} from 'react-router-dom';
 
-import {Popup, Group} from '~/components';
+import {Popup, Group, Card, Nav} from '~/components';
 import styles from './schedule.module.scss';
 
 const cx = classNames.bind(styles);
@@ -31,36 +32,31 @@ const CrePopup = () => {
 };
 
 const Schedule = () => {
-  const title = moment().format('LL');
-  const mockup = Array(10)
-    .fill(0)
-    .map((x, i) => moment().add(i, 'day'));
-
   return (
     <>
-      <div className="title">{title}</div>
-      <div className={cx('calendar')}>
-        <div className={cx('calendar__header')}>
-          {mockup.map((d, i) => {
-            const dayName = d.format('ddd');
-            const day = d.format('dd');
-            const isActive = false;
+      <Nav>
+        <Link to="/trips">
+          <Nav.NavItem>
+            <IoIosArrowBack /> Trips
+          </Nav.NavItem>
+        </Link>
+      </Nav>
 
-            console.log('result: ' + moment().diff(d, 'days') === 0);
-            return (
-              <div
-                key={i}
-                className={cx('day__span', {'day__span--active': isActive})}>
-                <span>{dayName}</span>
-                <div>{day}</div>
-              </div>
-            );
-          })}
+      <div className={cx('page__header')}>
+        <div className="title">Hà Nội - Cao Bằng</div>
+        <div className={cx('actions')}>
+          <span className="text-muted">5 New Schedule For Today</span>
+          <button>
+            <IoIosAdd />
+          </button>
         </div>
-        <div className={cx('calendar__body')}></div>
       </div>
-      <div className={cx('wrapper')}>
-        <CrePopup />
+
+      <div className={cx('page__filter')}>
+        <div className={cx('select')}>
+          Plan
+          <IoIosArrowDown />
+        </div>
       </div>
     </>
   );
