@@ -1,11 +1,13 @@
 .popup {
   width: 100%;
-  border-top-left-radius: 1.5rem;
-  border-top-right-radius: 1.5rem;
+  border-radius: 1.5rem;
   color: var(--text-white);
   background: var(--background-color);
   position: absolute;
-  top: 1rem;
+  top: 17rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
   .popup__header--fixed {
     border-bottom: 1px solid var(--border-color);
@@ -39,7 +41,7 @@
 
   .popup__body {
     padding: 0 1.5rem;
-    padding-right: calc(1.5rem + var(--scrollbar-thumb-width));
+    padding-right: calc(1.5rem + var(--scrollbar-thumb-size));
     margin-top: 5.5rem;
     overflow-y: scroll;
   }

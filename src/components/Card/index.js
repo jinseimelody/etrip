@@ -3,8 +3,12 @@ import classNames from 'classnames/bind';
 import styles from './card.module.scss';
 
 const cx = classNames.bind(styles);
-const Wiget = props => {
-  const {children} = props;
-  return <div className={cx('card')}>{children}</div>;
+const Card = props => {
+  const {children, ...rest} = props;
+  return (
+    <div className={cx('card')} {...rest}>
+      {children}
+    </div>
+  );
 };
-export default Wiget;
+export default Card;

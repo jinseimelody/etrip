@@ -1,5 +1,4 @@
 .page__header {
-    margin-bottom: 2rem;
     .actions {
         display: flex;
         justify-content: space-between;
@@ -12,25 +11,11 @@
 }
 
 .page__filter {
+    user-select: none;
     display: flex;
-    border-bottom: 1px soild var(--grey);
-}
-
-.select {
-    display: flex;
+    flex-wrap: nowrap;
     align-items: center;
-    padding: .25rem 1rem;
-    border-radius: 5rem;
-    color: #ffffff;
-    background: #2e2f37;
-    position: relative;
-    font-weight: 600;
-    
-    // .select__decorator {
-    //     display: flex;
-    //     align-items: center;
-    //     font-weight: 600;
-    //     position: absolute;
-    //     right: 0;
-    // }
+    padding: 1rem 0;
+    white-space: nowrap;
+    overflow-x: scroll;
 }

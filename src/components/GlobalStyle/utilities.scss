@@ -1,18 +1,13 @@
-.card {
-  padding: 2rem;
-  margin-bottom: 1rem;
-}
-
-.card .border {
-  border: 1px solid var(--grey);
-  border-radius: 1.75rem;
-  background: var(--grey);
+.heading {
+  font-size: 3rem;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
 }
 
 .title {
   font-size: x-large;
   font-weight: 700;
-  margin-bottom: 0.5rem;
 }
 
 .sub-title {
@@ -22,4 +17,21 @@
 
 .text-muted {
   color: #808080;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &--space-between {
+    justify-content: space-between;
+  }
+}
+
+.align-self--start {
+  align-self: start
 }

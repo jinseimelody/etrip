@@ -10,7 +10,7 @@ const NotFound = () => {
     <div className={cx('wrapper')}>
       <div className={cx('content')}>
         <img src={images.owl} alt="App did not supported for your browser" />
-        <div className={cx('title')}>404 Everyone is sleeping!</div>
+        <div className="heading">404 Everyone is sleeping!</div>
         <div className={cx('nav')} style={{minHeight: 150}}>
           <div>
             so we think you are lost, let this owl help your find your way out.

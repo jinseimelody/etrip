@@ -14,7 +14,7 @@
 
   --screen-width: 375px;
   --screen-border-width: 1px;
-  --scrollbar-thumb-width: 0px;
+  --scrollbar-thumb-size: 0px;
   --background-color: #1c1c1e;
   --foreground-color: #2c2c2e;
   --border-color: #444447;
@@ -24,7 +24,8 @@
 }
 
 ::-webkit-scrollbar {
-  width: var(--scrollbar-thumb-width);
+  width: var(--scrollbar-thumb-size);
+  height: var(--scrollbar-thumb-size);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -90,4 +91,9 @@ button {
     display: block;
     margin: auto;
   }
+}
+
+hr {
+  margin: 0;
+  border-color: var(--grey);
 }
