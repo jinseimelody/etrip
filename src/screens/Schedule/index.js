@@ -1,14 +1,9 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import classNames from 'classnames/bind';
-import {
-  IoIosArrowBack,
-  IoIosAdd,
-  IoIosTrash,
-  IoIosArrowForward
-} from 'react-icons/io';
+import {IoIosArrowBack, IoIosAdd} from 'react-icons/io';
 import {GoPrimitiveDot} from 'react-icons/go';
-import {FaCog, FaRegClock} from 'react-icons/fa';
+import {FaRegClock} from 'react-icons/fa';
 
 import {Popup, Group, Card, Nav, PopperSelect} from '~/components';
 import styles from './schedule.module.scss';
