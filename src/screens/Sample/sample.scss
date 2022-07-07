@@ -1,0 +1,53 @@
+.sample {
+    .chat {
+        &__header {
+            display: flex;
+
+            input {
+                margin-right: 1rem;
+                background: var(--silver);
+                border-radius: 999px;
+            }
+            
+            button {
+                border-radius: 0;
+                padding: 0 1.25rem;
+                border-radius: 999px;
+                &:hover {
+                    background: var(--silver);
+                }
+            }
+        }
+
+        &__body {
+            margin: 1rem 0;
+            padding:1rem;
+            border-top: 1px solid var(--grey);
+            border-bottom: 1px solid var(--grey);
+
+            .line {
+                display: flex;
+                align-items: center;
+
+                @mixin pseudo-message {
+                    color: #ffffff;
+                    border-radius: 999px;
+                    padding: .5rem 1rem;
+                    margin-bottom: 1rem;
+                }
+
+                .message {
+                    &--left {
+                        @include pseudo-message;
+                        background: #2e8fff;
+                    }
+                    &--right {
+                        @include pseudo-message;
+                        background: #ce2eff;
+                        margin-left: auto;
+                    }
+                }
+            }
+        }
+    }
+}
