@@ -23,15 +23,31 @@
   text-align: right;
 }
 
-.row {
+.btn {
+  border: 1px solid var(--grey);
+}
+
+.horizontal {
   display: flex;
   flex-direction: row;
   align-items: center;
   &--space-between {
     justify-content: space-between;
   }
+
+  &--center {
+    justify-content: center;
+  }
 }
 
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex-grow: 1;
+}
 .align-self--start {
-  align-self: start
+  align-self: start;
 }

@@ -8,7 +8,7 @@ const image = {
   coetorise: require('~/assets/images/coetorise.png'),
   etrip: require('~/assets/images/etrip.svg').default,
   owl: require('~/assets/images/owl.svg').default,
-  calendar: require('~/assets/images/calendar.svg').default,
+  calendar: require('~/assets/images/calendar.png'),
   route: require('~/assets/images/route-icon.png'),
   wigetBackgroud: require('~/assets/images/wiget-backgroud.png'),
   marker: require('~/assets/images/marker.png'),
@@ -16,6 +16,7 @@ const image = {
   circleMarkerEnd: require('~/assets/images/circle_marker_end.png'),
   dailyCircle: require('~/assets/images/daily_circle.png'),
   arrowDown: require('~/assets/images/arrow-down.png'),
+  vExchange: require('~/assets/images/v-exchange.png'),
   oldMan: require('~/assets/images/old-man.svg').default
 };
 

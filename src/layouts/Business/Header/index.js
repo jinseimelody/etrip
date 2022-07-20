@@ -4,10 +4,6 @@ import classNames from 'classnames/bind';
 import styles from './header.module.scss';
 import images from '~/assets';
 
-const trans = (cx, [...globalStyle]) => {
-  return cx + ' ' + globalStyle.join(' ');
-};
-
 const cx = classNames.bind(styles);
 
 const Header = () => {
@@ -20,9 +16,11 @@ const Header = () => {
       </Link>
 
       <div className={cx('action__container')}>
-        <button type="button" className={trans(cx('login__button'), ['ml-1'])}>
-          Log in
-        </button>
+        <Link to="/login">
+          <button type="button" className={cx('login__button') + ' ml-1'}>
+            Log in
+          </button>
+        </Link>
       </div>
     </div>
   );

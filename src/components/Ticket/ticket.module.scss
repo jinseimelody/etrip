@@ -1,0 +1,59 @@
+.ticket {
+  width: 100%;
+  border-radius: 2.5rem;
+  border: 1px solid var(--grey);
+  margin-bottom: 1.5rem;
+
+  &__top {
+    padding: 1.75rem;
+    padding-bottom: 0;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -16px;
+      left: 0;
+      width: 100%;
+      border: 1px dashed var(--grey);
+    }
+  }
+
+  .ticket__rip {
+    position: relative;
+    height: 30px;
+
+    @mixin dots {
+      content: '';
+      position: absolute;
+      top: -1px;
+      z-index: 999;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      border: 1px solid var(--grey);
+      border-radius: 999px;
+      transform: rotate(45deg);
+    }
+
+    &::before {
+      @include dots;
+      left: -15px;
+      border-bottom: none;
+      border-left: none;
+    }
+
+    &::after {
+      @include dots;
+      right: -15px;
+      border-top: none;
+      border-right: none;
+    }
+  }
+
+  &__bottom {
+    padding: 1.75rem;
+    padding-top: 0;
+    border-top: none;
+  }
+}

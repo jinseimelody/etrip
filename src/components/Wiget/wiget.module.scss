@@ -23,6 +23,7 @@
     .wiget__image {
       display: flex;
       width: 50%;
+      min-height: 61.5px;
       padding: 1rem;
       border-radius: 0.75rem;
       background: rgb(252 243 228);
@@ -46,6 +47,7 @@
   }
 
   .wiget__footer {
+    line-height: 1.5rem;
     font-size: var(--w-font-3);
     color: #808080;
   }

@@ -17,7 +17,7 @@ const NotFound = () => {
             Be nice and pat him.
           </div>
           <div>
-            <Link to="/">
+            <Link to="/dashboad">
               <button type="button">Back home</button>
             </Link>
           </div>

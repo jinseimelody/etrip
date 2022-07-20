@@ -1,57 +1,78 @@
+import {useEffect, useRef, useState} from 'react';
+import {Link} from 'react-router-dom';
 import io from 'socket.io-client';
 import {FaRegPaperPlane} from 'react-icons/fa';
-import './sample.scss';
-import {useEffect, useState} from 'react';
+import {IoIosArrowBack} from 'react-icons/io';
+import classNames from 'classnames';
 
-const socket = io.connect('https://m.coetorise.com');
+import './sample.scss';
+import {Nav} from '~/components';
+
+// const socket = io('https://m.coetorise.com');
 const Sample = () => {
-  const [input, setInput] = useState('');
+  const messageRef = useRef();
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    socket.on('receive_message', data => {
-      setMessages(prev => [...prev, data.message]);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket, messages]);
+  // useEffect(() => {
+  //   socket.on('message', data => {
+  //     setMessages(prev => [...prev, {type: 'receive', message: data.message}]);
+  //   });
+  // }, [socket]);
 
-  const sendMessage = () => {
-    socket.emit('send_message', {message: input});
-    setMessages(prev => [...prev, input]);
+  const sendMessage = _ => {
+    const message = messageRef.current.value;
+    if (message === '') return;
+
+    messageRef.current.value = '';
+    setMessages(prev => {
+      // socket.emit('message', {message});
+      return [...prev, {type: 'send', message}];
+    });
   };
+
   return (
-    <div className="sample">
-      <div className="title my-3">Socket.io sample</div>
-      <div className="chat">
-        <div className="chat__header">
-          <input
-            type="text"
-            onChange={e => {
-              setInput(e.target.value);
-            }}
-          />
-          <button
-            onClick={() => {
-              sendMessage();
-            }}>
-            <FaRegPaperPlane />
-          </button>
-        </div>
-        <div className="chat__body">
-          {messages.map(m => (
-            <div className="line">
-              <div className="message message--left">{m}</div>
-            </div>
-          ))}
-          {/* <div className="line">
-            <div className="message message--left">Hello there!</div>
+    <>
+      <Nav>
+        <Link to="/tripsearch">
+          <Nav.NavItem>
+            <IoIosArrowBack /> Trip search
+          </Nav.NavItem>
+        </Link>
+      </Nav>
+      <div className="sample">
+        <div className="title my-3">Socket.io sample</div>
+        <div className="chat">
+          <div className="chat__header">
+            <input
+              ref={messageRef}
+              type="text"
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  sendMessage();
+                }
+              }}
+            />
+            <button onClick={sendMessage}>
+              <FaRegPaperPlane />
+            </button>
           </div>
-          <div className="line">
-            <div className="message message--right">Hi</div>
-          </div> */}
+          <div className="chat__body">
+            {messages &&
+              messages.map((v, i) => (
+                <div key={i} className="line">
+                  <div
+                    className={classNames('message', {
+                      'message--left': v.type === 'receive',
+                      'message--right': v.type === 'send'
+                    })}>
+                    {v.message}
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default Sample;

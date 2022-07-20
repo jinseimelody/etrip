@@ -1,7 +1,10 @@
+import {Link} from 'react-router-dom';
+
 const Home = () => {
   return (
     <>
       <h1>This is home page</h1>
+      <Link to="/tripsearch">Find your trips</Link>
     </>
   );
 };

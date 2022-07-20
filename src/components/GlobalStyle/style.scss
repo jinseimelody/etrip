@@ -69,7 +69,9 @@ a[href] {
 }
 
 input {
+  box-sizing: border-box;
   flex-grow: 1;
+  width: 100%;
   outline: none;
   border: 1px solid var(--grey);
   border-radius: 1rem;

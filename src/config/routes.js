@@ -11,15 +11,19 @@ import {
   Home,
   Todo,
   Dashboard,
-  NotSupported
+  NotSupported,
+  Sample,
+  TripSearch,
+  TripSelection
 } from '~/screens';
-import Sample from '~/screens/Sample';
 
 const paths = {
   public: [
     {path: '/', component: Home},
     {path: '/login', component: Login, layout: null},
-    {path: '/todo', component: Todo, layout: null}
+    {path: '/todo', component: Todo, layout: null},
+    {path: '/tripsearch', component: TripSearch, layout: null},
+    {path: '/tripselection', component: TripSelection, layout: BusinessLayout}
   ],
   private: [
     {path: '/dashboard', component: Dashboard, layout: BusinessLayout},

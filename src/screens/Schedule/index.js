@@ -50,7 +50,7 @@ const Schedule = () => {
           onClick={() => {
             setDelPopup(delPopup);
           }}>
-          <div className="row row--space-between">
+          <div className="horizontal horizontal--space-between">
             <div>
               <span className="text-muted">Time</span>
               <div className="row">
@@ -75,10 +75,10 @@ const Schedule = () => {
           onClick={() => {
             setDelPopup(delPopup);
           }}>
-          <div className="row row--space-between">
+          <div className="horizontal horizontal--space-between">
             <div className="sub-title">Holiday: Christmas</div>
           </div>
-          <div className="row row--space-between">
+          <div className="horizontal horizontal--space-between">
             <div>
               <span className="text-muted">Time</span>
               <div className="row">
@@ -100,10 +100,10 @@ const Schedule = () => {
           onClick={() => {
             setDelPopup(delPopup);
           }}>
-          <div className="row row--space-between">
+          <div className="horizontal horizontal--space-between">
             <div className="sub-title">Holiday: Christmas</div>
           </div>
-          <div className="row row--space-between">
+          <div className="horizontal horizontal--space-between">
             <div>
               <span className="text-muted">Time</span>
               <div className="row">
@@ -125,10 +125,10 @@ const Schedule = () => {
           onClick={() => {
             setDelPopup(delPopup);
           }}>
-          <div className="row row--space-between">
+          <div className="horizontal horizontal--space-between">
             <div className="sub-title">Holiday: Christmas</div>
           </div>
-          <div className="row row--space-between">
+          <div className="horizontal horizontal--space-between">
             <div>
               <span className="text-muted">Time</span>
               <div className="row">

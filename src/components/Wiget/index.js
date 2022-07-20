@@ -4,24 +4,29 @@ import styles from './wiget.module.scss';
 
 const cx = classNames.bind(styles);
 const Wiget = props => {
-  const {image, title, hashtag, statistic, styles} = props;
+  const {layout, image, title, hashtag, statistic, styles} = props;
 
   return (
     <div className={cx('wiget')} style={styles}>
-      <div className={cx('wiget__header')}>
-        {image && (
-          <div className={cx('wiget__image')}>
-            <img src={image} alt=""></img>
+      {layout && (
+        <>
+          <div className={cx('wiget__header')}>
+            {image && (
+              <div className={cx('wiget__image')}>
+                <img src={image} alt=""></img>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <div className={cx('wiget__body')}>
-        {hashtag && <span>{hashtag}</span>}
-        {title && <div>{title}</div>}
-      </div>
-      <div className={cx('wiget__footer')}>
-        {statistic && <div>{statistic}</div>}
-      </div>
+          <div className={cx('wiget__body')}>
+            {hashtag && <span>{hashtag}</span>}
+            {title && <div>{title}</div>}
+          </div>
+          <div className={cx('wiget__footer')}>
+            <div>{statistic ? statistic : ' '}</div>
+          </div>
+        </>
+      )}
+      {!layout && <>{props.children}</>}
     </div>
   );
 };

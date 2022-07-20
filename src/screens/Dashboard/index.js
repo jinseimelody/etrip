@@ -25,20 +25,38 @@ const Dashboard = () => {
         <div className={cx('wiget__container')}>
           <Link to="/trips">
             <Wiget
-              title={'Trips of coetorise'}
+              layout={true}
+              title="Trips of coetorise"
               image={images.route}
-              hashtag={'#readychanged'}
-              statistic={'1,3B total'}
+              hashtag="#readychanged"
+              statistic="1,3B total"
               styles={{
                 background: '#000'
               }}
             />
           </Link>
-          <Wiget
-            styles={{
-              backgroundImage: `url('${images.wigetBackgroud}')`
-            }}
-          />
+          <Link to="/tripsearch">
+            <Wiget
+              styles={{
+                backgroundImage: `url('${images.wigetBackgroud}')`
+              }}>
+              <div
+                style={{
+                  color: '#fff'
+                }}>
+                <div className="title">Let's book a trip</div>
+                <span
+                  style={{
+                    fontSize: '1.3rem',
+                    padding: '0.25rem 0.75rem',
+                    borderRadius: '2.75rem',
+                    background: 'rgb(255 92 0 / 70%)'
+                  }}>
+                  #doingourbest
+                </span>
+              </div>
+            </Wiget>
+          </Link>
         </div>
       </div>
     </>

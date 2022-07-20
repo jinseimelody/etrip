@@ -1,0 +1,75 @@
+.wrapper {
+    background: #fafafa;
+    max-width: var(--screen-width);
+    margin: auto;
+    outline: var(--screen-border-width) solid var(--grey);
+    position: relative;
+}
+
+.header {
+    display: flex;
+    min-height: 40px;
+    padding: 0 2rem 0 1.75rem;
+    align-items: center;
+    font-weight: 700;
+    font-size: large;
+    position: relative;
+
+    .action {
+        padding: 0 2rem;
+        line-height: 1.5rem;
+        color: #2e8fff;
+        position: absolute;
+        &--left {
+            left: 0;
+        }
+        &--right {
+            right: 0;
+        }
+    }
+
+    .title {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.content {
+    margin: 0 2rem;
+    border-radius: 1.5rem;
+
+    .search-box {
+        display: flex;
+        margin-bottom: 2rem;
+        padding: 1.75rem;
+        border-radius: 1.5rem;
+        background: #fff;
+
+        .btn-exchange {
+            display: flex;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            background: #000;
+        }
+
+        .rip {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-top: 3px dashed var(--grey);
+        }
+
+        input {
+            min-height: fit-content;
+            padding:0;
+            border: 0;
+            border-radius: 0;
+            font-weight: 700;
+        }
+    }
+
+    .depature-box {
+        padding: 1.75rem;
+        border-radius: 1.5rem;
+        background: #fff;
+    }
+}
