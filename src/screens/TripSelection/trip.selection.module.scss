@@ -1,0 +1,110 @@
+.wrapper {
+  background: #fafafa;
+  max-width: var(--screen-width);
+  margin: auto;
+  outline: var(--screen-border-width) solid var(--grey);
+  position: relative;
+}
+
+.header {
+  display: flex;
+  min-height: 60px;
+  padding: 0 2rem 0 1.75rem;
+  align-items: center;
+  font-weight: 700;
+  font-size: large;
+  position: relative;
+
+  .action {
+      padding: 0 2rem;
+      line-height: 1.5rem;
+      color: #2e8fff;
+      position: absolute;
+      &--left {
+          left: 0;
+      }
+      &--right {
+          right: 0;
+      }
+  }
+
+  .title {
+      width: 100%;
+      text-align: center;
+  }
+}
+
+.content {
+  margin: 0 2rem;
+  border-radius: 1.5rem;
+}
+
+.decorator {
+  position: relative;
+  align-self: center;
+  flex-grow: 1;
+  border-top: 1px dashed #444c66;
+  margin: 0 1em;
+
+  @mixin decorator_pesudo {
+    content: '';
+    position: absolute;
+    top: -10px;
+    width: 1em;
+    height: 1em;
+    background-size: 1em 1em;
+    z-index: 1;
+  }
+
+  &::before {
+    @include decorator_pesudo;
+    left: -3px;
+    background-image: url(/assets/images/circle_marker.png);
+  }
+  &::after {
+    @include decorator_pesudo;
+    right: -3px;
+    background-image: url(/assets/images/circle_marker_end.png);
+  }
+}
+
+.distance {
+  min-width: 66px;
+}
+
+.travel__time {
+  min-width: 75px
+}
+
+.frequency {
+  min-width: 96px;
+}
+
+.picker {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  font-weight: 700;
+  background:#fff;
+  box-shadow: 0px 2px 10px 3px hsla(var(--hue), var(--sat), 15%, 0.15);
+  position: relative;
+
+  .picker-item {
+    text-align: center;
+    width: 14%;
+    padding: 1rem 0;
+
+    &--daypass {
+      color: #808080;
+    }
+
+    &--now {
+      color: white;
+      background: black;
+      border-radius: 1.5rem;
+    }
+  }
+
+}

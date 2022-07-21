@@ -17,6 +17,7 @@ const image = {
   dailyCircle: require('~/assets/images/daily_circle.png'),
   arrowDown: require('~/assets/images/arrow-down.png'),
   vExchange: require('~/assets/images/v-exchange.png'),
+  myBackground: require('~/assets/images/my-background.png'),
   oldMan: require('~/assets/images/old-man.svg').default
 };
 

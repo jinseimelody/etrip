@@ -3,6 +3,7 @@
   border-radius: 2.5rem;
   border: 1px solid var(--grey);
   margin-bottom: 1.5rem;
+  background: #fff;
 
   &__top {
     padding: 1.75rem;
@@ -30,7 +31,7 @@
       z-index: 999;
       width: 30px;
       height: 30px;
-      background: #fff;
+      background: #fafafa;
       border: 1px solid var(--grey);
       border-radius: 999px;
       transform: rotate(45deg);

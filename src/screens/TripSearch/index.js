@@ -3,17 +3,20 @@ import classNames from 'classnames/bind';
 import {Link} from 'react-router-dom';
 
 import styles from './tripsearch.module.scss';
-import {Card, Nav} from '~/components';
-import Ticket from '~/components/Ticket';
-import {useEffect, useState} from 'react';
-import {bookingApi} from '~/api';
-import pipe from '~/helper';
-import image from '~/assets';
+import images from '~/assets';
+import {BsCalendar4Week} from 'react-icons/bs';
+import {FaCalendarAlt} from 'react-icons/fa';
 
 const cx = classNames.bind(styles);
 const TripSearch = () => {
   return (
-    <div className={cx('wrapper')}>
+    <div
+      className={cx('wrapper')}
+      style={{
+        minHeight: '100vh',
+        backgroundImage: `url('${images.myBackground}')`,
+        backgroundRepeat: 'no-repeat'
+      }}>
       <div className={cx('header')}>
         <div className={cx(['action', 'action--left'])}>
           <Link to="/dashboard">
@@ -41,45 +44,64 @@ const TripSearch = () => {
         </div>
 
         <div className={cx('search-box')}>
-          <div className="flex-1 mr-3">
-            <label className="vertical" for="from">
+          <div className="flex-1" style={{marginRight: '1.75rem'}}>
+            <label className="vertical" htmlFor="from">
               <span className="text-muted mb-1">From</span>
               <input id="from" type="text" placeholder="Hà Nội"></input>
             </label>
             <div className={cx('rip')}></div>
-            <label className="vertical" for="to">
+            <label className="vertical" htmlFor="to">
               <span className="text-muted mb-1">To</span>
               <input id="to" type="text" placeholder="Cao Bằng"></input>
             </label>
           </div>
           <div className="horizontal">
             <button className={cx('btn-exchange')}>
-              <img src={image.vExchange} alt="" />
+              <img src={images.vExchange} alt="" />
             </button>
           </div>
         </div>
 
-        <div>
+        <div style={{marginBottom: '2rem'}}>
           <label className="text-muted">Departure Date</label>
           <div
             className="horizontal"
-            style={{position: 'relative', width: '60%'}}>
+            style={{position: 'relative', width: '80%'}}>
             <input
               type="text"
               placeholder="Sat, 23/07, 22"
               style={{
-                paddingRight: '3.6rem',
+                minHeight: 'fit-content',
+                padding: '1.75rem',
+                paddingRight: '5.5rem',
                 fontWeight: 700
               }}></input>
             <div
               style={{
-                padding: '0 1rem',
+                display: 'flex',
+                padding: '0 1.75rem',
                 position: 'absolute',
                 right: '0'
               }}>
-              <img src={image.calendar} alt=""></img>
+              <img src={images.calendar} alt=""></img>
             </div>
           </div>
+        </div>
+
+        <div>
+          <Link to="/tripselection">
+            <button
+              style={{
+                width: '100%',
+                fontWeight: 700,
+                padding: '2rem',
+                borderRadius: '1.75rem',
+                color: 'black',
+                background: '#f9cf23'
+              }}>
+              Continue
+            </button>
+          </Link>
         </div>
       </div>
     </div>

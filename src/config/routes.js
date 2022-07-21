@@ -14,7 +14,8 @@ import {
   NotSupported,
   Sample,
   TripSearch,
-  TripSelection
+  TripSelection,
+  SeatSelection
 } from '~/screens';
 
 const paths = {
@@ -23,7 +24,8 @@ const paths = {
     {path: '/login', component: Login, layout: null},
     {path: '/todo', component: Todo, layout: null},
     {path: '/tripsearch', component: TripSearch, layout: null},
-    {path: '/tripselection', component: TripSelection, layout: BusinessLayout}
+    {path: '/tripselection', component: TripSelection, layout: null},
+    {path: '/seatselection', component: SeatSelection, layout: null}
   ],
   private: [
     {path: '/dashboard', component: Dashboard, layout: BusinessLayout},
