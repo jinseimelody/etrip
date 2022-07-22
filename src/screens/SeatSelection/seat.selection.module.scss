@@ -1,5 +1,4 @@
 .wrapper {
-  background: #fafafa;
   max-width: var(--screen-width);
   margin: auto;
   outline: var(--screen-border-width) solid var(--grey);
@@ -83,7 +82,8 @@
 .types {
   display: flex;
   align-items: center;
-  font-weight: 700;
+  // font-weight: 700;
+  color: #808080;
   @mixin types_pseudo {
     display: inline-flex;
     width: 1.6rem;
@@ -96,8 +96,8 @@
     &::before {
       @include types_pseudo;
       content: " ";
-      border: 1px solid #f9cf23;
-      background: #f9cf23;
+      border: 1px solid #dde7f2;
+      background: #ebf9fe;
     }
   }
 
@@ -105,8 +105,8 @@
     &::before {
       @include types_pseudo;
       content: " ";
-      border: 1px solid #f9cf23;
-      background: #fff;
+      border: 1px solid #f0d0bf;
+      background: #faebe5;
     }
   }
 
@@ -114,22 +114,66 @@
     &::before {
       @include types_pseudo;
       content: " ";
-      border: 1px solid #808080;
-      background: #808080;
+      border: 1px solid #c1c5cd;
+      background: #c1c5cd;
     }
   }
 }
 
-.bus__layout {
+.limousine {
   min-height: 300px;
   margin:0 -2rem;
-  padding:2rem;
   background: #fff;
   border-radius: 1px solid var(--grey);
 
-  .seat {
-    padding: .5rem;
-    border: 1px solid var(--grey);
-    border-radius: 5px;
+  .nav {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+
+    .nav__item {
+      width: 50%;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem 0;
+      border-bottom: 2px solid transparent;
+
+      &--active {
+        color: #ef5322;
+        border-bottom: 2px solid #ef5322;
+      }
+    }
+  }
+
+  .bus {
+    padding: 2rem;
+  }
+}
+
+.seat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 39px;
+  height: 39px;
+  font-weight: 700;
+  font-size: 1.3rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+
+  &--unavaliable {
+    color: #fff;
+    background-image:  url(/assets/images/seat-unavaliable.png);
+  }
+
+  &--avaliable {
+    color: #808080;
+    background-image:  url(/assets/images/seat-avaliable.png);
+  }
+
+  &--selected {
+    color: #ef5322;
+    background-image:  url(/assets/images/seat-selected.png);
   }
 }

@@ -13,6 +13,7 @@
     "bracketSpacing": false,
     "bracketSameLine": true,
     "endOfLine": "lf",
+    "printWidth": 100,
     "vueIndentScriptAndStyle": true,
     "embeddedLanguageFormatting": "off"
   },

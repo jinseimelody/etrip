@@ -96,6 +96,7 @@ const TripSearch = () => {
                 fontWeight: 700,
                 padding: '2rem',
                 borderRadius: '1.75rem',
+                lineHeight: '1rem',
                 color: 'black',
                 background: '#f9cf23'
               }}>

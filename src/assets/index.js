@@ -18,6 +18,7 @@ const image = {
   arrowDown: require('~/assets/images/arrow-down.png'),
   vExchange: require('~/assets/images/v-exchange.png'),
   myBackground: require('~/assets/images/my-background.png'),
+  seatUnavaliable: require('~/assets/images/seat-unavaliable.png'),
   oldMan: require('~/assets/images/old-man.svg').default
 };
 
