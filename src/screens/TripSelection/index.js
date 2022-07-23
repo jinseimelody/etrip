@@ -42,9 +42,7 @@ const TripSelection = () => {
         <div className={cx('title')}>Trip selection</div>
       </div>
       <div className={cx('content')}>
-        <div
-          className="horizontal horizontal--space-between my-5"
-          style={{alignItems: 'start'}}>
+        <div className="horizontal horizontal--space-between my-5" style={{alignItems: 'start'}}>
           <div style={{flexGrow: 1, fontWeight: 700, fontSize: '3rem'}}>
             When do you want to leave?
           </div>
@@ -107,9 +105,7 @@ const TripSelection = () => {
                     <div className={cx('distance')}>
                       <span className="text-muted">Distance</span>
                       <div>
-                        <span className="title">
-                          {pipe.distance(t.distance).formated}
-                        </span>
+                        <span className="title">{pipe.distance(t.distance).formated}</span>
                         &nbsp;
                         <span>{pipe.distance(t.distance).unit}</span>
                       </div>
@@ -117,9 +113,7 @@ const TripSelection = () => {
                     <div className={cx('travel__time')}>
                       <span className="text-muted">Travel time</span>
                       <div>
-                        <span className="title">
-                          {pipe.duration(t.travelTime).formated}
-                        </span>
+                        <span className="title">{pipe.duration(t.travelTime).formated}</span>
                         &nbsp;
                         <span>{pipe.duration(t.travelTime).unit}</span>
                       </div>
@@ -127,9 +121,7 @@ const TripSelection = () => {
                     <div className={cx('distance')}>
                       <span className="text-muted">Price</span>
                       <div>
-                        <span className="title">
-                          {pipe.currency(t.price).formated}
-                        </span>
+                        <span className="title">{pipe.currency(t.price).formated}</span>
                         &nbsp;
                         <span>{pipe.currency(t.price).unit}</span>
                       </div>
