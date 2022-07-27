@@ -12,7 +12,7 @@
 .dialog {
   width: 100%;
   height: calc(100vh - 2rem);
-  margin-top: 2rem;
+  margin-top: 80px;
   padding: 2rem;
   border-radius: 1.5rem 1.5rem 0 0;
   background: #fff;
@@ -21,6 +21,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 1rem;
     position: relative;
 
     .title {
@@ -41,5 +42,11 @@
       right: 0;
       cursor: pointer;
     }
+  }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+  .backdrop {
+    min-height: 89vh;
   }
 }

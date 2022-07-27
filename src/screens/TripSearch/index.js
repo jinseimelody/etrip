@@ -1,27 +1,32 @@
-import Tippy from '@tippyjs/react/headless';
 import {IoIosArrowBack} from 'react-icons/io';
 import classNames from 'classnames/bind';
 import {Link} from 'react-router-dom';
 
 import styles from './tripsearch.module.scss';
 import images from '~/assets';
-import {useReducer, useRef} from 'react';
-import {Card, Modal} from '~/components';
+import {useReducer, useRef, useState} from 'react';
+import {Modal} from '~/components';
 import {endpointApi} from '~/api';
 import {keyboard} from '~/helper';
+import image from '~/assets';
 
 const cx = classNames.bind(styles);
+
+const DEPARTURE = 'departure';
+const ARRIVAL = 'arrival';
 
 const actions = {
   openPopup: 'openPopup',
   closePopup: 'closePopup',
   selectDeparture: 'selectDeparture',
+  clearDeparture: 'clearDeparture',
   fetchDepartures: 'fetchDepartures',
-  fetchArrival: 'fetchArrival'
+  fetchArrival: 'fetchArrival',
+  clearArrival: 'clearArrival'
 };
 
-const openPopup = _ => {
-  return {type: actions.openPopup};
+const openPopup = payload => {
+  return {type: actions.openPopup, payload};
 };
 
 const closePopup = _ => {
@@ -36,8 +41,24 @@ const selectDeparture = payload => {
   return {type: actions.selectDeparture, payload};
 };
 
+const clearDeparture = _ => {
+  return {type: actions.clearDeparture};
+};
+
+const fetchArrival = payload => {
+  return {type: actions.fetchArrival, payload};
+};
+
+const selectArrival = payload => {
+  return {type: actions.selectArrival, payload};
+};
+
+const clearArrival = _ => {
+  return {type: actions.clearArrival};
+};
+
 const initState = {
-  popup: false,
+  popup: null,
   depature: null,
   depatures: [],
   arrival: null,
@@ -47,18 +68,65 @@ const initState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case actions.openPopup:
-      return {...state, popup: true};
+      return {...state, popup: action.payload};
     case actions.closePopup:
-      return {...state, popup: false};
+      return {...state, popup: null};
     case actions.fetchDepartures:
       return {...state, depatures: action.payload};
     case actions.selectDeparture:
       return {...state, depature: action.payload, popup: false};
+    case actions.clearDeparture:
+      return {...state, depatures: [], depature: null};
     case actions.fetchArrival:
-      return {...state, arrival: action.payload};
+      return {...state, arrivals: action.payload};
+    case actions.selectArrival:
+      return {...state, arrival: action.payload, popup: false};
+    case actions.clearArrival:
+      return {...state, arrivals: [], arrival: null};
     default:
       throw new Error(`action ${action} is invalid`);
   }
+};
+
+const EndpointSelect = props => {
+  const {modal, onSearch, onClear, onSelect, selected, endpoints} = props;
+  const searchText = selected ? selected.name : null;
+  const inputRef = useRef();
+
+  return (
+    <Modal {...modal}>
+      <div className={cx('endpoint-container')}>
+        <div className={cx('endpoint-container__search')}>
+          <input
+            ref={inputRef}
+            defaultValue={searchText}
+            onKeyUp={e => onSearch(e)}
+            type="text"
+            placeholder="Origin location"
+          />
+          <span
+            onClick={() => {
+              inputRef.current.value = '';
+              onClear();
+            }}
+            className={cx('btn-cancel')}></span>
+        </div>
+        <div className={cx('endpoint-container__title')}>Địa điểm phổ biến</div>
+        {endpoints &&
+          endpoints.map((endpoint, i) => (
+            <div key={i} onClick={() => onSelect(endpoint)} className={cx('endpoint')}>
+              <div className={cx('endpoint__decorator')}>
+                <img src={image.marker} alt="" />
+              </div>
+              <div className={cx('endpoint__content')}>{endpoint.name}</div>
+              {selected && selected.id === endpoint.id && (
+                <div className={cx(['endpoint__decorator', 'endpoint__decorator--checked'])}></div>
+              )}
+            </div>
+          ))}
+      </div>
+    </Modal>
+  );
 };
 
 const TripSearch = () => {
@@ -70,9 +138,15 @@ const TripSearch = () => {
     if (!keyboard.isNormalKeys(e)) return;
 
     typingTimer.current = setTimeout(async () => {
-      const enpoints = await endpointApi.search({q: e.target.value});
-      console.log(enpoints);
-      dispatch(fetchDepartures(enpoints));
+      const endpoint = await endpointApi.search({q: e.target.value});
+      switch (state.popup) {
+        case DEPARTURE:
+          return dispatch(fetchDepartures(endpoint));
+        case ARRIVAL:
+          return dispatch(fetchArrival(endpoint));
+        default:
+          throw new Error(`popup ${state.popup} is invalid`);
+      }
     }, 1000);
   };
 
@@ -104,15 +178,24 @@ const TripSearch = () => {
 
         <div className={cx('search-box')}>
           <div className="flex-1" style={{marginRight: '1.75rem'}}>
-            <div onClick={() => dispatch(openPopup())}>
+            <div onClick={() => dispatch(openPopup(DEPARTURE))}>
               <span className="text-muted mb-1">From</span>
-              <input onClick={e => e.target.blur()} type="text" placeholder="Hà Nội" />
+              <input
+                onClick={e => e.target.blur()}
+                defaultValue={state.depature ? state.depature.name : ''}
+                type="text"
+                placeholder="Hà Nội"
+              />
             </div>
             <div className={cx('rip')}></div>
-            <label className="vertical" htmlFor="to">
+            <div onClick={() => dispatch(openPopup(ARRIVAL))}>
               <span className="text-muted mb-1">To</span>
-              <input id="to" type="text" placeholder="Cao Bằng"></input>
-            </label>
+              <input
+                onClick={e => e.target.blur()}
+                defaultValue={state.arrival ? state.arrival.name : ''}
+                type="text"
+                placeholder="Cao Bằng"></input>
+            </div>
           </div>
           <div className="horizontal">
             <button className={cx('btn-exchange')}>
@@ -149,28 +232,36 @@ const TripSearch = () => {
         </div>
       </div>
       {state.popup && (
-        <Modal onClose={() => dispatch(closePopup())} title="Chọn điểm đi" cancel="Hủy">
-          <div>
-            <input onKeyUp={e => handleSearch(e)} type="text" placeholder="Origin" />
-          </div>
-
-          <div className={cx('endpoint-container')}>
-            <div className={cx('endpoint-container__title')}>Địa điểm phổ biến</div>
-            {state.depatures &&
-              state.depatures.map((endpoint, i) => (
-                <div
-                  key={i}
-                  onClick={() => dispatch(selectDeparture(endpoint))}
-                  className={cx('endpoint')}>
-                  <div className={cx('endpoint__decorator')}></div>
-                  <div className={cx('endpoint__content')}>{endpoint.name}</div>
-                  {state.depature && state.depature.id === endpoint.id && (
-                    <div className={cx('endpoint__decorator')}></div>
-                  )}
-                </div>
-              ))}
-          </div>
-        </Modal>
+        <EndpointSelect
+          modal={{
+            onClose: () => dispatch(closePopup()),
+            cancel: 'Hủy',
+            title: state.popup === DEPARTURE ? 'Chọn điểm đi' : 'Chọn điểm đến'
+          }}
+          selected={state.popup === DEPARTURE ? state.depature : state.arrival}
+          endpoints={state.popup === DEPARTURE ? state.depatures : state.arrivals}
+          onSearch={e => handleSearch(e)}
+          onClear={_ => {
+            switch (state.popup) {
+              case DEPARTURE:
+                return dispatch(clearDeparture());
+              case ARRIVAL:
+                return dispatch(clearArrival());
+              default:
+                throw new Error(`popup ${state.popup} is invalid`);
+            }
+          }}
+          onSelect={enpoint => {
+            switch (state.popup) {
+              case DEPARTURE:
+                return dispatch(selectDeparture(enpoint));
+              case ARRIVAL:
+                return dispatch(selectArrival(enpoint));
+              default:
+                throw new Error(`popup ${state.popup} is invalid`);
+            }
+          }}
+        />
       )}
     </div>
   );
