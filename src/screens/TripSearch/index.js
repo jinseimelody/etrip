@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 import styles from './tripsearch.module.scss';
 import images from '~/assets';
-import {useReducer, useRef, useState} from 'react';
+import {useEffect, useReducer, useRef, useState} from 'react';
 import {Modal} from '~/components';
 import {endpointApi} from '~/api';
 import {keyboard} from '~/helper';
@@ -90,26 +90,42 @@ const reducer = (state, action) => {
 
 const EndpointSelect = props => {
   const {modal, onSearch, onClear, onSelect, selected, endpoints} = props;
-  const searchText = selected ? selected.name : null;
-  const inputRef = useRef();
+  const [input, setInput] = useState(selected ? selected.name : '');
+  const typingTimer = useRef();
+
+  useEffect(() => {
+    if (input.length === 0) {
+      if (typingTimer.current) clearTimeout(typingTimer.current);
+      onClear();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input]);
+
+  const emitSearch = e => {
+    setInput(e.target.value);
+    if (typingTimer.current) clearTimeout(typingTimer.current);
+    if (!keyboard.isNormalKeys(e)) return;
+
+    typingTimer.current = setTimeout(async () => onSearch(input), 1000);
+  };
+
+  const emitClear = _ => {
+    setInput('');
+  };
 
   return (
     <Modal {...modal}>
       <div className={cx('endpoint-container')}>
         <div className={cx('endpoint-container__search')}>
           <input
-            ref={inputRef}
-            defaultValue={searchText}
-            onKeyUp={e => onSearch(e)}
+            value={input}
+            onChange={e => emitSearch(e)}
             type="text"
             placeholder="Origin location"
           />
-          <span
-            onClick={() => {
-              inputRef.current.value = '';
-              onClear();
-            }}
-            className={cx('btn-cancel')}></span>
+          {input && input.length > 0 && (
+            <span onClick={_ => emitClear()} className={cx('btn-cancel')}></span>
+          )}
         </div>
         <div className={cx('endpoint-container__title')}>Địa điểm phổ biến</div>
         {endpoints &&
@@ -131,23 +147,18 @@ const EndpointSelect = props => {
 
 const TripSearch = () => {
   const [state, dispatch] = useReducer(reducer, initState);
-  const typingTimer = useRef();
 
-  const handleSearch = e => {
-    if (typingTimer.current) clearTimeout(typingTimer.current);
-    if (!keyboard.isNormalKeys(e)) return;
-
-    typingTimer.current = setTimeout(async () => {
-      const endpoint = await endpointApi.search({q: e.target.value});
-      switch (state.popup) {
-        case DEPARTURE:
-          return dispatch(fetchDepartures(endpoint));
-        case ARRIVAL:
-          return dispatch(fetchArrival(endpoint));
-        default:
-          throw new Error(`popup ${state.popup} is invalid`);
-      }
-    }, 1000);
+  const handleSearch = async pattern => {
+    console.log('api call');
+    const endpoint = await endpointApi.search({q: pattern});
+    switch (state.popup) {
+      case DEPARTURE:
+        return dispatch(fetchDepartures(endpoint));
+      case ARRIVAL:
+        return dispatch(fetchArrival(endpoint));
+      default:
+        throw new Error(`popup ${state.popup} is invalid`);
+    }
   };
 
   return (
@@ -240,7 +251,7 @@ const TripSearch = () => {
           }}
           selected={state.popup === DEPARTURE ? state.depature : state.arrival}
           endpoints={state.popup === DEPARTURE ? state.depatures : state.arrivals}
-          onSearch={e => handleSearch(e)}
+          onSearch={pattern => handleSearch(pattern)}
           onClear={_ => {
             switch (state.popup) {
               case DEPARTURE:
