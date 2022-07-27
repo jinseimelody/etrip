@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import styles from './trip.selection.module.scss';
 import Ticket from '~/components/Ticket';
 import {useEffect, useState} from 'react';
-import {bookingApi} from '~/api';
+import {tripApi} from '~/api';
 import pipe from '~/helper';
 import images from '~/assets';
 
@@ -16,7 +16,7 @@ const TripSelection = () => {
     const fetch = async () => {
       try {
         const params = {from: 1, to: 2, date: '2022-12-25'};
-        const response = await bookingApi.search(params);
+        const response = await tripApi.search(params);
         setTrips(response);
       } catch (error) {
         console.log('failed to search', error);

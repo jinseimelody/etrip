@@ -3,6 +3,8 @@
   margin: auto;
   outline: var(--screen-border-width) solid var(--grey);
   position: relative;
+  min-height: 100vh;
+  background-repeat: no-repeat;
 }
 
 .header {
@@ -212,5 +214,11 @@
       border: 1px solid var(--grey);
       border-radius: 1.5rem;
     }
+  }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+  .wrapper {
+    min-height: 89vh;
   }
 }

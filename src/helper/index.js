@@ -34,4 +34,33 @@ pipe.duration = value => {
 pipe.currency = value => {
   return {formated: Intl.NumberFormat('en-US').format(value), unit: 'đ'};
 };
+
+export const keyboard = {
+  isNormalKeys: e => {
+    const exceptKeys = new Set([
+      'Control',
+      'Alt',
+      'Tab',
+      'CapsLock',
+      'Meta',
+      'ContextMenu',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowDown',
+      'NumLock',
+      'Insert',
+      'Delete',
+      'End',
+      'Home',
+      'PageUp',
+      'PageDown',
+      'PrintScreen',
+      'ScrollLock',
+      'Pause'
+    ]);
+    return !exceptKeys.has(e.key);
+  }
+};
+
 export default pipe;

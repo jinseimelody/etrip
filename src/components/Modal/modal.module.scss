@@ -1,0 +1,45 @@
+.backdrop {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  height: 100vh;
+  background: #00000033;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.dialog {
+  width: 100%;
+  height: calc(100vh - 2rem);
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  background: #fff;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+
+    .title {
+      font-size: x-large;
+      font-weight: 700;
+      text-align: center;
+      width: 100%;
+    }
+
+    .btn-cancel {
+      position: absolute;
+      left: 0;
+      cursor: pointer;
+    }
+    
+    .btn-confirm {
+      position: absolute;
+      right: 0;
+      cursor: pointer;
+    }
+  }
+}
