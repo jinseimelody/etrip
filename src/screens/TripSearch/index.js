@@ -1,168 +1,53 @@
+import moment from 'moment';
+import React, {useCallback, useEffect, useReducer, useRef, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import {IoIosArrowBack} from 'react-icons/io';
 import classNames from 'classnames/bind';
-import {Link} from 'react-router-dom';
 
+import {keyboard} from '~/helper';
+import {endpointApi} from '~/api';
+import {Calendar, Modal, Toast} from '~/components';
+import reducer, {initState} from './reducer';
+import {
+  clearArrival,
+  clearDeparture,
+  closePopup,
+  fetchArrival,
+  fetchDepartures,
+  openPopup,
+  selectArrival,
+  selectDeparture,
+  selectDepartureDate
+} from './actions';
+import {popups} from './constant';
 import styles from './tripsearch.module.scss';
 import images from '~/assets';
-import {useEffect, useReducer, useRef, useState} from 'react';
-import {Modal} from '~/components';
-import {endpointApi} from '~/api';
-import {keyboard} from '~/helper';
-import image from '~/assets';
+import {EnpointPopup} from '../shared';
 
 const cx = classNames.bind(styles);
 
-const DEPARTURE = 'departure';
-const ARRIVAL = 'arrival';
-
-const actions = {
-  openPopup: 'openPopup',
-  closePopup: 'closePopup',
-  selectDeparture: 'selectDeparture',
-  clearDeparture: 'clearDeparture',
-  fetchDepartures: 'fetchDepartures',
-  fetchArrival: 'fetchArrival',
-  clearArrival: 'clearArrival'
-};
-
-const openPopup = payload => {
-  return {type: actions.openPopup, payload};
-};
-
-const closePopup = _ => {
-  return {type: actions.closePopup};
-};
-
-const fetchDepartures = payload => {
-  return {type: actions.fetchDepartures, payload};
-};
-
-const selectDeparture = payload => {
-  return {type: actions.selectDeparture, payload};
-};
-
-const clearDeparture = _ => {
-  return {type: actions.clearDeparture};
-};
-
-const fetchArrival = payload => {
-  return {type: actions.fetchArrival, payload};
-};
-
-const selectArrival = payload => {
-  return {type: actions.selectArrival, payload};
-};
-
-const clearArrival = _ => {
-  return {type: actions.clearArrival};
-};
-
-const initState = {
-  popup: null,
-  depature: null,
-  depatures: [],
-  arrival: null,
-  arrivals: []
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case actions.openPopup:
-      return {...state, popup: action.payload};
-    case actions.closePopup:
-      return {...state, popup: null};
-    case actions.fetchDepartures:
-      return {...state, depatures: action.payload};
-    case actions.selectDeparture:
-      return {...state, depature: action.payload, popup: false};
-    case actions.clearDeparture:
-      return {...state, depatures: [], depature: null};
-    case actions.fetchArrival:
-      return {...state, arrivals: action.payload};
-    case actions.selectArrival:
-      return {...state, arrival: action.payload, popup: false};
-    case actions.clearArrival:
-      return {...state, arrivals: [], arrival: null};
-    default:
-      throw new Error(`action ${action} is invalid`);
-  }
-};
-
-const EndpointSelect = props => {
-  const {modal, onSearch, onClear, onSelect, selected, endpoints} = props;
-  const [input, setInput] = useState(selected ? selected.name : '');
-  const typingTimer = useRef();
-
-  useEffect(() => {
-    if (input.length === 0) {
-      if (typingTimer.current) clearTimeout(typingTimer.current);
-      onClear();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [input]);
-
-  const emitSearch = e => {
-    setInput(e.target.value);
-    if (typingTimer.current) clearTimeout(typingTimer.current);
-    if (!keyboard.isNormalKeys(e)) return;
-
-    typingTimer.current = setTimeout(async () => onSearch(input), 1000);
-  };
-
-  const emitClear = _ => {
-    setInput('');
-  };
-
-  return (
-    <Modal {...modal}>
-      <div className={cx('endpoint-container')}>
-        <div className={cx('endpoint-container__search')}>
-          <input
-            value={input}
-            onChange={e => emitSearch(e)}
-            type="text"
-            placeholder="Origin location"
-          />
-          {input && input.length > 0 && (
-            <span onClick={_ => emitClear()} className={cx('btn-cancel')}></span>
-          )}
-        </div>
-        <div className={cx('endpoint-container__title')}>Địa điểm phổ biến</div>
-        {endpoints &&
-          endpoints.map((endpoint, i) => (
-            <div key={i} onClick={() => onSelect(endpoint)} className={cx('endpoint')}>
-              <div className={cx('endpoint__decorator')}>
-                <img src={image.marker} alt="" />
-              </div>
-              <div className={cx('endpoint__content')}>{endpoint.name}</div>
-              {selected && selected.id === endpoint.id && (
-                <div className={cx(['endpoint__decorator', 'endpoint__decorator--checked'])}></div>
-              )}
-            </div>
-          ))}
-      </div>
-    </Modal>
-  );
-};
-
 const TripSearch = () => {
+  const toastRef = useRef();
+  const datePicker = useRef();
+  const calendarRef = useRef();
+  const depaturePopupRef = useRef();
   const [state, dispatch] = useReducer(reducer, initState);
+  const navigate = useNavigate();
 
-  const handleSearch = async pattern => {
-    console.log('api call');
-    const endpoint = await endpointApi.search({q: pattern});
-    switch (state.popup) {
-      case DEPARTURE:
-        return dispatch(fetchDepartures(endpoint));
-      case ARRIVAL:
-        return dispatch(fetchArrival(endpoint));
-      default:
-        throw new Error(`popup ${state.popup} is invalid`);
+  const findTrips = () => {
+    if (state.arrival && state.departure && state.departureDate) {
+      navigate(
+        `/tripselection/${state.departure.id}/${state.arrival.id}/${state.departureDate.format(
+          'yyyy-MM-DD'
+        )}`
+      );
     }
+    toastRef.current.showError('Vui lòng nhập đầy đủ thông tin');
   };
 
   return (
     <div className={cx('wrapper')}>
+      <Toast ref={toastRef} />
       <div className={cx('header')}>
         <div className={cx(['action', 'action--left'])}>
           <Link to="/dashboard">
@@ -189,20 +74,21 @@ const TripSearch = () => {
 
         <div className={cx('search-box')}>
           <div className="flex-1" style={{marginRight: '1.75rem'}}>
-            <div onClick={() => dispatch(openPopup(DEPARTURE))}>
+            <div className="cursor-pointer" onClick={() => dispatch(openPopup(popups.DEPARTURE))}>
               <span className="text-muted mb-1">From</span>
               <input
-                onClick={e => e.target.blur()}
-                defaultValue={state.depature ? state.depature.name : ''}
+                readOnly
+                onClick={_ => depaturePopupRef.current.show()}
+                defaultValue={state.departure ? state.departure.name : ''}
                 type="text"
                 placeholder="Hà Nội"
               />
             </div>
             <div className={cx('rip')}></div>
-            <div onClick={() => dispatch(openPopup(ARRIVAL))}>
+            <div className="cursor-pointer" onClick={() => dispatch(openPopup(popups.ARRIVAL))}>
               <span className="text-muted mb-1">To</span>
               <input
-                onClick={e => e.target.blur()}
+                readOnly
                 defaultValue={state.arrival ? state.arrival.name : ''}
                 type="text"
                 placeholder="Cao Bằng"></input>
@@ -215,10 +101,17 @@ const TripSearch = () => {
           </div>
         </div>
 
-        <div className={cx('depature-box')}>
+        <div className={cx('departure-box')}>
           <label className="text-muted mb-1">Departure Date</label>
           <div className={cx('input-container')}>
-            <input type="text" placeholder="Sat, 23/07, 22"></input>
+            <input
+              readOnly
+              onClick={_ => datePicker.current.show()}
+              type="text"
+              defaultValue={
+                state.departureDate ? state.departureDate.format('ddd, DD/MM, YY') : null
+              }
+              placeholder="Sat, 23/07, 22"></input>
             <div className={cx('input-icon')}>
               <img src={images.calendar} alt=""></img>
             </div>
@@ -226,55 +119,34 @@ const TripSearch = () => {
         </div>
 
         <div>
-          <Link to="/tripselection">
-            <button
-              style={{
-                width: '100%',
-                fontWeight: 700,
-                padding: '2rem',
-                borderRadius: '1.75rem',
-                lineHeight: '1rem',
-                color: 'black',
-                background: '#f9cf23'
-              }}>
-              Continue
-            </button>
-          </Link>
+          <button
+            onClick={findTrips}
+            style={{
+              width: '100%',
+              fontWeight: 700,
+              padding: '2rem',
+              borderRadius: '1.75rem',
+              lineHeight: '1rem',
+              color: 'black',
+              background: '#f9cf23'
+            }}>
+            Continue
+          </button>
         </div>
       </div>
-      {state.popup && (
-        <EndpointSelect
-          modal={{
-            onClose: () => dispatch(closePopup()),
-            cancel: 'Hủy',
-            title: state.popup === DEPARTURE ? 'Chọn điểm đi' : 'Chọn điểm đến'
-          }}
-          selected={state.popup === DEPARTURE ? state.depature : state.arrival}
-          endpoints={state.popup === DEPARTURE ? state.depatures : state.arrivals}
-          onSearch={pattern => handleSearch(pattern)}
-          onClear={_ => {
-            switch (state.popup) {
-              case DEPARTURE:
-                return dispatch(clearDeparture());
-              case ARRIVAL:
-                return dispatch(clearArrival());
-              default:
-                throw new Error(`popup ${state.popup} is invalid`);
-            }
-          }}
-          onSelect={enpoint => {
-            switch (state.popup) {
-              case DEPARTURE:
-                return dispatch(selectDeparture(enpoint));
-              case ARRIVAL:
-                return dispatch(selectArrival(enpoint));
-              default:
-                throw new Error(`popup ${state.popup} is invalid`);
-            }
-          }}
-        />
-      )}
+
+      <Modal
+        ref={datePicker}
+        onConfirm={() => dispatch(selectDepartureDate(calendarRef.current.getValue()))}
+        cancel="Hủy"
+        confirm="Chọn"
+        title="Ngày khởi hành">
+        <Calendar ref={calendarRef} options={{preview: true}} initValue={state.departureDate} />
+      </Modal>
+
+      <EnpointPopup ref={depaturePopupRef} />
     </div>
   );
 };
+
 export default TripSearch;

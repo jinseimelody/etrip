@@ -19,6 +19,8 @@ const image = {
   vExchange: require('~/assets/images/v-exchange.png'),
   myBackground: require('~/assets/images/my-background.png'),
   seatUnavaliable: require('~/assets/images/seat-unavaliable.png'),
+  rightArrow: require('~/assets/images/right-arrow.png'),
+  leftArrow: require('~/assets/images/left-arrow.png'),
   oldMan: require('~/assets/images/old-man.svg').default
 };
 

@@ -1,6 +1,6 @@
 import {IoIosArrowBack} from 'react-icons/io';
 import classNames from 'classnames/bind';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 
 import styles from './trip.selection.module.scss';
 import Ticket from '~/components/Ticket';
@@ -11,11 +11,11 @@ import images from '~/assets';
 
 const cx = classNames.bind(styles);
 const TripSelection = () => {
+  let params = useParams();
   const [trips, setTrips] = useState([]);
   useEffect(() => {
     const fetch = async () => {
       try {
-        const params = {from: 1, to: 2, date: '2022-12-25'};
         const response = await tripApi.search(params);
         setTrips(response);
       } catch (error) {

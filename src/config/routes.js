@@ -9,7 +9,6 @@ import {
   Login,
   NotFound,
   Home,
-  Todo,
   Dashboard,
   NotSupported,
   Sample,
@@ -22,9 +21,8 @@ const paths = {
   public: [
     {path: '/', component: Home},
     {path: '/login', component: Login, layout: null},
-    {path: '/todo', component: Todo, layout: null},
     {path: '/tripsearch', component: TripSearch, layout: null},
-    {path: '/tripselection', component: TripSelection, layout: null},
+    {path: '/tripselection/:from/:to/:date', component: TripSelection, layout: null},
     {path: '/seatselection', component: SeatSelection, layout: null}
   ],
   private: [
