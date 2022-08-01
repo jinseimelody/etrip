@@ -1,9 +1,6 @@
-const {actions} = require('./constant');
+import {SET_ARRIVAL, SET_DEPARTURE, SET_DATE} from './constant';
 
 const initState = {
-  popup: null,
-  departures: [],
-  arrivals: [],
   arrival: null,
   departure: null,
   departureDate: null
@@ -11,23 +8,11 @@ const initState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case actions.openPopup:
-      return {...state, popup: action.payload};
-    case actions.closePopup:
-      return {...state, popup: null};
-    case actions.fetchDepartures:
-      return {...state, departures: action.payload};
-    case actions.selectDeparture:
-      return {...state, departure: action.payload, popup: false};
-    case actions.clearDeparture:
-      return {...state, departures: [], departure: null};
-    case actions.fetchArrival:
-      return {...state, arrivals: action.payload};
-    case actions.selectArrival:
+    case SET_DEPARTURE:
+      return {...state, departure: action.payload};
+    case SET_ARRIVAL:
       return {...state, arrival: action.payload, popup: false};
-    case actions.clearArrival:
-      return {...state, arrivals: [], arrival: null};
-    case actions.selectDepartureDate:
+    case SET_DATE:
       return {...state, departureDate: action.payload, popup: null};
     default:
       throw new Error(`action ${action} is invalid`);

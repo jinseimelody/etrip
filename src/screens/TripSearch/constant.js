@@ -1,17 +1,3 @@
-export const actions = {
-  openPopup: 'openPopup',
-  closePopup: 'closePopup',
-  selectDeparture: 'selectDeparture',
-  clearDeparture: 'clearDeparture',
-  fetchDepartures: 'fetchDepartures',
-  fetchArrival: 'fetchArrival',
-  clearArrival: 'clearArrival',
-  selectDepartureDate: 'selectDepartureDate'
-};
-
-export const popups = {
-  DEPARTURE: 'departure',
-  ARRIVAL: 'arrival',
-  DATEPICKER: 'datepicker',
-  NOTIFICATION: 'notification'
-};
+export const SET_DEPARTURE = 'select_departure';
+export const SET_ARRIVAL = 'set_arrival';
+export const SET_DATE = 'SET_DATE';

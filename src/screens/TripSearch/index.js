@@ -4,46 +4,35 @@ import {Link, useNavigate} from 'react-router-dom';
 import {IoIosArrowBack} from 'react-icons/io';
 import classNames from 'classnames/bind';
 
-import {keyboard} from '~/helper';
-import {endpointApi} from '~/api';
 import {Calendar, Modal, Toast} from '~/components';
 import reducer, {initState} from './reducer';
-import {
-  clearArrival,
-  clearDeparture,
-  closePopup,
-  fetchArrival,
-  fetchDepartures,
-  openPopup,
-  selectArrival,
-  selectDeparture,
-  selectDepartureDate
-} from './actions';
-import {popups} from './constant';
 import styles from './tripsearch.module.scss';
 import images from '~/assets';
 import {EnpointPopup} from '../shared';
+import {setArrival, setDeparture, setDate} from './actions';
 
 const cx = classNames.bind(styles);
 
 const TripSearch = () => {
-  const toastRef = useRef();
-  const datePicker = useRef();
-  const calendarRef = useRef();
-  const depaturePopupRef = useRef();
-  const [state, dispatch] = useReducer(reducer, initState);
   const navigate = useNavigate();
+  const toastRef = useRef();
+  const calendarRef = useRef();
+  const datePickerPopupRef = useRef();
+  const depaturePopupRef = useRef();
+  const arrivalPopupRef = useRef();
 
-  const findTrips = () => {
-    if (state.arrival && state.departure && state.departureDate) {
-      navigate(
-        `/tripselection/${state.departure.id}/${state.arrival.id}/${state.departureDate.format(
-          'yyyy-MM-DD'
-        )}`
-      );
-    }
-    toastRef.current.showError('Vui lòng nhập đầy đủ thông tin');
-  };
+  const [state, dispatch] = useReducer(reducer, initState);
+
+  // const findTrips = () => {
+  //   if (state.arrival && state.departure && state.date) {
+  //     navigate(
+  //       `/tripselection/${state.departure.id}/${state.arrival.id}/${state.date.format(
+  //         'yyyy-MM-DD'
+  //       )}`
+  //     );
+  //   }
+  //   toastRef.current.showError('Vui lòng nhập đầy đủ thông tin');
+  // };
 
   return (
     <div className={cx('wrapper')}>
@@ -74,7 +63,7 @@ const TripSearch = () => {
 
         <div className={cx('search-box')}>
           <div className="flex-1" style={{marginRight: '1.75rem'}}>
-            <div className="cursor-pointer" onClick={() => dispatch(openPopup(popups.DEPARTURE))}>
+            <div className="cursor-pointer">
               <span className="text-muted mb-1">From</span>
               <input
                 readOnly
@@ -85,10 +74,11 @@ const TripSearch = () => {
               />
             </div>
             <div className={cx('rip')}></div>
-            <div className="cursor-pointer" onClick={() => dispatch(openPopup(popups.ARRIVAL))}>
+            <div className="cursor-pointer">
               <span className="text-muted mb-1">To</span>
               <input
                 readOnly
+                onClick={_ => arrivalPopupRef.current.show()}
                 defaultValue={state.arrival ? state.arrival.name : ''}
                 type="text"
                 placeholder="Cao Bằng"></input>
@@ -106,11 +96,9 @@ const TripSearch = () => {
           <div className={cx('input-container')}>
             <input
               readOnly
-              onClick={_ => datePicker.current.show()}
+              onClick={_ => datePickerPopupRef.current.show()}
               type="text"
-              defaultValue={
-                state.departureDate ? state.departureDate.format('ddd, DD/MM, YY') : null
-              }
+              defaultValue={state.date ? state.date.format('ddd, DD/MM, YY') : null}
               placeholder="Sat, 23/07, 22"></input>
             <div className={cx('input-icon')}>
               <img src={images.calendar} alt=""></img>
@@ -120,7 +108,6 @@ const TripSearch = () => {
 
         <div>
           <button
-            onClick={findTrips}
             style={{
               width: '100%',
               fontWeight: 700,
@@ -136,15 +123,31 @@ const TripSearch = () => {
       </div>
 
       <Modal
-        ref={datePicker}
-        onConfirm={() => dispatch(selectDepartureDate(calendarRef.current.getValue()))}
+        ref={datePickerPopupRef}
+        onConfirm={() => dispatch(setDate(calendarRef.current.getValue()))}
         cancel="Hủy"
         confirm="Chọn"
         title="Ngày khởi hành">
-        <Calendar ref={calendarRef} options={{preview: true}} initValue={state.departureDate} />
+        <Calendar ref={calendarRef} options={{preview: true}} initValue={state.date} />
       </Modal>
 
-      <EnpointPopup ref={depaturePopupRef} />
+      <EnpointPopup
+        ref={depaturePopupRef}
+        endpoint={state.departure}
+        onSelect={val => {
+          depaturePopupRef.current.hide();
+          dispatch(setDeparture(val));
+        }}
+      />
+
+      <EnpointPopup
+        ref={arrivalPopupRef}
+        endpoint={state.arrival}
+        onSelect={val => {
+          arrivalPopupRef.current.hide();
+          dispatch(setArrival(val));
+        }}
+      />
     </div>
   );
 };

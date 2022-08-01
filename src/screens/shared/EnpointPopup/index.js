@@ -62,13 +62,12 @@ const EnpointPopup = forwardRef((props, ref) => {
     typingTimerRef && clearTimeout(typingTimerRef.current);
     typingTimerRef.current = setTimeout(async () => {
       const endpoints = await endpointApi.search({q: state.search});
-      console.log('get');
       dispatch(setEndpoints(endpoints));
     }, 500);
   }, [state.search]);
 
   useEffect(() => {
-    onSelect && state.value && state.onSelect(state.value);
+    onSelect && onSelect(state.value);
   }, [state.value]);
 
   useImperativeHandle(ref, () => ({
