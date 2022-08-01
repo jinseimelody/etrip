@@ -23,17 +23,6 @@ const TripSearch = () => {
 
   const [state, dispatch] = useReducer(reducer, initState);
 
-  // const findTrips = () => {
-  //   if (state.arrival && state.departure && state.date) {
-  //     navigate(
-  //       `/tripselection/${state.departure.id}/${state.arrival.id}/${state.date.format(
-  //         'yyyy-MM-DD'
-  //       )}`
-  //     );
-  //   }
-  //   toastRef.current.showError('Vui lòng nhập đầy đủ thông tin');
-  // };
-
   return (
     <div className={cx('wrapper')}>
       <Toast ref={toastRef} />
@@ -107,32 +96,22 @@ const TripSearch = () => {
         </div>
 
         <div>
-          <button
-            style={{
-              width: '100%',
-              fontWeight: 700,
-              padding: '2rem',
-              borderRadius: '1.75rem',
-              lineHeight: '1rem',
-              color: 'black',
-              background: '#f9cf23'
-            }}>
-            Continue
-          </button>
+          <button className={cx('btn-search')}>Continue</button>
         </div>
       </div>
 
       <Modal
         ref={datePickerPopupRef}
         onConfirm={() => dispatch(setDate(calendarRef.current.getValue()))}
-        cancel="Hủy"
-        confirm="Chọn"
-        title="Ngày khởi hành">
-        <Calendar ref={calendarRef} options={{preview: true}} initValue={state.date} />
+        cancel="Cancel"
+        confirm="Select"
+        title="Depature Date">
+        <Calendar ref={calendarRef} initValue={state.date} options={{preview: true}} />
       </Modal>
 
       <EnpointPopup
         ref={depaturePopupRef}
+        modal={{cancel: 'Cancel', title: 'Depature'}}
         endpoint={state.departure}
         onSelect={val => {
           depaturePopupRef.current.hide();
@@ -142,6 +121,7 @@ const TripSearch = () => {
 
       <EnpointPopup
         ref={arrivalPopupRef}
+        modal={{cancel: 'Cancel', title: 'Arrival'}}
         endpoint={state.arrival}
         onSelect={val => {
           arrivalPopupRef.current.hide();

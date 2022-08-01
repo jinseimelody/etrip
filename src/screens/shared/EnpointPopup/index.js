@@ -1,12 +1,4 @@
-import React, {
-  forwardRef,
-  memo,
-  useEffect,
-  useImperativeHandle,
-  useReducer,
-  useRef,
-  useState
-} from 'react';
+import React, {forwardRef, memo, useEffect, useImperativeHandle, useReducer, useRef} from 'react';
 import classNames from 'classnames/bind';
 
 import images from '~/assets';
@@ -38,7 +30,7 @@ const reducer = (state, action) => {
     case SET_SEARCH:
       return {...state, search: action.payload};
     case SET_VALUE:
-      return {...state, value: action.payload};
+      return {...state, value: action.payload, search: action.payload.name};
     case SET_ENDPOINTS:
       return {...state, endpoints: action.payload};
     default:
@@ -68,6 +60,7 @@ const EnpointPopup = forwardRef((props, ref) => {
 
   useEffect(() => {
     onSelect && onSelect(state.value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.value]);
 
   useImperativeHandle(ref, () => ({
@@ -80,7 +73,7 @@ const EnpointPopup = forwardRef((props, ref) => {
   }));
 
   return (
-    <Modal ref={modalRef} cancel="Hủy" title="Ngày khởi hành">
+    <Modal ref={modalRef} {...props.modal}>
       <div className={cx('endpoint-search-box')}>
         <input
           type="text"
@@ -95,7 +88,7 @@ const EnpointPopup = forwardRef((props, ref) => {
 
       {state.endpoints && state.endpoints.length > 0 && (
         <div className={cx('endpoint-result')}>
-          <div className={cx('group-name')}>Địa điểm phổ biến</div>
+          <div className={cx('group-name')}>Popularize the location</div>
           {state.endpoints.map((ep, i) => (
             <div key={i} onClick={() => dispatch(setValue(ep))} className={cx('group-item')}>
               <div className={cx('decorator')}>

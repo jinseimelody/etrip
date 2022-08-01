@@ -3,7 +3,7 @@ import {SET_ARRIVAL, SET_DEPARTURE, SET_DATE} from './constant';
 const initState = {
   arrival: null,
   departure: null,
-  departureDate: null
+  date: null
 };
 
 const reducer = (state, action) => {
@@ -11,9 +11,9 @@ const reducer = (state, action) => {
     case SET_DEPARTURE:
       return {...state, departure: action.payload};
     case SET_ARRIVAL:
-      return {...state, arrival: action.payload, popup: false};
+      return {...state, arrival: action.payload};
     case SET_DATE:
-      return {...state, departureDate: action.payload, popup: null};
+      return {...state, date: action.payload};
     default:
       throw new Error(`action ${action} is invalid`);
   }
