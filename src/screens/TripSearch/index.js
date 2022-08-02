@@ -1,15 +1,14 @@
-import moment from 'moment';
-import React, {useCallback, useEffect, useReducer, useRef, useState} from 'react';
+import React, {useCallback, useReducer, useRef} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {IoIosArrowBack} from 'react-icons/io';
 import classNames from 'classnames/bind';
 
-import {Calendar, Modal, Toast} from '~/components';
-import reducer, {initState} from './reducer';
 import styles from './tripsearch.module.scss';
 import images from '~/assets';
+import {Calendar, Modal, Toast} from '~/components';
 import {EnpointPopup} from '../shared';
 import {setArrival, setDeparture, setDate} from './actions';
+import reducer, {initState} from './reducer';
 
 const cx = classNames.bind(styles);
 
@@ -31,6 +30,9 @@ const TripSearch = () => {
     }
     toastRef.current.showError('Please fill in all the required fields');
   };
+
+  const departureSelectHandler = useCallback(val => dispatch(setDeparture(val)), []);
+  const arrivalSelectHandler = useCallback(val => dispatch(setArrival(val)), []);
 
   return (
     <div className={cx('wrapper')}>
@@ -123,13 +125,13 @@ const TripSearch = () => {
       <EnpointPopup
         ref={depaturePopupRef}
         modal={{cancel: 'Cancel', title: 'Depature'}}
-        onSelect={val => dispatch(setDeparture(val))}
+        onSelect={departureSelectHandler}
       />
 
       <EnpointPopup
         ref={arrivalPopupRef}
         modal={{cancel: 'Cancel', title: 'Arrival'}}
-        onSelect={val => dispatch(setArrival(val))}
+        onSelect={arrivalSelectHandler}
       />
     </div>
   );
