@@ -22,6 +22,15 @@ const TripSearch = () => {
   const arrivalPopupRef = useRef();
 
   const [state, dispatch] = useReducer(reducer, initState);
+  const next = () => {
+    if (state.date && state.departure && state.arrival) {
+      const from = state.departure.id;
+      const to = state.arrival.id;
+      const date = state.date.format('YYYY-MM-DD');
+      navigate(`/tripselection/${from}/${to}/${date}`);
+    }
+    toastRef.current.showError('Please fill in all the required fields');
+  };
 
   return (
     <div className={cx('wrapper')}>
@@ -96,7 +105,9 @@ const TripSearch = () => {
         </div>
 
         <div>
-          <button className={cx('btn-search')}>Continue</button>
+          <button onClick={next} className={cx('btn-search')}>
+            Continue
+          </button>
         </div>
       </div>
 
@@ -112,21 +123,13 @@ const TripSearch = () => {
       <EnpointPopup
         ref={depaturePopupRef}
         modal={{cancel: 'Cancel', title: 'Depature'}}
-        endpoint={state.departure}
-        onSelect={val => {
-          depaturePopupRef.current.hide();
-          dispatch(setDeparture(val));
-        }}
+        onSelect={val => dispatch(setDeparture(val))}
       />
 
       <EnpointPopup
         ref={arrivalPopupRef}
         modal={{cancel: 'Cancel', title: 'Arrival'}}
-        endpoint={state.arrival}
-        onSelect={val => {
-          arrivalPopupRef.current.hide();
-          dispatch(setArrival(val));
-        }}
+        onSelect={val => dispatch(setArrival(val))}
       />
     </div>
   );

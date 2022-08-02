@@ -11,7 +11,7 @@ import images from '~/assets';
 
 const cx = classNames.bind(styles);
 const TripSelection = () => {
-  let params = useParams();
+  const params = useParams();
   const [trips, setTrips] = useState([]);
   useEffect(() => {
     const fetch = async () => {

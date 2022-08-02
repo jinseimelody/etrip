@@ -88,10 +88,14 @@ const Calendar = forwardRef((props, ref) => {
 
   return (
     <div className={cx('calendar')}>
-      {options.preview && state.value && (
-        <div className="mb-3">
-          Selected:
-          <span className="text-muted"> {state.value.format('ddd, DD/MM, yyy')}</span>
+      {options.preview && (
+        <div className="mb-3" style={{minHeight: '2.4rem'}}>
+          {state.value && (
+            <>
+              Selected:
+              <span className="text-muted"> {state.value.format('ddd, DD/MM, yyy')}</span>
+            </>
+          )}
         </div>
       )}
       <div className={cx('header')}>

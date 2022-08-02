@@ -4,16 +4,15 @@
   position: relative;
 
   input {
-    padding: 1rem 1.75rem;
+    padding: 1rem;
     padding-right: 3.6rem;
   }
 
   .btn-cancel {
-    width: 1.6rem;
-    height: 1.6rem;
+    display: flex;
     margin: 0 1rem;
     border-radius: 1.5rem;
-    background: wheat;
+    color: var(--grey);
     position: absolute;
     right: 0;
     z-index: 999;
@@ -37,6 +36,7 @@
     border-bottom: none;
     user-select: none;
     cursor: pointer;
+    position: relative;
 
     &:active {
       background: var(--grey);
@@ -58,9 +58,11 @@
       height: 1.6rem;
     }
 
-    .decorator--checked {
-      background: wheat;
-      border-radius: 5px;
+    .checked {
+      display: flex;
+      font-size: 2.4rem;
+      position: absolute;
+      right: .5rem;
     }
 
     .content {

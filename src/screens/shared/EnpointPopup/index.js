@@ -1,15 +1,17 @@
 import React, {forwardRef, memo, useEffect, useImperativeHandle, useReducer, useRef} from 'react';
+import {MdCancel} from 'react-icons/md';
 import classNames from 'classnames/bind';
 
 import images from '~/assets';
 import style from './endpoint.popup.module.scss';
 import {endpointApi} from '~/api';
 import {Modal} from '~/components';
+import {IoIosCheckmark} from 'react-icons/io';
 
 const cx = classNames.bind(style);
 const initState = {
   search: '',
-  value: null,
+  value: {},
   endpoints: []
 };
 
@@ -26,11 +28,11 @@ const setEndpoints = payload => ({type: SET_ENDPOINTS, payload});
 const reducer = (state, action) => {
   switch (action.type) {
     case CLEAR:
-      return {search: '', value: null, endpoints: []};
+      return {search: '', value: {}, endpoints: []};
     case SET_SEARCH:
       return {...state, search: action.payload};
     case SET_VALUE:
-      return {...state, value: action.payload, search: action.payload.name};
+      return {...state, value: action.payload};
     case SET_ENDPOINTS:
       return {...state, endpoints: action.payload};
     default:
@@ -39,15 +41,11 @@ const reducer = (state, action) => {
 };
 
 const EnpointPopup = forwardRef((props, ref) => {
-  const {onSelect, endpoint} = props;
+  const {onSelect} = props;
   const modalRef = useRef();
   const typingTimerRef = useRef();
 
-  const [state, dispatch] = useReducer(reducer, initState, () => ({
-    ...initState,
-    search: (endpoint && endpoint.name) || '',
-    value: endpoint
-  }));
+  const [state, dispatch] = useReducer(reducer, initState);
 
   // monitor search text then call api
   useEffect(() => {
@@ -58,22 +56,25 @@ const EnpointPopup = forwardRef((props, ref) => {
     }, 500);
   }, [state.search]);
 
-  useEffect(() => {
-    onSelect && onSelect(state.value);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.value]);
+  useEffect(() => onSelect && onSelect(state.value), [state.value]);
 
   useImperativeHandle(ref, () => ({
-    show: () => {
+    show: _ => {
       modalRef.current.show();
     },
-    hide: () => {
+    hide: _ => {
       modalRef.current.hide();
     }
   }));
 
+  const handleCancel = _ => {
+    (state.endpoints.length === 0 ||
+      state.endpoints.filter(x => x.id === state.value.id).length === 0) &&
+      dispatch(setSearch(''));
+  };
+
   return (
-    <Modal ref={modalRef} {...props.modal}>
+    <Modal ref={modalRef} {...props.modal} onCancel={handleCancel}>
       <div className={cx('endpoint-search-box')}>
         <input
           type="text"
@@ -82,7 +83,9 @@ const EnpointPopup = forwardRef((props, ref) => {
           onChange={e => dispatch(setSearch(e.target.value))}
         />
         {state.search.length > 0 && (
-          <span onClick={() => dispatch(clear())} className={cx('btn-cancel')}></span>
+          <span onClick={() => dispatch(clear())} className={cx('btn-cancel')}>
+            <MdCancel />
+          </span>
         )}
       </div>
 
@@ -90,13 +93,21 @@ const EnpointPopup = forwardRef((props, ref) => {
         <div className={cx('endpoint-result')}>
           <div className={cx('group-name')}>Popularize the location</div>
           {state.endpoints.map((ep, i) => (
-            <div key={i} onClick={() => dispatch(setValue(ep))} className={cx('group-item')}>
+            <div
+              key={i}
+              onClick={() => {
+                modalRef.current.hide();
+                dispatch(setValue(ep));
+              }}
+              className={cx('group-item')}>
               <div className={cx('decorator')}>
                 <img src={images.marker} alt="" />
               </div>
               <div className={cx('content')}>{ep.name}</div>
               {state.value && state.value.id === ep.id && (
-                <div className={cx(['decorator', 'decorator--checked'])}></div>
+                <div className={cx('checked')}>
+                  <IoIosCheckmark />
+                </div>
               )}
             </div>
           ))}
