@@ -1,8 +1,10 @@
 .wrapper {
-  background: #fafafa;
+  min-height: 100vh;
   max-width: var(--screen-width);
   margin: auto;
   outline: var(--screen-border-width) solid var(--grey);
+  background-image: url(/assets/images/my-background.png);
+  background-repeat: no-repeat;
   position: relative;
 }
 
@@ -16,21 +18,21 @@
   position: relative;
 
   .action {
-      padding: 0 2rem;
-      line-height: 1.5rem;
-      color: #2e8fff;
-      position: absolute;
-      &--left {
-          left: 0;
-      }
-      &--right {
-          right: 0;
-      }
+    padding: 0 2rem;
+    line-height: 1.5rem;
+    color: #2e8fff;
+    position: absolute;
+    &--left {
+      left: 0;
+    }
+    &--right {
+      right: 0;
+    }
   }
 
   .title {
-      width: 100%;
-      text-align: center;
+    width: 100%;
+    text-align: center;
   }
 }
 
@@ -73,38 +75,14 @@
 }
 
 .travel__time {
-  min-width: 75px
+  min-width: 75px;
 }
 
 .frequency {
   min-width: 96px;
 }
 
-.picker {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  padding: 1rem;
+.picker-container {
   border-radius: 1.5rem;
-  font-weight: 700;
-  background:#fff;
   box-shadow: 0px 2px 10px 3px hsla(var(--hue), var(--sat), 15%, 0.15);
-  position: relative;
-
-  .picker-item {
-    text-align: center;
-    width: 14%;
-    padding: 1rem 0;
-
-    &--daypass {
-      color: #808080;
-    }
-
-    &--now {
-      color: white;
-      background: black;
-      border-radius: 1.5rem;
-    }
-  }
-
 }

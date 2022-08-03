@@ -13,7 +13,7 @@ const Bottom = props => {
 };
 
 const Ticket = props => {
-  const {children} = props;
+  const {children, ...attrs} = props;
   let top = '';
   let bottom = '';
 
@@ -24,7 +24,7 @@ const Ticket = props => {
   }
 
   return (
-    <div className={cx('ticket')}>
+    <div {...attrs} className={cx('ticket')}>
       {top}
       <div className={cx('ticket__rip')}></div>
       {bottom}

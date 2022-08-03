@@ -22,7 +22,7 @@ const TripSearch = () => {
 
   const [state, dispatch] = useReducer(reducer, initState);
   const next = () => {
-    if (state.date && state.departure && state.arrival) {
+    if (state.date && state.departure.id && state.arrival.id) {
       const from = state.departure.id;
       const to = state.arrival.id;
       const date = state.date.format('YYYY-MM-DD');
@@ -50,15 +50,7 @@ const TripSearch = () => {
           <div style={{flexGrow: 1, fontWeight: 700, fontSize: '3rem'}}>
             Where do you want to go ?
           </div>
-          <div
-            style={{
-              minWidth: '48px',
-              height: '48px',
-              marginLeft: '3rem',
-              marginTop: '1.5rem',
-              borderRadius: '1.5rem',
-              background: 'wheat'
-            }}></div>
+          <div className="avatar"></div>
         </div>
 
         <div className={cx('search-box')}>
@@ -107,7 +99,7 @@ const TripSearch = () => {
         </div>
 
         <div>
-          <button onClick={next} className={cx('btn-search')}>
+          <button onClick={next} className="btn-submit">
             Continue
           </button>
         </div>
@@ -119,7 +111,11 @@ const TripSearch = () => {
         cancel="Cancel"
         confirm="Select"
         title="Depature Date">
-        <Calendar ref={calendarRef} initValue={state.date} options={{preview: true}} />
+        <Calendar
+          ref={calendarRef}
+          initValue={state.date}
+          options={{mode: 'month', preview: true}}
+        />
       </Modal>
 
       <EnpointPopup

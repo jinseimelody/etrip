@@ -1,17 +1,13 @@
-import {actions} from './constant';
+import {CHANGE_TAB, INIT, PICKING} from './constant';
 
 export const init = payload => {
-  return {type: actions.init, payload};
+  return {type: INIT, payload};
 };
 
 export const changeTab = payload => {
-  return {type: actions.changeTab, payload};
+  return {type: CHANGE_TAB, payload};
 };
 
 export const picking = payload => {
-  return {type: actions.picking, payload};
-};
-
-export const closePopup = _ => {
-  return {type: actions.closePopup};
+  return {type: PICKING, payload};
 };

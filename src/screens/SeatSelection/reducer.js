@@ -1,4 +1,4 @@
-import {actions} from './constant';
+import {CHANGE_TAB, INIT, PICKING} from './constant';
 
 const initState = {
   trip: {},
@@ -7,19 +7,16 @@ const initState = {
   chosen: {
     total: 0,
     seats: new Set()
-  },
-  popup: false
+  }
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case actions.init:
+    case INIT:
       return action.payload;
-    case actions.picking:
+    case PICKING:
       const seatId = action.payload;
       const chosen = state.chosen;
-      // allow maximum 3 seat chosen
-      if (!chosen.seats.has(seatId) && chosen.seats.size === 3) return {...state, popup: true};
 
       // update seat status
       if (chosen.seats.has(seatId)) {
@@ -31,11 +28,9 @@ const reducer = (state, action) => {
       // re-calc total
       chosen.total = chosen.seats.size * state.trip.price;
       return {...state, chosen};
-    case actions.changeTab:
+    case CHANGE_TAB:
       const tabName = action.payload;
       return {...state, view: tabName};
-    case actions.closePopup:
-      return {...state, popup: false};
     default:
       throw Error(`action ${action} is not valid`);
   }

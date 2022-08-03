@@ -58,7 +58,7 @@ const Schedule = () => {
                 <span className="">&nbsp; 13:00 - 17:00</span>
               </div>
             </div>
-            <div className="align-self--start">
+            <div className="self-start">
               <div className="row">
                 <GoPrimitiveDot style={{color: '#57b79d'}} />
                 <div>Daily</div>
@@ -86,7 +86,7 @@ const Schedule = () => {
                 <span className="">&nbsp; 13:00 - 17:00</span>
               </div>
             </div>
-            <div className="align-self--start">
+            <div className="self-start">
               <span className="text-muted">Day</span>
               <div className="row">
                 <GoPrimitiveDot style={{color: '#fd8fa9'}} />
@@ -111,7 +111,7 @@ const Schedule = () => {
                 <span className="">&nbsp; 13:00 - 17:00</span>
               </div>
             </div>
-            <div className="align-self--start">
+            <div className="self-start">
               <span className="text-muted">Day</span>
               <div className="row">
                 <GoPrimitiveDot style={{color: '#fd8fa9'}} />
@@ -136,7 +136,7 @@ const Schedule = () => {
                 <span className="">&nbsp; 13:00 - 17:00</span>
               </div>
             </div>
-            <div className="align-self--start">
+            <div className="self-start">
               <span className="text-muted">Day</span>
               <div className="row">
                 <GoPrimitiveDot style={{color: '#fd8fa9'}} />

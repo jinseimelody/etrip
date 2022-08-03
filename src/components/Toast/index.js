@@ -59,14 +59,14 @@ const Toast = forwardRef((_, ref) => {
           <div className={cx('toast-header')}>
             {
               {
-                info: 'Thông báo',
-                error: 'Lỗi'
+                info: 'Notification',
+                error: 'Error'
               }[type]
             }
           </div>
           <div className={cx('toast-body')}>{msg}</div>
           <div className={cx('toast-action')}>
-            <button onClick={() => dispatch(close())}>Đồng ý</button>
+            <button onClick={() => dispatch(close())}>Close</button>
           </div>
         </div>
       </div>
