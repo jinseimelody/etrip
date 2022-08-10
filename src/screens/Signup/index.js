@@ -1,17 +1,18 @@
 import {useForm} from 'react-hook-form';
-import {Link, useNavigate} from 'react-router-dom';
-import {IoIosArrowBack, IoLogoGoogle} from 'react-icons/io';
-import {FaApple} from 'react-icons/fa';
+import {useNavigate} from 'react-router-dom';
+import {IoIosArrowBack} from 'react-icons/io';
 import classNames from 'classnames/bind';
 
-import style from './login.module.scss';
+import style from './signup.module.scss';
 import {regex} from '~/config/constant';
-import {userApi, storage} from '~/api';
+import {storage, userApi} from '~/api';
+import {useApp} from '~/context/ApplicationContext';
 
 const cx = classNames.bind(style);
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
+  const app = useApp();
   const {
     register,
     handleSubmit,
@@ -22,41 +23,29 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async data => {
-    const response = await userApi.login(data);
+    const response = await userApi.register(data);
     if (response.error) {
       setError('password', {type: 'server', message: response.error.message});
       return;
     }
 
-    storage.set('token', response);
-    navigate('/dashboard');
+    console.log(response);
   };
 
   return (
-    <div className={cx('wrapper')} style={{height: window.innerHeight}}>
+    <div className={cx('wrapper')} style={{height: app.device.height}}>
       <div className="header">
-        <div className="action action-left">
-          <Link to="/dashboard">
-            <IoIosArrowBack />
-          </Link>
+        <div className="action action-left" onClick={() => navigate(-1)}>
+          <IoIosArrowBack />
         </div>
-        <div className="text-title">Sign in to Etrip</div>
+        <div className="text-title">Create an account</div>
       </div>
       <div className="container">
-        <div className="text-heading">Log In</div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-5">
-            <label className="text-muted">Login with one of the following options.</label>
-            <div className="flex space-between">
-              <button className={cx('social-login-button')}>
-                <IoLogoGoogle />
-              </button>
-              <button className={cx('social-login-button')}>
-                <FaApple />
-              </button>
-            </div>
-          </div>
-
+        <div className="flex flex-col flex-start flex-nowrap space-between my-4">
+          <div className="text-hero">Welcome to Etrip!</div>
+          <div className="text-muted">Let’s begin the adventure</div>
+        </div>
+        <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
           {Object.keys(errors).length > 0 && (
             <div className="flex space-between rounded-1" style={{background: '#171717'}}>
               <div className="p-3">
@@ -73,7 +62,7 @@ const Login = () => {
             </div>
           )}
 
-          <label>Email</label>
+          <label>Enter your email</label>
           <div className="flex mb-4">
             <input
               placeholder="sample@gmail.com"
@@ -82,8 +71,8 @@ const Login = () => {
               })}></input>
           </div>
 
-          <label>Password</label>
-          <div className="flex mb-5">
+          <label>Create a password</label>
+          <div className="flex mb-4">
             <input
               type="password"
               autoComplete="true"
@@ -93,22 +82,22 @@ const Login = () => {
               })}></input>
           </div>
 
-          <button
-            className={cx('login-button') + ' mb-4'}
-            disabled={!watch('email') || !watch('password')}>
-            Login
-          </button>
-
-          <div className="flex center">
-            <span className="text-muted">Dont have an account? </span> &nbsp;
-            <span>
-              <Link to="/signup">Sign up</Link>
-            </span>
+          <label>
+            Enter a username <span className="text-muted">(optional)</span>
+          </label>
+          <div className="flex mb-4">
+            <input {...register('name')}></input>
           </div>
+
+          <button
+            className={cx('login-button') + ' my-4'}
+            disabled={!watch('email') || !watch('password')}>
+            Create account
+          </button>
         </form>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signup;

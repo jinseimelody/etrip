@@ -24,7 +24,7 @@ const BusAssign = () => {
 
   return (
     <>
-      <div className="title">{title}</div>
+      <div className="text-heading">{title}</div>
       <div className={cx('calendar')}>
         <div className={cx('calendar__header')}>
           {mockup.map((d, i) => {

@@ -10,12 +10,12 @@ const NotFound = () => {
     <div className={cx('wrapper')}>
       <div className={cx('content')}>
         <img src={images.owl} alt="App did not supported for your browser" />
-        <div className="title my-5">404 Everyone is sleeping!</div>
+        <div className="text-heading my-5">404 Everyone is sleeping!</div>
         <div className={cx('nav')} style={{minHeight: 150}}>
           <div>
             so we think you are lost, let this owl help your find your way out. Be nice and pat him.
           </div>
-          <div className="horizontal horizontal--center">
+          <div className="flex center">
             <Link to="/dashboad">
               <button type="button">Back home</button>
             </Link>

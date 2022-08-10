@@ -1,91 +1,8 @@
-.wrapper {
-  max-width: var(--screen-width);
-  margin: auto;
-  outline: var(--screen-border-width) solid var(--grey);
-  position: relative;
-  min-height: 100vh;
-  background-repeat: no-repeat;
-}
-
-.header {
-  display: flex;
-  min-height: 60px;
-  padding: 0 2rem 0 1.75rem;
-  align-items: center;
-  font-weight: 700;
-  font-size: large;
-  position: relative;
-
-  .action {
-    padding: 0 2rem;
-    line-height: 1.5rem;
-    color: #2e8fff;
-    position: absolute;
-    &--left {
-      left: 0;
-    }
-    &--right {
-      right: 0;
-    }
-  }
-
-  .title {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-.content {
-  margin: 0 2rem;
-  border-radius: 1.5rem;
-}
-
-.decorator {
-  position: relative;
-  align-self: center;
-  flex-grow: 1;
-  border-top: 1px dashed #444c66;
-  margin: 0 1em;
-
-  @mixin decorator_pesudo {
-    content: '';
-    position: absolute;
-    top: -10px;
-    width: 1em;
-    height: 1em;
-    background-size: 1em 1em;
-    z-index: 1;
-  }
-
-  &::before {
-    @include decorator_pesudo;
-    left: -3px;
-    background-image: url(/assets/images/circle_marker.png);
-  }
-  &::after {
-    @include decorator_pesudo;
-    right: -3px;
-    background-image: url(/assets/images/circle_marker_end.png);
-  }
-}
-
-.distance {
-  min-width: 66px;
-}
-
-.travel__time {
-  min-width: 75px;
-}
-
-.frequency {
-  min-width: 96px;
-}
-
 .types {
   display: flex;
   align-items: center;
-  // font-weight: 700;
   color: #808080;
+
   @mixin types_pseudo {
     display: inline-flex;
     width: 1.6rem;
@@ -94,7 +11,7 @@
     border-radius: 5px;
   }
 
-  &--avaliable {
+  &-avaliable {
     &::before {
       @include types_pseudo;
       content: ' ';
@@ -103,7 +20,7 @@
     }
   }
 
-  &--selected {
+  &-selected {
     &::before {
       @include types_pseudo;
       content: ' ';
@@ -112,7 +29,7 @@
     }
   }
 
-  &--unavaliable {
+  &-unavaliable {
     &::before {
       @include types_pseudo;
       content: ' ';
@@ -124,74 +41,60 @@
 
 .limousine {
   min-height: 300px;
-  margin: 0 -2rem;
   background: #fff;
   border-radius: 1px solid var(--grey);
 
   .nav {
     display: flex;
     flex-direction: row;
+    margin: 0 -2rem;
     cursor: pointer;
 
-    .nav__item {
+    &-item {
       width: 50%;
       align-items: center;
       text-align: center;
       padding: 1.5rem 0;
       border-bottom: 2px solid transparent;
-
-      &--active {
-        color: #ef5322;
-        border-bottom: 2px solid #ef5322;
-      }
+    }
+    .active {
+      color: #ef5322;
+      border-bottom: 2px solid #ef5322;
     }
   }
-
-  .bus {
-    padding: 2rem;
-  }
 }
 
-.seat {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 39px;
-  height: 39px;
-  font-weight: 700;
-  font-size: 1.3rem;
-  background-repeat: no-repeat;
-  background-size: cover;
-  cursor: pointer;
+.bus {
+  margin: 2rem 0;
 
-  &--unavaliable {
-    color: #fff;
-    background-image: url(/assets/images/seat-unavaliable.png);
-  }
+  .seat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  &--avaliable {
-    color: #808080;
-    background-image: url(/assets/images/seat-avaliable.png);
-  }
+    width: 39px;
+    height: 39px;
 
-  &--selected {
-    color: #ef5322;
-    background-image: url(/assets/images/seat-selected.png);
-  }
-}
+    font-weight: 700;
+    font-size: 1.3rem;
 
-.btn-submit {
-  width: 100%;
-  font-weight: 700;
-  padding: 2rem;
-  line-height: 1rem;
-  border-radius: 1.75rem;
-  color: black;
-  background: #f9cf23;
-}
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
 
-@media only screen and (-webkit-min-device-pixel-ratio: 3) {
-  .wrapper {
-    min-height: 89vh;
+    &-unavaliable {
+      color: #fff;
+      background-image: url(/assets/images/seat-unavaliable.png);
+    }
+
+    &-avaliable {
+      color: #808080;
+      background-image: url(/assets/images/seat-avaliable.png);
+    }
+
+    &-selected {
+      color: #ef5322;
+      background-image: url(/assets/images/seat-selected.png);
+    }
   }
 }

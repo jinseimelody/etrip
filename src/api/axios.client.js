@@ -1,5 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
+import storage from './storage';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -11,10 +12,11 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   async config => {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1ODA0ODA3MiwiZXhwIjoxNjU4MDQ4MDgyLCJhdWQiOiIxIiwiaXNzIjoibS5jb2V0b3Jpc2UuY29tIn0.UU4XppyCcTjc72VC-1Veqjrn7VRBghtQh7hES-o8r4A';
+    const {accessToken} = storage.get('token');
+    if (!accessToken) return config;
+
     config.headers = {
-      authentication: `Bearer ${token}`
+      authentication: `Bearer ${accessToken}`
     };
     return config;
   },

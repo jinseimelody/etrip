@@ -18,7 +18,7 @@ const Trip = () => {
           </Nav.NavItem>
         </Link>
       </Nav>
-      <div className="title">Route trips</div>
+      <div className="text-heading">Route trips</div>
       <div className={cx('ticket')}>
         <div className={cx('ticket__header')}>
           <div className={cx('exchange__container')}>

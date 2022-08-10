@@ -1,7 +1,7 @@
 .popup {
   width: 100%;
   border-radius: 1.5rem;
-  color: var(--text-white);
+  color: var(--white);
   background: var(--background-color);
   position: absolute;
   top: 17rem;
@@ -29,7 +29,7 @@
     width: 100%;
 
     .action {
-      color: var(--text-danger);
+      color: var(--danger);
       background: inherit;
       cursor: pointer;
     }

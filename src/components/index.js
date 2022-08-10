@@ -7,5 +7,4 @@ export {default as Nav} from './Nav';
 export {default as PopperSelect} from './PopperSelect';
 export {default as Modal} from './Modal';
 export {default as Calendar} from './Calendar';
-export {default as Toast} from './Toast';
 export {default as Ticket} from './Ticket';

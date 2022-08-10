@@ -33,14 +33,14 @@ const Sample = () => {
   return (
     <>
       <Nav>
-        <Link to="/tripsearch">
+        <Link to="/search">
           <Nav.NavItem>
             <IoIosArrowBack /> Trip search
           </Nav.NavItem>
         </Link>
       </Nav>
       <div className="sample">
-        <div className="title my-3">Socket.io sample</div>
+        <div className="text-heading my-3">Socket.io sample</div>
         <div className="chat">
           <div className="chat__header">
             <input

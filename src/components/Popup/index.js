@@ -5,8 +5,7 @@ import styles from './popup.module.scss';
 
 const cx = classNames.bind(styles);
 const Popup = props => {
-  const {trigger, setTrigger, title, closeButton, confirmButton, children} =
-    props;
+  const {trigger, setTrigger, title, closeButton, confirmButton, children} = props;
   const [fixed, setFixed] = useState(false);
 
   const scrollHandler = e => {
@@ -25,7 +24,7 @@ const Popup = props => {
         <div className={cx('action')} onClick={() => setTrigger(false)}>
           {closeButton}
         </div>
-        <div className="title">{title}</div>
+        <div className="text-heading">{title}</div>
         <div className={cx('action')}>{confirmButton}</div>
       </div>
       <div onScroll={scrollHandler} className={cx('popup__body')}>

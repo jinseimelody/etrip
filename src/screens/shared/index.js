@@ -1,1 +1,1 @@
-export {default as EnpointPopup} from './EnpointPopup';
+export {default as EndpointPopup} from './EndpointPopup';

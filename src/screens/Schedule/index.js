@@ -25,7 +25,7 @@ const Schedule = () => {
       </Nav>
 
       <div className={cx('page__header')}>
-        <div className="title">Hà Nội - Cao Bằng</div>
+        <div className="text-heading">Hà Nội - Cao Bằng</div>
         <div className={cx('actions')}>
           <span className="text-muted">5 New Schedule For Today</span>
           <button onClick={() => setPopup(true)}>
@@ -41,7 +41,7 @@ const Schedule = () => {
       <hr />
 
       <div className={cx('page__body')}>
-        <div className="row sub-title mt-3">
+        <div className="flex text-title mt-3">
           <GoPrimitiveDot style={{color: '#57b79d'}} />
           Daily
         </div>
@@ -50,23 +50,23 @@ const Schedule = () => {
           onClick={() => {
             setDelPopup(delPopup);
           }}>
-          <div className="horizontal horizontal--space-between">
+          <div className="flex space-between">
             <div>
               <span className="text-muted">Time</span>
-              <div className="row">
+              <div className="flex">
                 <FaRegClock />
                 <span className="">&nbsp; 13:00 - 17:00</span>
               </div>
             </div>
             <div className="self-start">
-              <div className="row">
+              <div className="flex">
                 <GoPrimitiveDot style={{color: '#57b79d'}} />
                 <div>Daily</div>
               </div>
             </div>
           </div>
         </Card>
-        <div className="row sub-title">
+        <div className="flex text-title">
           <GoPrimitiveDot style={{color: '#fd8fa9'}} />
           Once
         </div>
@@ -75,20 +75,20 @@ const Schedule = () => {
           onClick={() => {
             setDelPopup(delPopup);
           }}>
-          <div className="horizontal horizontal--space-between">
-            <div className="sub-title">Holiday: Christmas</div>
+          <div className="flex space-between">
+            <div className="text-title">Holiday: Christmas</div>
           </div>
-          <div className="horizontal horizontal--space-between">
+          <div className="flex space-between">
             <div>
               <span className="text-muted">Time</span>
-              <div className="row">
+              <div className="flex">
                 <FaRegClock />
                 <span className="">&nbsp; 13:00 - 17:00</span>
               </div>
             </div>
             <div className="self-start">
               <span className="text-muted">Day</span>
-              <div className="row">
+              <div className="flex">
                 <GoPrimitiveDot style={{color: '#fd8fa9'}} />
                 <div>25.12.2022</div>
               </div>
@@ -100,20 +100,20 @@ const Schedule = () => {
           onClick={() => {
             setDelPopup(delPopup);
           }}>
-          <div className="horizontal horizontal--space-between">
-            <div className="sub-title">Holiday: Christmas</div>
+          <div className="flex space-between">
+            <div className="text-title">Holiday: Christmas</div>
           </div>
-          <div className="horizontal horizontal--space-between">
+          <div className="flex space-between">
             <div>
               <span className="text-muted">Time</span>
-              <div className="row">
+              <div className="flex">
                 <FaRegClock />
                 <span className="">&nbsp; 13:00 - 17:00</span>
               </div>
             </div>
             <div className="self-start">
               <span className="text-muted">Day</span>
-              <div className="row">
+              <div className="flex">
                 <GoPrimitiveDot style={{color: '#fd8fa9'}} />
                 <div>25.12.2022</div>
               </div>
@@ -125,20 +125,20 @@ const Schedule = () => {
           onClick={() => {
             setDelPopup(delPopup);
           }}>
-          <div className="horizontal horizontal--space-between">
-            <div className="sub-title">Holiday: Christmas</div>
+          <div className="flex space-between">
+            <div className="text-title">Holiday: Christmas</div>
           </div>
-          <div className="horizontal horizontal--space-between">
+          <div className="flex space-between">
             <div>
               <span className="text-muted">Time</span>
-              <div className="row">
+              <div className="flex">
                 <FaRegClock />
                 <span className="">&nbsp; 13:00 - 17:00</span>
               </div>
             </div>
             <div className="self-start">
               <span className="text-muted">Day</span>
-              <div className="row">
+              <div className="flex">
                 <GoPrimitiveDot style={{color: '#fd8fa9'}} />
                 <div>25.12.2022</div>
               </div>

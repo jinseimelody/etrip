@@ -21,9 +21,9 @@ const paths = {
   public: [
     {path: '/', component: Home},
     {path: '/login', component: Login, layout: null},
-    {path: '/tripsearch', component: TripSearch, layout: null},
-    {path: '/tripselection/:from/:to/:date', component: TripSelection, layout: null},
-    {path: '/seatselection/:scheduleId/:date', component: SeatSelection, layout: null}
+    {path: '/search', component: TripSearch, layout: null},
+    {path: '/search/:from/:to/:date', component: TripSelection, layout: null},
+    {path: '/ticketbooking/:scheduleId/:date', component: SeatSelection, layout: null}
   ],
   private: [
     {path: '/dashboard', component: Dashboard, layout: BusinessLayout},

@@ -1,55 +1,67 @@
 import React, {useCallback, useReducer, useRef} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {IoIosArrowBack} from 'react-icons/io';
 import classNames from 'classnames/bind';
 
-import styles from './tripsearch.module.scss';
+import styles from './trip.search.module.scss';
 import images from '~/assets';
-import {Calendar, Modal, Toast} from '~/components';
-import {EnpointPopup} from '../shared';
+import {Calendar, Modal} from '~/components';
 import {setArrival, setDeparture, setDate} from './actions';
 import reducer, {initState} from './reducer';
+import EndpointPopup from '../shared/EndpointPopup';
+import {storage} from '~/api';
+import {useToast} from '~/components/Toast';
 
 const cx = classNames.bind(styles);
 
 const TripSearch = () => {
   const navigate = useNavigate();
-  const toastRef = useRef();
+  const location = useLocation();
+  const toast = useToast();
+
   const calendarRef = useRef();
   const datePickerPopupRef = useRef();
   const depaturePopupRef = useRef();
   const arrivalPopupRef = useRef();
 
-  const [state, dispatch] = useReducer(reducer, initState);
+  const [state, dispatch] = useReducer(reducer, initState, prev => {
+    if (location.state && location.state.restore) {
+      return storage.get('search');
+    }
+
+    storage.remove('search');
+    return prev;
+  });
+
   const next = () => {
+    // redirect to search
     if (state.date && state.departure.id && state.arrival.id) {
       const from = state.departure.id;
       const to = state.arrival.id;
-      const date = state.date.format('YYYY-MM-DD');
-      navigate(`/tripselection/${from}/${to}/${date}`);
+      const date = state.date.format('yyyy-MM-DD');
+      storage.set('search', state);
+      navigate(`/search/${from}/${to}/${date}`);
+      return;
     }
-    toastRef.current.showError('Please fill in all the required fields');
+    toast.error('Please fill in all the required fields');
   };
 
   const departureSelectHandler = useCallback(val => dispatch(setDeparture(val)), []);
   const arrivalSelectHandler = useCallback(val => dispatch(setArrival(val)), []);
 
   return (
-    <div className={cx('wrapper')}>
-      <Toast ref={toastRef} />
-      <div className={cx('header')}>
-        <div className={cx(['action', 'action--left'])}>
+    <>
+      <div className="header">
+        <div className="action action-left">
           <Link to="/dashboard">
             <IoIosArrowBack />
           </Link>
         </div>
-        <div className={cx('title')}>Trip search</div>
+        <div className="text-title">Trip search</div>
       </div>
-      <div className={cx('content')}>
-        <div className="horizontal horizontal--space-between my-5" style={{alignItems: 'start'}}>
-          <div style={{flexGrow: 1, fontWeight: 700, fontSize: '3rem'}}>
-            Where do you want to go ?
-          </div>
+      <div className="container">
+        <div className="flex flex-start flex-nowrap space-between my-4">
+          <div className="text-hero">Where do you want to go ?</div>
           <div className="avatar"></div>
         </div>
 
@@ -60,7 +72,10 @@ const TripSearch = () => {
               <input
                 readOnly
                 onClick={_ => depaturePopupRef.current.show()}
-                defaultValue={state.departure ? state.departure.name : ''}
+                value={state.departure ? state.departure.name : ''}
+                onChange={() => {
+                  console.log('onchange');
+                }}
                 type="text"
                 placeholder="Hà Nội"
               />
@@ -76,7 +91,7 @@ const TripSearch = () => {
                 placeholder="Cao Bằng"></input>
             </div>
           </div>
-          <div className="horizontal">
+          <div className="flex">
             <button className={cx('btn-exchange')}>
               <img src={images.vExchange} alt="" />
             </button>
@@ -118,18 +133,18 @@ const TripSearch = () => {
         />
       </Modal>
 
-      <EnpointPopup
+      <EndpointPopup
         ref={depaturePopupRef}
         modal={{cancel: 'Cancel', title: 'Depature'}}
         onSelect={departureSelectHandler}
       />
 
-      <EnpointPopup
+      <EndpointPopup
         ref={arrivalPopupRef}
         modal={{cancel: 'Cancel', title: 'Arrival'}}
         onSelect={arrivalSelectHandler}
       />
-    </div>
+    </>
   );
 };
 

@@ -1,3 +1,3 @@
-export const INIT = 'INIT';
-export const PICKING = 'PICKING';
-export const CHANGE_TAB = 'CHANGE_TAB';
+export const set_state = 'set_state';
+export const set_chosen = 'set_chosen';
+export const set_tab = 'set_tab';

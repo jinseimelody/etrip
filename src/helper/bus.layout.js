@@ -1,4 +1,10 @@
 const buslayout = {};
+buslayout.validate = id => {
+  const supportedLayouts = ['limousine'];
+  if (supportedLayouts.includes(id)) return true;
+
+  throw new Error(`layout ${id} is not defined`);
+};
 buslayout.limousine = {
   init: seats => {
     const getTemplate = arr => {

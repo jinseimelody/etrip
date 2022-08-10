@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {forwardRef, memo, useImperativeHandle, useReducer} from 'react';
+import {forwardRef, memo, useEffect, useImperativeHandle, useReducer, useRef} from 'react';
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io';
 
 import classNames from 'classnames/bind';
@@ -69,7 +69,8 @@ const pre = _ => {
   return {type: PRE};
 };
 const Month = forwardRef((props, ref) => {
-  const {initValue} = props;
+  const {onSelect, initValue} = props;
+  const didMount = useRef(false);
   const [state, dispatch] = useReducer(reducer, initState, prev => {
     const date = initValue ?? moment();
     return {
@@ -79,6 +80,11 @@ const Month = forwardRef((props, ref) => {
       calendar: getCalendar(date)
     };
   });
+
+  useEffect(() => {
+    didMount.current ? onSelect && onSelect(state.value) : (didMount.current = true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.value]);
 
   useImperativeHandle(ref, () => ({
     getValue: () => state.value

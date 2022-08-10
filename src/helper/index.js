@@ -1,4 +1,5 @@
 import moment from 'moment';
+import buslayout from './bus.layout';
 const pipe = {};
 
 pipe.time = value => {
@@ -63,4 +64,5 @@ export const keyboard = {
   }
 };
 
-export default pipe;
+export {pipe};
+export {default as buslayout} from './bus.layout';

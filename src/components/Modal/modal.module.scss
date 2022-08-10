@@ -8,6 +8,7 @@
   position: absolute;
   top: 0;
   overflow: hidden;
+  z-index: 999;
 }
 
 .dialog {
@@ -43,7 +44,7 @@
       left: 2rem;
       cursor: pointer;
     }
-    
+
     .btn-confirm {
       position: absolute;
       right: 2rem;
@@ -62,6 +63,6 @@
   }
 
   .dialog {
-    min-height: calc(89vh - 2rem)
+    min-height: calc(89vh - 2rem);
   }
 }

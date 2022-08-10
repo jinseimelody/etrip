@@ -40,23 +40,29 @@ const reducer = (state, action) => {
   }
 };
 
-const EnpointPopup = forwardRef((props, ref) => {
+const EndpointPopup = forwardRef((props, ref) => {
   const {onSelect} = props;
   const modalRef = useRef();
   const typingTimerRef = useRef();
+  const didMount = useRef(false);
 
   const [state, dispatch] = useReducer(reducer, initState);
+  const {search, value, endpoints} = state;
 
   // monitor search text then call api
   useEffect(() => {
     typingTimerRef && clearTimeout(typingTimerRef.current);
     typingTimerRef.current = setTimeout(async () => {
-      const endpoints = await endpointApi.search({q: state.search});
+      const endpoints = await endpointApi.search({q: search});
       dispatch(setEndpoints(endpoints));
     }, 500);
-  }, [state.search]);
+  }, [search]);
 
-  useEffect(() => onSelect && onSelect(state.value), [state.value]);
+  useEffect(() => {
+    if (didMount.current) onSelect && onSelect(value);
+    didMount.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   useImperativeHandle(ref, () => ({
     show: _ => {
@@ -68,8 +74,7 @@ const EnpointPopup = forwardRef((props, ref) => {
   }));
 
   const handleCancel = _ => {
-    (state.endpoints.length === 0 ||
-      state.endpoints.filter(x => x.id === state.value.id).length === 0) &&
+    (!endpoints.length || endpoints.filter(x => x.id === value.id).length === 0) &&
       dispatch(setSearch(''));
   };
 
@@ -79,20 +84,20 @@ const EnpointPopup = forwardRef((props, ref) => {
         <input
           type="text"
           placeholder="Origin location"
-          value={state.search}
+          value={search}
           onChange={e => dispatch(setSearch(e.target.value))}
         />
-        {state.search.length > 0 && (
+        {search.length > 0 && (
           <span onClick={() => dispatch(clear())} className={cx('btn-cancel')}>
             <MdCancel />
           </span>
         )}
       </div>
 
-      {state.endpoints && state.endpoints.length > 0 && (
+      {endpoints && endpoints.length > 0 && (
         <div className={cx('endpoint-result')}>
           <div className={cx('group-name')}>Popularize the location</div>
-          {state.endpoints.map((ep, i) => (
+          {endpoints.map((ep, i) => (
             <div
               key={i}
               onClick={() => {
@@ -104,7 +109,7 @@ const EnpointPopup = forwardRef((props, ref) => {
                 <img src={images.marker} alt="" />
               </div>
               <div className={cx('content')}>{ep.name}</div>
-              {state.value && state.value.id === ep.id && (
+              {value && value.id === ep.id && (
                 <div className={cx('checked')}>
                   <IoIosCheckmark />
                 </div>
@@ -117,4 +122,4 @@ const EnpointPopup = forwardRef((props, ref) => {
   );
 });
 
-export default memo(EnpointPopup);
+export default memo(EndpointPopup);

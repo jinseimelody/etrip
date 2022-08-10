@@ -1,7 +1,7 @@
-import {CHANGE_TAB, INIT, PICKING} from './constant';
+import {set_chosen, set_state, set_tab} from './constant';
 
-const initState = {
-  trip: {},
+const iniState = {
+  general: {},
   layout: {},
   view: 'ground',
   chosen: {
@@ -12,29 +12,16 @@ const initState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case INIT:
+    case set_state:
       return action.payload;
-    case PICKING:
-      const seatId = action.payload;
-      const chosen = state.chosen;
-
-      // update seat status
-      if (chosen.seats.has(seatId)) {
-        chosen.seats.delete(seatId);
-      } else {
-        chosen.seats.add(seatId);
-      }
-
-      // re-calc total
-      chosen.total = chosen.seats.size * state.trip.price;
-      return {...state, chosen};
-    case CHANGE_TAB:
-      const tabName = action.payload;
-      return {...state, view: tabName};
+    case set_tab:
+      return {...state, view: action.payload};
+    case set_chosen:
+      return {...state, chosen: action.payload};
     default:
       throw Error(`action ${action} is not valid`);
   }
 };
 
 export default reducer;
-export {initState};
+export {iniState};

@@ -1,13 +1,7 @@
-import {CHANGE_TAB, INIT, PICKING} from './constant';
+import {set_chosen, set_state, set_tab} from './constant';
 
-export const init = payload => {
-  return {type: INIT, payload};
-};
+export const setState = state => ({type: set_state, payload: state});
 
-export const changeTab = payload => {
-  return {type: CHANGE_TAB, payload};
-};
+export const setChosen = chosen => ({type: set_chosen, payload: chosen});
 
-export const picking = payload => {
-  return {type: PICKING, payload};
-};
+export const setTab = tab => ({type: set_tab, payload: tab});

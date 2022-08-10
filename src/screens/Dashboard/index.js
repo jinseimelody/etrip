@@ -12,7 +12,7 @@ const Dashboard = () => {
   return (
     <>
       <div className={cx('search__container')}>
-        <div className="title">Dashboard</div>
+        <div className="text-heading">Dashboard</div>
         <div className={cx('search__box')}>
           <div className={cx('search__icon')}>
             <BsSearch />
@@ -21,7 +21,7 @@ const Dashboard = () => {
         </div>
       </div>
       <div>
-        <div className="title">Category</div>
+        <div className="text-heading">Category</div>
         <div className={cx('wiget__container')}>
           <Link to="/trips">
             <Wiget
@@ -35,7 +35,7 @@ const Dashboard = () => {
               }}
             />
           </Link>
-          <Link to="/tripsearch">
+          <Link to="/search">
             <Wiget
               styles={{
                 backgroundImage: `url('${images.wigetBackgroud}')`
@@ -44,7 +44,7 @@ const Dashboard = () => {
                 style={{
                   color: '#fff'
                 }}>
-                <div className="title">Let's book a trip</div>
+                <div className="text-heading">Let's book a trip</div>
                 <span
                   style={{
                     fontSize: '1.3rem',
