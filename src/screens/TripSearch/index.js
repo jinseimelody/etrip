@@ -72,10 +72,7 @@ const TripSearch = () => {
               <input
                 readOnly
                 onClick={_ => depaturePopupRef.current.show()}
-                value={state.departure ? state.departure.name : ''}
-                onChange={() => {
-                  console.log('onchange');
-                }}
+                defaultValue={state.departure ? state.departure.name : ''}
                 type="text"
                 placeholder="Hà Nội"
               />

@@ -1,29 +1,29 @@
 .nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2.4rem;
+
+  border-bottom: 1px solid var(--grey);
+  overflow: hidden;
+  font-weight: 600;
+
+  .action__container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    min-height: 60px;
-    padding: 1rem;
-    padding-left: 2rem;
-    padding-right: 2.4rem;
-    
-    border-bottom: 1px solid var(--grey);
-    overflow: hidden;
-    font-weight: 600;
-
-    .action__container {
-        display: flex;
-        align-items: center;
-    }
-    .logo__container {
-        max-width: 16rem;
-    }
+  }
+  .logo__container {
+    max-width: 16rem;
+  }
 }
 
 .login__button {
-    height: 30px;
-    padding: 0 1rem;
-    border: 1px solid (var(--grey));
-    color: (var(--white));
-    background-color: var(--primary);
+  height: 30px;
+  padding: 0 1rem;
+  border: 1px solid (var(--grey));
+  color: (var(--white));
+  background-color: var(--primary);
 }

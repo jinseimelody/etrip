@@ -6,12 +6,14 @@ import classNames from 'classnames/bind';
 
 import style from './login.module.scss';
 import {regex} from '~/config/constant';
-import {userApi, storage} from '~/api';
+import {userApi} from '~/api';
+import {useApp} from '~/context/AppContext';
 
 const cx = classNames.bind(style);
 
 const Login = () => {
   const navigate = useNavigate();
+  const app = useApp();
   const {
     register,
     handleSubmit,
@@ -28,17 +30,15 @@ const Login = () => {
       return;
     }
 
-    storage.set('token', response);
+    app.setToken(response);
     navigate('/dashboard');
   };
 
   return (
     <div className={cx('wrapper')} style={{height: window.innerHeight}}>
       <div className="header">
-        <div className="action action-left">
-          <Link to="/dashboard">
-            <IoIosArrowBack />
-          </Link>
+        <div className="action action-left" onClick={() => navigate(-1)}>
+          <IoIosArrowBack />
         </div>
         <div className="text-title">Sign in to Etrip</div>
       </div>

@@ -6,7 +6,7 @@ import classNames from 'classnames/bind';
 import style from './signup.module.scss';
 import {regex} from '~/config/constant';
 import {storage, userApi} from '~/api';
-import {useApp} from '~/context/ApplicationContext';
+import {useApp} from '~/context/AppContext';
 
 const cx = classNames.bind(style);
 
@@ -29,7 +29,8 @@ const Signup = () => {
       return;
     }
 
-    console.log(response);
+    app.setToken(response);
+    navigate('/dashboard');
   };
 
   return (

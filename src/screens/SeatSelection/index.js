@@ -1,5 +1,5 @@
 import {useEffect, useReducer} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import {IoIosArrowBack} from 'react-icons/io';
 import classNames from 'classnames/bind';
 import styles from './seat.selection.module.scss';
@@ -15,6 +15,7 @@ const cx = classNames.bind(styles);
 
 const SeatSelection = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const params = useParams();
   const toast = useToast();
 
@@ -66,21 +67,16 @@ const SeatSelection = () => {
     bookingApi
       .create({scheduleId: state.general.scheduleId, date: state.general.date, seatIds: seats})
       .then(res => {
-        if (!res.error)
-          //toastRef.current.info('Reservation successfully');
-          alert('Reservation successfully');
-        tripApi.getOne({...params}).then(data => {
-          const {seats, ...general} = data;
+        if (res.error && res.status === 401) {
+          navigate('/login', {state});
+          return;
+        }
 
-          buslayout.validate(general.layoutId);
-          const layout = buslayout[general.layoutId].init(seats);
-
-          console.log('api call');
-          dispatch(setState({...state, chosen: {total: 0, seats: new Set()}, general, layout}));
-        });
+        toast.show('Reservation successfully');
       });
   };
 
+  console.log(location.state);
   return (
     <>
       <div className="header">

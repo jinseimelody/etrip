@@ -12,11 +12,11 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   async config => {
-    const {accessToken} = storage.get('token');
-    if (!accessToken) return config;
+    const token = storage.get('token');
+    if (!token) return config;
 
     config.headers = {
-      authentication: `Bearer ${accessToken}`
+      authentication: `Bearer ${token.accessToken}`
     };
     return config;
   },
