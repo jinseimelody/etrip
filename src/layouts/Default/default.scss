@@ -1,0 +1,48 @@
+header {
+  height: 60px;
+  padding: 0 2rem;
+}
+
+footer {
+  padding: 2rem;
+  color: #ffffff;
+  background: #000;
+
+  .general {
+    margin-right: 1rem;
+    .organization-logo {
+      width: 100px;
+      height: 40px;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+    }
+  }
+
+  .contact-me {
+    width: 60%;
+    .contact-card {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 1rem;
+
+      &-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+      }
+
+      &-content {
+        padding-left: 1rem;
+      }
+    }
+  }
+}
+
+.backdrop {
+  display: block;
+  min-height: inherit;
+  background-image: url(/assets/images/my-background.png);
+  background-repeat: no-repeat;
+}

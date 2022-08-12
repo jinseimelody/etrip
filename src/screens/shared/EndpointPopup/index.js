@@ -11,7 +11,7 @@ import {IoIosCheckmark} from 'react-icons/io';
 const cx = classNames.bind(style);
 const initState = {
   search: '',
-  value: {},
+  value: null,
   endpoints: []
 };
 
@@ -28,7 +28,7 @@ const setEndpoints = payload => ({type: SET_ENDPOINTS, payload});
 const reducer = (state, action) => {
   switch (action.type) {
     case CLEAR:
-      return {search: '', value: {}, endpoints: []};
+      return {search: '', value: null, endpoints: []};
     case SET_SEARCH:
       return {...state, search: action.payload};
     case SET_VALUE:
@@ -40,8 +40,7 @@ const reducer = (state, action) => {
   }
 };
 
-const EndpointPopup = forwardRef((props, ref) => {
-  const {onSelect} = props;
+const EndpointPopup = forwardRef(({modal, onSelect}, ref) => {
   const modalRef = useRef();
   const typingTimerRef = useRef();
   const didMount = useRef(false);
@@ -59,12 +58,15 @@ const EndpointPopup = forwardRef((props, ref) => {
   }, [search]);
 
   useEffect(() => {
-    if (didMount.current) onSelect && onSelect(value);
+    if (didMount.current && onSelect && value) onSelect(value);
     didMount.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   useImperativeHandle(ref, () => ({
+    setSearch: pattern => {
+      dispatch(setSearch(pattern));
+    },
     show: _ => {
       modalRef.current.show();
     },
@@ -73,13 +75,8 @@ const EndpointPopup = forwardRef((props, ref) => {
     }
   }));
 
-  const handleCancel = _ => {
-    (!endpoints.length || endpoints.filter(x => x.id === value.id).length === 0) &&
-      dispatch(setSearch(''));
-  };
-
   return (
-    <Modal ref={modalRef} {...props.modal} onCancel={handleCancel}>
+    <Modal ref={modalRef} {...modal}>
       <div className={cx('endpoint-search-box')}>
         <input
           type="text"
@@ -87,7 +84,7 @@ const EndpointPopup = forwardRef((props, ref) => {
           value={search}
           onChange={e => dispatch(setSearch(e.target.value))}
         />
-        {search.length > 0 && (
+        {search && search.length > 0 && (
           <span onClick={() => dispatch(clear())} className={cx('btn-cancel')}>
             <MdCancel />
           </span>
@@ -109,11 +106,6 @@ const EndpointPopup = forwardRef((props, ref) => {
                 <img src={images.marker} alt="" />
               </div>
               <div className={cx('content')}>{ep.name}</div>
-              {value && value.id === ep.id && (
-                <div className={cx('checked')}>
-                  <IoIosCheckmark />
-                </div>
-              )}
             </div>
           ))}
         </div>

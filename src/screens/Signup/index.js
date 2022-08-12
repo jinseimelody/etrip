@@ -34,7 +34,7 @@ const Signup = () => {
   };
 
   return (
-    <div className={cx('wrapper')} style={{height: app.device.height}}>
+    <div className={cx('wrapper')} style={{height: window.innerHeight}}>
       <div className="header">
         <div className="action action-left" onClick={() => navigate(-1)}>
           <IoIosArrowBack />

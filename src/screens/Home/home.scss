@@ -1,15 +1,3 @@
-header {
-  height: 60px;
-  padding: 0 2rem;
-}
-
-.backdrop {
-  display: block;
-  min-height: inherit;
-  background-image: url(/assets/images/my-background.png);
-  background-repeat: no-repeat;
-}
-
 .search-widget {
   margin-bottom: 2rem;
   border-radius: 1.5rem;
@@ -84,6 +72,7 @@ header {
     border: none;
     border-radius: 0;
     font-weight: 700;
+    color: #5b5b5b;
   }
 }
 

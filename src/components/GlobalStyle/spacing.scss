@@ -19,11 +19,17 @@
   }
 
   &-small {
-    font-size: 1.4rem;
+    font-size: 1.4rem !important;
+  }
+
+  &-link {
+    font-weight: 700;
+    color: #2474e5;
+    cursor: pointer;
   }
 
   &-muted {
-    color: #808080;
+    color: #808080 !important;
   }
 
   &-white {
@@ -46,6 +52,10 @@
 
   &t-5 {
     margin-top: 3rem;
+  }
+
+  &b-1 {
+    margin-bottom: 0.25rem;
   }
 
   &b-3 {

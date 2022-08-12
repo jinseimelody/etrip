@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {ToastProvider} from './components/Toast';
 import {useApp} from './context/AppContext';
-import {BusinessLayout} from './layouts';
+import {BusinessLayout, DefaultLayout} from './layouts';
 import {
   Dashboard,
   Home,
@@ -16,15 +16,18 @@ import {
 } from './screens';
 
 const App = () => {
-  const app = useApp();
-  const {device} = app;
-
   return (
-    <div className="app" style={{minHeight: device.height}}>
+    <div style={{height: window.innerHeight, overflowY: 'scroll'}}>
       <ToastProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />}></Route>
+            <Route
+              path="/"
+              element={
+                <DefaultLayout>
+                  <Home />
+                </DefaultLayout>
+              }></Route>
             <Route
               path="/dashboard"
               element={

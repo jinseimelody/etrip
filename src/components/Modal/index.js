@@ -1,46 +1,60 @@
-import {forwardRef, memo, useImperativeHandle, useState} from 'react';
+import {forwardRef, memo, useImperativeHandle, useRef, useState} from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames/bind';
 import style from './modal.module.scss';
 
 const cx = classNames.bind(style);
 const Modal = forwardRef((props, ref) => {
   const {initStatus, onConfirm, onCancel, cancel, confirm, title, children} = props;
-  const [status, setStatus] = useState(initStatus ?? false);
+  const [state, setState] = useState({status: initStatus ?? false});
+  const {status, animate} = state;
+
+  const executeAnimate = animate => {
+    setState({status: true, animate});
+    if (animate === 'animate__slideOutDown') {
+      setTimeout(() => {
+        setState({status: false});
+      }, 350);
+    }
+  };
 
   useImperativeHandle(ref, () => ({
-    show: () => setStatus(true),
-    hide: () => setStatus(false)
+    show: () => executeAnimate('animate__slideInUp'),
+    hide: async () => executeAnimate('animate__slideOutDown')
   }));
 
-  const handleCancel = () => {
-    setStatus(false);
+  const handleCancel = async () => {
+    await executeAnimate('animate__slideOutDown');
     onCancel && onCancel();
   };
 
-  const handleConfirm = () => {
-    setStatus(false);
+  const handleConfirm = async () => {
+    await executeAnimate('animate__slideOutDown');
     onConfirm && onConfirm();
   };
 
-  return (
+  return ReactDOM.createPortal(
     status && (
       <div className={cx('backdrop')}>
-        <div className={cx('dialog')}>
-          <div className={cx('header')}>
-            <div onClick={handleCancel} className={cx('btn-cancel')}>
-              {cancel}
-            </div>
-            <div className={cx('title')}>{title}</div>
-            {confirm && (
-              <div onClick={handleConfirm} className={cx('btn-confirm')}>
-                {confirm}
+        {animate && (
+          <div className={cx('dialog', `animate__animated animate__faster ${animate}`)}>
+            <div className={cx('header')}>
+              <div onClick={handleCancel} className={cx('btn-cancel')}>
+                {cancel}
               </div>
-            )}
+              <div className={cx('title')}>{title}</div>
+              {confirm && (
+                <div onClick={handleConfirm} className={cx('btn-confirm')}>
+                  {confirm}
+                </div>
+              )}
+            </div>
+            <div className={cx('body')}>{children}</div>
           </div>
-          <div className={cx('body')}>{children}</div>
-        </div>
+        )}
       </div>
-    )
+    ),
+    document.querySelector('#root')
   );
 });
 

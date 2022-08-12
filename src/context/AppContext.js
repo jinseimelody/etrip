@@ -11,13 +11,12 @@ const AppProvider = props => {
     token: storage.get('token')
   });
 
-  const device = {width: window.innerWidth, height: window.innerHeight};
   const setToken = token => {
     setState({token});
     storage.set('token', token);
   };
 
-  return <AppContext.Provider value={{device, state, setToken}}>{children}</AppContext.Provider>;
+  return <AppContext.Provider value={{state, setToken}}>{children}</AppContext.Provider>;
 };
 
 export {AppProvider, useApp};
