@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import {IoIosArrowForward, IoIosMenu} from 'react-icons/io';
 import {Link, useNavigate} from 'react-router-dom';
@@ -145,6 +146,7 @@ const Popular = () => {
 };
 
 const RecentSearch = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState(() => {
     const searches = storage.get('recentSearches');
     if (!searches || !Array.isArray(searches)) return {searches: []};
@@ -157,6 +159,11 @@ const RecentSearch = () => {
   const handleClear = () => {
     setState({searches: []});
     localStorage.removeItem('recentSearches');
+  };
+
+  const handleSearch = search => {
+    const {departure, arrival, date} = search;
+    navigate(`/search/${departure.id}/${arrival.id}/${date.format('yyyy-MM-DD')}`);
   };
 
   return (
@@ -172,24 +179,24 @@ const RecentSearch = () => {
         <div className="recent-search-section">
           <div className="scroll-y-container">
             <div className="scroll-content">
-              {searches.map((x, i) => {
+              {searches.map((search, i) => {
                 return (
-                  <div key={i} className="recent-card">
+                  <div key={i} className="recent-card" onClick={() => handleSearch(search)}>
                     <div>
                       <div className="flex text-bold">
                         <div className="icon icon-sm mr-2">
                           <img src={image.circleMarker} alt="" />
                         </div>
-                        <div className="recent-from">{x.departure.name}</div>
+                        <div className="recent-from">{search.departure.name}</div>
                       </div>
                       <div className="flex text-bold">
                         <div className="icon icon-sm mr-2">
                           <img src={image.circleMarkerEnd} alt="" />
                         </div>
-                        <div className="recent-to">{x.arrival.name}</div>
+                        <div className="recent-to">{search.arrival.name}</div>
                       </div>
                       <div className="recent-date text-small text-muted">
-                        {x.date.format('dddd, DD/MM, yy')}
+                        {search.date.format('dddd, DD/MM, yy')}
                       </div>
                     </div>
                     <div>
@@ -250,7 +257,9 @@ const SearchWidget = () => {
       <EndpointPopup
         ref={depaturePopupRef}
         modal={{cancel: 'Hủy', title: 'Điểm đi'}}
-        onSelect={val => setState({...state, departure: val})}
+        onSelect={val => {
+          setState({...state, departure: val});
+        }}
       />
 
       <EndpointPopup
@@ -291,10 +300,10 @@ const SearchWidget = () => {
               }}>
               <span className="text-small text-muted mb-1">Nơi xuất phát</span>
               <input
-                readOnly
                 type="text"
                 placeholder="Hà Nội"
-                defaultValue={departure && departure.name}
+                readOnly
+                value={departure && departure.name}
               />
             </div>
             <div className="rip"></div>
@@ -306,10 +315,10 @@ const SearchWidget = () => {
               }}>
               <span className="text-small text-muted mb-1">Nơi đến</span>
               <input
-                readOnly
                 type="text"
                 placeholder="Cao Bằng"
-                defaultValue={arrival && arrival.name}></input>
+                readOnly
+                value={arrival && arrival.name}></input>
             </div>
           </div>
           <button

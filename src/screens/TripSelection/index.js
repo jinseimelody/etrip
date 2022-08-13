@@ -14,25 +14,41 @@ const cx = classNames.bind(styles);
 const TripSelection = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const [search, setSearch] = useState({...params, date: moment(params.date)});
-  const [trips, setTrips] = useState([]);
+  const [state, setState] = useState({
+    from: params.from,
+    to: params.to,
+    date: moment(params.date),
+    trips: []
+  });
+  const {from, to, date, trips} = state;
 
   useEffect(() => {
-    storage.set('search', {...storage.get('search'), date: search.date});
+    // update storage
+    const searches = storage.get('recentSearches');
+    searches[searches.length - 1] = {from, to, date};
+    storage.set('recentSearches', searches);
 
-    const body = {...search, date: search.date.format('yyyy-MM-DD')};
-    tripApi.search(body).then(response => {
-      setTrips(response);
-      navigate(`/search/${search.from}/${search.to}/${search.date.format('yyyy-MM-DD')}`);
-    });
+    // fetch new data
+    const formatedDate = date.format('yyyy-MM-DD');
+    navigate(`/search/${from}/${to}/${formatedDate}`);
+    tripApi
+      .search({
+        from,
+        to,
+        date: formatedDate
+      })
+      .then(trips => {
+        console.log(trips);
+        setState({...state, trips});
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search.date]);
+  }, [from, to, date]);
 
   return (
     <>
       <div className="header">
         <div className="action action-left">
-          <div onClick={() => navigate('/search', {state: {restore: true}})}>
+          <div onClick={() => navigate(-1)}>
             <IoIosArrowBack />
           </div>
         </div>
@@ -49,19 +65,13 @@ const TripSelection = () => {
           <Calendar
             options={{mode: 'week'}}
             initValue={moment(params.date)}
-            onSelect={value => {
-              setSearch({...search, date: value});
-            }}
+            onSelect={value => setState({...state, date: value})}
           />
         </div>
 
         {trips &&
           trips.map((t, i) => (
-            <Ticket
-              key={i}
-              onClick={() =>
-                navigate(`/ticketbooking/${t.scheduleId}/${search.date.format('yyyy-MM-DD')}`)
-              }>
+            <Ticket key={i} onClick={() => alert('next')}>
               <Ticket.Top>
                 <div className="flex space-between">
                   <div>{t.from}</div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {storage} from './api';
 import {ToastProvider} from './components/Toast';
 import {useApp} from './context/AppContext';
 import {BusinessLayout, DefaultLayout} from './layouts';

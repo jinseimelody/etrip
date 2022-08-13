@@ -97,6 +97,8 @@
     padding: 1rem;
     border-radius: 1rem;
     box-shadow: 0px 2px 10px 3px hsla(var(--hue), var(--sat), 15%, 0.15);
+    cursor: pointer;
+    user-select: none;
 
     @mixin recentgroup {
       width: 150px;

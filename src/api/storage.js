@@ -16,11 +16,9 @@ const isArray = value => {
   return typeof value === 'object' && value.length !== undefined;
 };
 
-const datePattern = RegExp('\\d{4}-\\d{2}-\\d{2}');
-
 const pipe = value => {
   if (isPrimitive(value)) {
-    if (datePattern.test(value)) return moment(value);
+    if (RegExp('\\d{4}-\\d{2}-\\d{2}').test(value)) return moment(value);
     return value;
   }
 
