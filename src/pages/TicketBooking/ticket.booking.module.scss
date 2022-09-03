@@ -1,0 +1,40 @@
+.types {
+  display: flex;
+  align-items: center;
+  color: #808080;
+}
+
+@mixin types_pseudo {
+  display: inline-flex;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+  border-radius: 5px;
+}
+
+.available {
+  &::before {
+    @include types_pseudo;
+    content: ' ';
+    border: 1px solid #dde7f2;
+    background: #ebf9fe;
+  }
+}
+
+.selected {
+  &::before {
+    @include types_pseudo;
+    content: ' ';
+    border: 1px solid #f0d0bf;
+    background: #faebe5;
+  }
+}
+
+.unavailable {
+  &::before {
+    @include types_pseudo;
+    content: ' ';
+    border: 1px solid #c1c5cd;
+    background: #c1c5cd;
+  }
+}

@@ -1,0 +1,13 @@
+.color-picker {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background: #fff;
+  margin: -2rem;
+
+  div {
+    position: absolute;
+    margin-bottom: 3rem;
+  }
+}

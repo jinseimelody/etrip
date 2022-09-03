@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  padding: 0 2rem;
+  font-size: large;
+  font-weight: 700;
+  position: relative;
+}
+
+.action {
+  padding: 0 2rem;
+  // color: #2e8fff;
+  position: absolute;
+  font-size: inherit;
+  font-weight: 700;
+
+  &-left {
+    left: 0;
+  }
+}

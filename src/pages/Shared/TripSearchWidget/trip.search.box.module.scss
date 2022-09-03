@@ -1,0 +1,83 @@
+.rip {
+  width: 100%;
+  border-top: 1px dashed var(--grey);
+}
+
+.line {
+  flex-grow: 1;
+  border-left: 2px dashed var(--grey);
+}
+
+.icon-container {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem;
+}
+
+.search-widget {
+  margin-bottom: 2rem;
+  border-radius: 1.5rem;
+  background: #fff;
+  box-shadow: 0px 2px 10px 3px hsla(var(--hue), var(--sat), 15%, 0.15);
+  overflow: hidden;
+
+  .route-section {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .route-selection-container {
+      flex-grow: 1;
+      padding-right: calc(2.75rem + 36px);
+    }
+
+    .btn-exchange {
+      display: flex;
+      padding: 1rem;
+      border-radius: 1rem;
+      background: #000;
+      position: absolute;
+      right: 1.75rem;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .date-section {
+    display: flex;
+    align-items: center;
+  }
+
+  @mixin selectgroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 60px;
+  }
+
+  .from-select {
+    @include selectgroup;
+  }
+
+  .to-select {
+    @include selectgroup;
+  }
+
+  .date-select {
+    @include selectgroup;
+  }
+
+  input {
+    min-height: fit-content;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-weight: 700;
+    color: #5b5b5b;
+  }
+}

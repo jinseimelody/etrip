@@ -1,0 +1,62 @@
+.limousine {
+  .nav {
+    display: flex;
+    flex-direction: row;
+    background: white;
+    border-radius: 1.5rem;
+    box-shadow: 0px 2px 10px 3px rgb(255 143 96 / 15%);
+    cursor: pointer;
+
+    &-item {
+      width: 50%;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem 0;
+      border-bottom: 2px solid transparent;
+
+      &:first-child {
+        border-end-start-radius: 1.5rem;
+      }
+      &:last-child {
+        border-end-end-radius: 1.5rem;
+      }
+    }
+
+    .active {
+      color: #ef5322;
+      border-bottom: 2px solid #ef5322;
+    }
+  }
+}
+
+.bus {
+  margin: 2rem 0;
+
+  .seat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+  }
+
+  .unavailable {
+    color: #fff;
+    background-image: url(/assets/images/seat-unavaliable.png);
+  }
+
+  .available {
+    color: #808080;
+    background-image: url(/assets/images/seat-avaliable.png);
+  }
+
+  .selected {
+    color: #ef5322;
+    background-image: url(/assets/images/seat-selected.png);
+  }
+}

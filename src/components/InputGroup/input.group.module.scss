@@ -1,0 +1,30 @@
+.input-group {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  color: inherit;
+  border: 1px solid var(--grey);
+
+  .input-group-item {
+    padding: 1rem;
+    border-bottom: 1px solid var(--grey);
+
+    input,
+    textarea {
+      width: 100%;
+      min-height: 2.4rem;
+      padding: 0;
+      border: 0;
+      outline: none;
+      border-radius: 0;
+      color: inherit;
+      background-color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    &:last-child {
+      border-bottom: none !important;
+    }
+  }
+}

@@ -1,23 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import {Routes, Route} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import './App.scss';
+
+import {DefaultLayout, FragmentLayout} from './layouts';
+import {Home, Sample, Search, TicketBooking, TicketDetails} from './pages';
+import {ToastProvider} from '~/components';
+import {BookingHistory} from './pages/BookingHistory';
 
 function App() {
+  const device = useSelector(state => state.device);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app" style={{height: device.height}}>
+      <div className="app-image">
+        <ToastProvider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <DefaultLayout>
+                  <Home />
+                </DefaultLayout>
+              }></Route>
+            <Route
+              path="/bookinghistory"
+              element={
+                <DefaultLayout>
+                  <BookingHistory />
+                </DefaultLayout>
+              }></Route>
+            <Route
+              path="/ticket/:id"
+              element={
+                <FragmentLayout title="Ticket details">
+                  <TicketDetails />
+                </FragmentLayout>
+              }></Route>
+            <Route
+              path="/search/:from/:to/:date"
+              element={
+                <FragmentLayout title="Trip selection">
+                  <Search />
+                </FragmentLayout>
+              }></Route>
+            <Route
+              path="/ticketbooking/:scheduleId/:date"
+              element={
+                <FragmentLayout title="Seat Selection">
+                  <TicketBooking />
+                </FragmentLayout>
+              }></Route>
+
+            <Route
+              path="/sample"
+              element={
+                <FragmentLayout title="Sample page">
+                  <Sample />
+                </FragmentLayout>
+              }></Route>
+          </Routes>
+        </ToastProvider>
+      </div>
     </div>
   );
 }

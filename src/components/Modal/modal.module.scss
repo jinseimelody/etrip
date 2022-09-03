@@ -1,0 +1,69 @@
+.backdrop {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  height: 100vh;
+  background: #00000033;
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.dialog {
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5rem 1.5rem 0 0;
+  background: #fff;
+  position: absolute;
+  top: 2rem;
+  overflow-y: scroll;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 1.5rem 1.5rem 0 0;
+    font-weight: 700;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+
+    .title {
+      font-size: x-large;
+      font-weight: 700;
+      text-align: center;
+      width: 100%;
+    }
+
+    .btn-cancel {
+      position: absolute;
+      left: 2rem;
+      cursor: pointer;
+    }
+
+    .btn-confirm {
+      position: absolute;
+      right: 2rem;
+      cursor: pointer;
+    }
+  }
+
+  .body {
+    padding: 0 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+  .backdrop {
+    height: 89vh;
+  }
+
+  .dialog {
+    min-height: calc(89vh - 2rem);
+  }
+}
