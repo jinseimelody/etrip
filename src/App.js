@@ -42,13 +42,17 @@ function App() {
                   <Search />
                 </FragmentLayout>
               }></Route>
-            <Route
+
+            <Route path="/reservation" element={<FragmentLayout />}>
+              <Route path=":scheduleId/:date" element={<Reservation />}></Route>
+            </Route>
+            {/* <Route
               path="/reservation/:scheduleId/:date"
               element={
                 <FragmentLayout title="Seat Selection">
                   <Reservation />
                 </FragmentLayout>
-              }></Route>
+              }></Route> */}
 
             <Route
               path="/sample"

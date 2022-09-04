@@ -1,3 +1,4 @@
+import {Outlet} from 'react-router-dom';
 import {IoIosArrowBack} from 'react-icons/io';
 import classNames from 'classnames/bind';
 
@@ -16,7 +17,11 @@ const FragmentLayout = ({title, children}) => {
         />
         <div className="text-title">{title}</div>
       </div>
-      <div className="container">{children}</div>
+
+      <div className="container">
+        {children}
+        <Outlet />
+      </div>
     </>
   );
 };
