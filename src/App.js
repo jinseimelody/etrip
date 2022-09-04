@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import './App.scss';
 
 import {DefaultLayout, FragmentLayout} from './layouts';
-import {Home, Sample, Search, TicketBooking, TicketDetails} from './pages';
+import {Home, Sample, Search, Reservation, TicketDetails} from './pages';
 import {ToastProvider} from '~/components';
 import {BookingHistory} from './pages/BookingHistory';
 
@@ -29,7 +29,7 @@ function App() {
                 </DefaultLayout>
               }></Route>
             <Route
-              path="/ticket/:id"
+              path="/tickets/:ticketId"
               element={
                 <FragmentLayout title="Ticket details">
                   <TicketDetails />
@@ -43,10 +43,10 @@ function App() {
                 </FragmentLayout>
               }></Route>
             <Route
-              path="/ticketbooking/:scheduleId/:date"
+              path="/reservation/:scheduleId/:date"
               element={
                 <FragmentLayout title="Seat Selection">
-                  <TicketBooking />
+                  <Reservation />
                 </FragmentLayout>
               }></Route>
 

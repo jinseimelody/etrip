@@ -165,7 +165,7 @@ const Search = () => {
                 <div className="buy-ticket">
                   <button
                     onClick={() =>
-                      navigate(`/ticketbooking/${t.scheduleId}/${query.date}`)
+                      navigate(`/reservation/${t.scheduleId}/${query.date}`)
                     }>
                     Buy Ticket
                   </button>

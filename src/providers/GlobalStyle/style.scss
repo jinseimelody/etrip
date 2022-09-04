@@ -1,6 +1,6 @@
 @import 'normalize.css';
 @import 'animate.css';
-// @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&dis
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap');
 
 :root {
@@ -162,14 +162,26 @@ button {
   box-shadow: 0px 2px 10px 3px hsla(var(--hue), var(--sat), 15%, 0.15);
 }
 
-.btn-submit {
-  width: 100%;
-  font-weight: 700;
-  padding: 2rem;
-  line-height: 1rem;
-  border-radius: 1.75rem;
-  color: black;
-  background: #f9cf23;
+.btn {
+  &-submit {
+    width: 100%;
+    font-weight: 700;
+    padding: 2rem;
+    line-height: 1rem;
+    border-radius: 1.75rem;
+    color: black;
+    background: #f9cf23;
+  }
+
+  &-orange {
+    background: #ff8f60;
+    color: var(--white);
+  }
+
+  &-blue {
+    background: #005eff;
+    color: var(--white);
+  }
 }
 
 @mixin socket {
@@ -297,6 +309,39 @@ button {
   }
 }
 
+.card {
+  border: 1px solid var(--grey);
+  border-radius: 2rem;
+  padding: 1.5rem;
+  position: relative;
+
+  &-selected {
+    &::before {
+      content: 'Primary';
+      padding: 0 1.5rem;
+      border-radius: 1.5rem;
+      border: 1px solid #54c692;
+      color: #54c692;
+      background: var(--white);
+      position: absolute;
+      right: 1em;
+      top: 0;
+      transform: translateY(-50%);
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.payment-method-logo {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  font-weight: bold;
+  background: oldlace;
+}
+
 .barcode {
   display: flex;
   flex-direction: row;
@@ -327,6 +372,10 @@ button {
 
   &b-5 {
     margin-bottom: 3rem;
+  }
+
+  &t-3 {
+    margin-top: 1rem;
   }
 
   &t-4 {
@@ -424,6 +473,14 @@ button {
 
   &-start {
     align-items: start !important;
+  }
+
+  &-content-center {
+    justify-content: center;
+  }
+
+  &-grow-1 {
+    flex-grow: 1;
   }
 }
 

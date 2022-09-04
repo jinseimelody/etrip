@@ -10,7 +10,10 @@ const FragmentLayout = ({title, children}) => {
   return (
     <>
       <div className={cx('header')}>
-        <IoIosArrowBack onClick={() => navigate(-1)} className={cx('action', 'action-left')} />
+        <IoIosArrowBack
+          onClick={() => navigate(-1)}
+          className={cx('action', 'action-left')}
+        />
         <div className="text-title">{title}</div>
       </div>
       <div className="container">{children}</div>

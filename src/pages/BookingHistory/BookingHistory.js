@@ -33,7 +33,7 @@ const BookingHistory = () => {
         key={i}
         className="ticket cursor-pointer"
         style={{background}}
-        onClick={() => navigate(`/ticket/${ticket.id}`)}>
+        onClick={() => navigate(`/tickets/${ticket.id}`)}>
         <div className="general">
           <div className="text-title">
             {ticket.departure} - {ticket.arrival}

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useCallback, useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import styles from './ticket.booking.module.scss';
@@ -13,7 +13,8 @@ import bookingApi from '~/apis/booking.api';
 
 const cx = classNames.bind(styles);
 
-const TicketBooking = () => {
+const Reservation = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const toast = useToast();
   const [state, setState] = useState({
@@ -57,8 +58,9 @@ const TicketBooking = () => {
         date: moment(params.date).format('yyyy-MM-DD'),
         seatIds: chosen
       })
-      .then(res => {
-        console.log(res);
+      .then(response => {
+        const {ticketId, sessionId} = response;
+        if (ticketId) navigate(`/tickets/${ticketId}`);
       });
   };
 
@@ -122,4 +124,4 @@ const TicketBooking = () => {
     </>
   );
 };
-export default TicketBooking;
+export default Reservation;
