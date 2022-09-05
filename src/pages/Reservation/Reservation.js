@@ -1,32 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useCallback, useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
 import classNames from 'classnames/bind';
-
-import styles from './reservation.module.scss';
-import {Card, useToast} from '~/components';
-import {Limousine} from '~/components/Bus';
-import pipe from '~/helper';
 import moment from 'moment';
-import {tripApi} from '~/apis';
-import bookingApi from '~/apis/booking.api';
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {useNavigate, useParams} from 'react-router-dom';
 
-const cx = classNames.bind(styles);
+import style from './reservation.module.scss';
+import {tripApi} from '~/apis';
+import {Limousine, useToast} from '~/components';
+import pipe from '~/helper';
+import {setBus, setChosen} from '~/redux/reservationSlice';
+
+const cx = classNames.bind(style);
+const limitExceededMsg =
+  "You have reached the maximum number of seats purchased for this route. Can't choose more seats";
 
 const Reservation = () => {
   const navigate = useNavigate();
   const params = useParams();
   const toast = useToast();
-  const [state, setState] = useState({
-    busId: undefined,
-    layoutId: undefined,
-    price: 0,
-    seats: [],
-    chosen: [],
-    total: 0
-  });
-
-  const {busId, layoutId, price, seats, chosen, total} = state;
+  const {bus, chosen} = useSelector(state => state.reservation);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -36,32 +30,46 @@ const Reservation = () => {
         date: moment(params.date).format('yyyy-MM-DD')
       });
 
-      console.log('state', data);
-
-      setState({
-        ...state,
-        busId: data.busId,
-        layoutId: data.layoutId,
-        price: data.price,
-        seats: data.seats
-      });
+      dispatch(
+        setBus({
+          busId: data.busId,
+          layoutId: data.layoutId,
+          price: data.price,
+          seats: data.seats
+        })
+      );
     };
 
     getSeats();
     return () => abortController.abort();
   }, []);
 
+  const element = {
+    limousine: (
+      <Limousine
+        value={chosen.seats}
+        seats={bus.seats}
+        exceeded={3}
+        onSelect={seats =>
+          dispatch(
+            setChosen({
+              seats: seats,
+              total: bus.price * seats.length
+            })
+          )
+        }
+        onExceeded={() => toast.show(limitExceededMsg)}
+      />
+    )
+  }[bus.layoutId];
+
   const handleSubmit = () => {
-    bookingApi
-      .create({
-        scheduleId: params.scheduleId,
-        date: moment(params.date).format('yyyy-MM-DD'),
-        seatIds: chosen
-      })
-      .then(response => {
-        const {ticketId, sessionId} = response;
-        if (ticketId) navigate(`/tickets/${ticketId}`);
-      });
+    if (chosen.seats.length > 0) {
+      navigate(`/reservation/2/${params.scheduleId}/${params.date}`);
+      return;
+    }
+
+    toast.show('Please pick at least a seat');
   };
 
   return (
@@ -73,44 +81,19 @@ const Reservation = () => {
         <div className="avatar"></div>
       </div>
       <div className="text-center text-small mb-3">
-        <span className="text-bold">{busId && busId}:</span> Select{' '}
-        {layoutId && layoutId} ({chosen.length}/3)
+        <span className="text-bold">51B-421.55:</span> Select limousine (0/3)
       </div>
-      {
-        {
-          limousine: (
-            <Limousine
-              seats={seats}
-              exceeded={3}
-              onSelect={useCallback(
-                chosen =>
-                  setState({
-                    ...state,
-                    chosen: chosen,
-                    total: price * chosen.length
-                  }),
-                [seats]
-              )}
-              onExceeded={useCallback(() => {
-                const msg =
-                  "You have reached the maximum number of seats purchased for this route. Can't choose more seats";
-                toast.error(msg);
-              }, [])}
-            />
-          )
-        }[layoutId]
-      }
-
-      <Card style={{background: '#fafafa'}}>
+      <div>{element}</div>
+      <div className="card bg-oldlace">
         <div className="flex space-between mb-2">
-          <div className="text-muted">Chosen</div>
-          <div>{chosen.join(', ')}</div>
+          <div className="text-muted mb-3">Chosen</div>
+          <div>{chosen.seats.join(', ')}</div>
         </div>
         <div className="flex space-between">
           <div className="text-muted">Summary</div>
-          <div className="text-title">{pipe.currency(total)}đ</div>
+          <div className="text-title">{pipe.currency(chosen.total)}đ</div>
         </div>
-      </Card>
+      </div>
       <div className="flex space-between mt-4 mb-4">
         <div className={cx('types', 'available')}>Available</div>
         <div className={cx('types', 'selected')}>Selected</div>

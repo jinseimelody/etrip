@@ -75,14 +75,7 @@ const TicketDetails = () => {
                       List of all credit cards you saved
                     </span>
                   </div>
-                  <button
-                    className="btn-icon btn-blue mt-3"
-                    onClick={() =>
-                      setPaymentPopup(prev => ({...prev, mode: 'add'}))
-                    }>
-                    <IoIosAddCircleOutline />
-                    Add new
-                  </button>
+                  <div className="text-link mt-3">Add</div>
                 </div>
                 <div>
                   <div className="card mb-3">

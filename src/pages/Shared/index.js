@@ -1,1 +1,2 @@
-export {default as TripSearchWidget} from './TripSearchWidget';
+export {TripSearchWidget} from './TripSearchWidget';
+export {PaymentWidget} from './PaymentWidget';

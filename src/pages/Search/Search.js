@@ -3,6 +3,7 @@ import moment from 'moment';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {push} from '~/redux/recentSearchSlice';
+import {reset} from '~/redux/reservationSlice';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import {Calendar} from '~/components';
@@ -16,9 +17,9 @@ import {endpointApi} from '~/apis';
 const cx = classNames.bind(style);
 
 const Search = () => {
-  const dispatch = useDispatch();
-  const params = useParams();
   const navigate = useNavigate();
+  const params = useParams();
+  const dispatch = useDispatch();
   const [exchange, setExchange] = useState({});
   const {departure, arrival} = exchange;
 
@@ -47,6 +48,8 @@ const Search = () => {
   );
 
   useEffect(() => {
+    dispatch(reset());
+
     const abortController = new AbortController();
     Promise.all([
       endpointApi.getOne(params.from, abortController),
@@ -69,6 +72,64 @@ const Search = () => {
       replace: true
     });
   }, [query]);
+
+  const elements = trips.map((t, i) => {
+    const start = moment(t.start, 'HH:mm:ss');
+    let end = moment(t.end, 'HH:mm:ss');
+    if (end.isBefore(start, 'hour')) end = end.add(1, 'days');
+
+    return (
+      <div
+        ref={trips.length - 1 === i ? lastTicketRef : null}
+        key={i}
+        className={cx('ticket', {'ticket-even': i % 2 === 0})}>
+        <div className="general">
+          <div className="text-heading">{start.format('hh:mm A')}</div>
+          <div className="text-muted mb-3">
+            <div>
+              {t.from} - {t.to}
+            </div>
+          </div>
+          <div className="flex mb-3">
+            <div className="ticket-image mr-4">
+              <div className="s-image"></div>
+            </div>
+            <div>
+              <div className="text-title">{t.nonBookedCount} seats left</div>
+              <div className="text-muted text-capitalize">{t.layoutId}</div>
+            </div>
+          </div>
+          <div className="text-muted">
+            <span className="text-bold">{pipe.distance(t.distance)}</span>,
+            arrival at{' '}
+            <span className="text-bold">{end.format('hh:mm A')}</span>
+          </div>
+        </div>
+        <div className="specific">
+          <div>
+            <div className="text-muted">
+              Time:{' '}
+              <span className="text-bold">
+                {pipe.duration(end.diff(start, 'minute'))}
+              </span>
+            </div>
+          </div>
+          <div className="buy-ticket">
+            <button
+              onClick={() =>
+                navigate(`/reservation/1/${t.scheduleId}/${query.date}`)
+              }>
+              Buy Ticket
+            </button>
+          </div>
+          <div>
+            <span className="text-small text-muted">Price: </span>
+            <span className="text-title">{pipe.currency(t.price)}</span>đ
+          </div>
+        </div>
+      </div>
+    );
+  });
 
   return (
     <>
@@ -115,70 +176,7 @@ const Search = () => {
           }, [])}
         />
       </div>
-
-      <div>
-        {trips.map((t, i) => {
-          const start = moment(t.start, 'HH:mm:ss');
-          let end = moment(t.end, 'HH:mm:ss');
-          if (end.isBefore(start, 'hour')) end = end.add(1, 'days');
-
-          return (
-            <div
-              ref={trips.length - 1 === i ? lastTicketRef : null}
-              key={i}
-              className={cx('ticket', {'ticket-even': i % 2 === 0})}>
-              <div className="general">
-                <div className="text-heading">{start.format('hh:mm A')}</div>
-                <div className="text-muted mb-3">
-                  <div>
-                    {t.from} - {t.to}
-                  </div>
-                </div>
-                <div className="flex mb-3">
-                  <div className="ticket-image mr-4">
-                    <div className="s-image"></div>
-                  </div>
-                  <div>
-                    <div className="text-title">
-                      {t.nonBookedCount} seats left
-                    </div>
-                    <div className="text-muted text-capitalize">
-                      {t.layoutId}
-                    </div>
-                  </div>
-                </div>
-                <div className="text-muted">
-                  <span className="text-bold">{pipe.distance(t.distance)}</span>
-                  , arrival at{' '}
-                  <span className="text-bold">{end.format('hh:mm A')}</span>
-                </div>
-              </div>
-              <div className="specific">
-                <div>
-                  <div className="text-muted">
-                    Time:{' '}
-                    <span className="text-bold">
-                      {pipe.duration(end.diff(start, 'minute'))}
-                    </span>
-                  </div>
-                </div>
-                <div className="buy-ticket">
-                  <button
-                    onClick={() =>
-                      navigate(`/reservation/${t.scheduleId}/${query.date}`)
-                    }>
-                    Buy Ticket
-                  </button>
-                </div>
-                <div>
-                  <span className="text-small text-muted">Price: </span>
-                  <span className="text-title">{pipe.currency(t.price)}</span>đ
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      {elements}
     </>
   );
 };

@@ -3,9 +3,18 @@ import {useSelector} from 'react-redux';
 import './App.scss';
 
 import {DefaultLayout, FragmentLayout} from './layouts';
-import {Home, Sample, Search, Reservation, TicketDetails} from './pages';
+import {
+  Home,
+  Sample,
+  Search,
+  Reservation,
+  TicketDetails,
+  CustomerContact,
+  ReservationConfirm
+} from './pages';
 import {ToastProvider} from '~/components';
 import {BookingHistory} from './pages/BookingHistory';
+import Payment from './pages/Reservation/Payment';
 
 function App() {
   const device = useSelector(state => state.device);
@@ -44,16 +53,19 @@ function App() {
               }></Route>
 
             <Route path="/reservation" element={<FragmentLayout />}>
-              <Route path=":scheduleId/:date" element={<Reservation />}></Route>
+              <Route
+                path="1/:scheduleId/:date"
+                element={<Reservation />}></Route>
+              <Route
+                path="2/:scheduleId/:date"
+                element={<CustomerContact />}></Route>
+              <Route
+                path="3/:scheduleId/:date"
+                element={<ReservationConfirm />}></Route>
+              <Route
+                path="4/:sessionId/:ticketId"
+                element={<Payment />}></Route>
             </Route>
-            {/* <Route
-              path="/reservation/:scheduleId/:date"
-              element={
-                <FragmentLayout title="Seat Selection">
-                  <Reservation />
-                </FragmentLayout>
-              }></Route> */}
-
             <Route
               path="/sample"
               element={

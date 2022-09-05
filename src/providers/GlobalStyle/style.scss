@@ -61,13 +61,22 @@ img {
   width: 100%;
 }
 
-input {
+@mixin input {
   box-sizing: border-box;
   width: 100%;
   outline: none;
+  padding: 1rem;
   border: 1px solid var(--grey);
   border-radius: 1rem;
   font-size: 1.6rem;
+}
+
+input {
+  @include input;
+}
+
+textarea {
+  @include input;
 }
 
 button {
@@ -459,6 +468,10 @@ button {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+}
+
+.bg-oldlace {
+  background: oldlace;
 }
 
 .flex {

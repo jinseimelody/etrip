@@ -30,14 +30,14 @@ const layoutMapping = arr => {
   return layout;
 };
 
-const Limousine = ({onSelect, onExceeded, seats, exceeded}) => {
+const Limousine = ({onSelect, onExceeded, value, seats, exceeded}) => {
   const [state, setState] = useState(() => ({
     view: ground,
     layout: {
       ground: layoutMapping(seats.filter(x => x.seatId.startsWith('A'))),
       upstairs: layoutMapping(seats.filter(x => x.seatId.startsWith('B')))
     },
-    chosen: new Set()
+    chosen: value ? new Set(value) : new Set()
   }));
   const {view, layout, chosen} = state;
 
@@ -67,10 +67,14 @@ const Limousine = ({onSelect, onExceeded, seats, exceeded}) => {
   return (
     <div className={cx('limousine')}>
       <div className={cx('nav')}>
-        <div onClick={() => setView(ground)} className={cx(['nav-item', {active: view === ground}])}>
+        <div
+          onClick={() => setView(ground)}
+          className={cx(['nav-item', {active: view === ground}])}>
           On Ground
         </div>
-        <div onClick={() => setView(upstairs)} className={cx(['nav-item', {active: view === upstairs}])}>
+        <div
+          onClick={() => setView(upstairs)}
+          className={cx(['nav-item', {active: view === upstairs}])}>
           Upstairs
         </div>
       </div>
@@ -78,7 +82,13 @@ const Limousine = ({onSelect, onExceeded, seats, exceeded}) => {
         {layout[view] &&
           layout[view].map((row, i) => {
             return (
-              <div key={i} className={i < layout[view].length ? 'flex space-between mb-4' : 'flex space-between'}>
+              <div
+                key={i}
+                className={
+                  i < layout[view].length
+                    ? 'flex space-between mb-4'
+                    : 'flex space-between'
+                }>
                 {row.map((seat, j) => (
                   <div
                     key={j}
