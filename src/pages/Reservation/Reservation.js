@@ -30,14 +30,7 @@ const Reservation = () => {
         date: moment(params.date).format('yyyy-MM-DD')
       });
 
-      dispatch(
-        setBus({
-          busId: data.busId,
-          layoutId: data.layoutId,
-          price: data.price,
-          seats: data.seats
-        })
-      );
+      dispatch(setBus({...data}));
     };
 
     getSeats();

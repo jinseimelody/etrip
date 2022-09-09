@@ -9,10 +9,10 @@ import {
   Search,
   Reservation,
   TicketDetails,
-  CustomerContact,
+  PassengerContact,
   ReservationConfirm
 } from './pages';
-import {ToastProvider} from '~/components';
+import {LoadingProvider, ToastProvider} from '~/components';
 import {BookingHistory} from './pages/BookingHistory';
 import Payment from './pages/Reservation/Payment';
 
@@ -20,7 +20,7 @@ function App() {
   const device = useSelector(state => state.device);
   return (
     <div className="app" style={{height: device.height}}>
-      <div className="app-image">
+      <LoadingProvider>
         <ToastProvider>
           <Routes>
             <Route
@@ -58,7 +58,7 @@ function App() {
                 element={<Reservation />}></Route>
               <Route
                 path="2/:scheduleId/:date"
-                element={<CustomerContact />}></Route>
+                element={<PassengerContact />}></Route>
               <Route
                 path="3/:scheduleId/:date"
                 element={<ReservationConfirm />}></Route>
@@ -75,7 +75,7 @@ function App() {
               }></Route>
           </Routes>
         </ToastProvider>
-      </div>
+      </LoadingProvider>
     </div>
   );
 }

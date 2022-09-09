@@ -1,6 +1,7 @@
 const image = {
   coetorise: require('~/assets/images/coetorise.png'),
   owl: require('~/assets/images/owl.svg').default,
+  cloudy: require('~/assets/images/cloudy.svg').default,
   calendar: require('~/assets/images/calendar.png'),
   route: require('~/assets/images/route-icon.png'),
   wigetBackgroud: require('~/assets/images/wiget-backgroud.png'),

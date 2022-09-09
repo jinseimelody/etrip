@@ -1,0 +1,9 @@
+.barcode {
+  display: flex;
+  flex-direction: row;
+
+  div {
+    width: 1px;
+    height: 40px;
+  }
+}

@@ -3,7 +3,7 @@ import moment from 'moment';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {push} from '~/redux/recentSearchSlice';
-import {reset} from '~/redux/reservationSlice';
+import {reset, setTrip} from '~/redux/reservationSlice';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import {Calendar} from '~/components';
@@ -73,6 +73,21 @@ const Search = () => {
     });
   }, [query]);
 
+  const handleTripSelect = t => {
+    dispatch(
+      setTrip({
+        scheduleId: t.scheduleId,
+        start: t.start,
+        end: t.end,
+        date: query.date,
+        from: t.from,
+        to: t.to,
+        price: t.price
+      })
+    );
+    navigate(`/reservation/1/${t.scheduleId}/${query.date}`);
+  };
+
   const elements = trips.map((t, i) => {
     const start = moment(t.start, 'HH:mm:ss');
     let end = moment(t.end, 'HH:mm:ss');
@@ -115,12 +130,7 @@ const Search = () => {
             </div>
           </div>
           <div className="buy-ticket">
-            <button
-              onClick={() =>
-                navigate(`/reservation/1/${t.scheduleId}/${query.date}`)
-              }>
-              Buy Ticket
-            </button>
+            <button onClick={() => handleTripSelect(t)}>Buy Ticket</button>
           </div>
           <div>
             <span className="text-small text-muted">Price: </span>

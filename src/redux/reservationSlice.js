@@ -5,6 +5,15 @@ const reservation = persistStore.get('reservation');
 
 const initialState = {
   step: 1,
+  trip: {
+    scheduleId: null,
+    start: null,
+    end: null,
+    date: null,
+    from: null,
+    to: null,
+    price: 0
+  },
   bus: {
     busId: undefined,
     layoutId: undefined,
@@ -14,6 +23,12 @@ const initialState = {
   chosen: {
     seats: [],
     total: 0
+  },
+  contact: {
+    passenger: undefined,
+    phoneNumber: undefined,
+    email: undefined,
+    note: undefined
   }
 };
 
@@ -22,14 +37,20 @@ const reservationSlice = createSlice({
   initialState: reservation || initialState,
   reducers: {
     reset: () => initialState,
+    setTrip: (state, {_, payload}) => {
+      state.trip = payload;
+    },
     setBus: (state, {_, payload}) => {
       state.bus = payload;
     },
     setChosen: (state, {_, payload}) => {
       state.chosen = payload;
     },
-    resetChosen: (state, {_, payload}) => {
+    resetChosen: state => {
       state.chosen = initialState.chosen;
+    },
+    setContact: (state, {_, payload}) => {
+      state.contact = payload;
     },
     setStep: (state, {_, payload}) => {
       state.step = payload;
@@ -37,17 +58,35 @@ const reservationSlice = createSlice({
   }
 });
 
-const {setBus, setChosen, resetChosen, setStep, reset} =
+const {setTrip, setBus, setChosen, resetChosen, setContact, setStep, reset} =
   reservationSlice.actions;
 
 const useReservationEffect = createListenerMiddleware();
 
 useReservationEffect.startListening({
-  matcher: isAnyOf(setChosen, setBus, reset),
+  matcher: isAnyOf(
+    setTrip,
+    setBus,
+    setChosen,
+    resetChosen,
+    setContact,
+    setStep,
+    reset
+  ),
   effect: async (action, listenerApi) => {
     persistStore.set('reservation', listenerApi.getState().reservation);
   }
 });
 
-export {useReservationEffect, setBus, setChosen, resetChosen, setStep, reset};
+export {
+  useReservationEffect,
+  setTrip,
+  setBus,
+  setChosen,
+  resetChosen,
+  setContact,
+  setStep,
+  reset
+};
+
 export default reservationSlice.reducer;

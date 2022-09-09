@@ -1,14 +1,14 @@
-import {MdOutlineIosShare} from 'react-icons/md';
 import moment from 'moment';
 import {useNavigate, useParams} from 'react-router-dom';
-import bookingApi from '~/apis/booking.api';
 import {useDispatch, useSelector} from 'react-redux';
-import {useToast} from '~/components';
-import {resetChosen} from '~/redux/reservationSlice';
+import {MdOutlineIosShare} from 'react-icons/md';
 
-const bar = Array(1000)
-  .fill(0)
-  .map(x => (Math.round(Math.random()) === 0 ? 'white' : 'grey'));
+import bookingApi from '~/apis/booking.api';
+import {FakeBarCode, useToast} from '~/components';
+import {resetChosen} from '~/redux/reservationSlice';
+import pipe from '~/helper';
+import {push} from '~/redux/paymentSlice';
+import {TYPE} from '~/components/Toast';
 
 const ReservationConfirm = () => {
   const dispatch = useDispatch();
@@ -16,17 +16,17 @@ const ReservationConfirm = () => {
   const params = useParams();
   const reservation = useSelector(state => state.reservation);
   const toast = useToast();
-  const ticket = {
-    departure: 'Hà Nôi',
-    arrival: 'Cao Bằng',
-    date: '2022-11-11',
-    start: '07:00:00'
-  };
+
+  const {
+    // eslint-disable-next-line no-unused-vars
+    trip: {scheduleId, start, end, date, from, to, price},
+    bus: {busId},
+    chosen: {seats, total},
+    contact: {passenger, phoneNumber, email, note}
+  } = reservation;
 
   const handleSubmit = () => {
     const {chosen} = reservation;
-    const {scheduleId, date} = params;
-
     const reservationRequest = async data => {
       const response = await bookingApi.create({
         chosen: {
@@ -34,29 +34,30 @@ const ReservationConfirm = () => {
           date,
           seatIds: chosen.seats
         },
-        contact: {
-          passenger: 'Ngô Đăng Khôi',
-          phoneNumber: '0961159460',
-          email: 'jinseimelody@gmail.com',
-          note: 'Gọi số phụ khi không liên lạc được 0778985271(Móm)'
-        }
+        contact: {passenger, phoneNumber, email, note}
       });
 
       const {status, error} = response;
+      console.log(response);
       const responseHandler = {
         410: () => {
-          toast.show(error.message, () => {
-            dispatch(resetChosen());
-            navigate(`/reservation/1/${params.scheduleId}/${params.date}`);
+          toast.show(error.message, {
+            type: TYPE.ERROR,
+            onClose: () => {
+              dispatch(resetChosen());
+              navigate(`/reservation/1/${params.scheduleId}/${params.date}`);
+            }
           });
         },
         404: () => toast.show(error.message),
         undefined: () => {
           const {ticketId, sessionId} = response;
-          navigate(`/reservation/4/${ticketId}/${sessionId}`);
+          dispatch(push({ticketId, sessionId}));
+          navigate(`/reservation/4/${sessionId}/${ticketId}`, {replace: true});
         }
       }[status];
-      responseHandler();
+
+      typeof responseHandler === 'function' && responseHandler();
     };
 
     reservationRequest();
@@ -71,68 +72,76 @@ const ReservationConfirm = () => {
         <div className="avatar"></div>
       </div>
       <div className="flex space-between">
-        <div className="text-title mb-3">Passenger</div>
-        <div className="text-link" onClick={() => navigate(-1)}>
+        <div className="text-heading mb-3">Passenger</div>
+        <div
+          className="text-link"
+          onClick={() => navigate(-1, {replace: true})}>
           Change
         </div>
       </div>
       <div className="card mb-3">
-        <div className="flex space-between">
-          <div className="text-muted">Name</div>
-          <div>Ngô Đăng Khôi</div>
-        </div>
-        <div className="flex space-between">
-          <div className="text-muted">Phone number</div>
-          <div>
-            <span className="text-bold">+84</span> 961159460
+        {passenger && (
+          <div className="flex space-between">
+            <div className="text-muted">Name</div>
+            <div>{passenger}</div>
           </div>
-        </div>
-        <div className="flex space-between">
-          <div className="text-muted">Email</div>
-          <div>jinseimelody@gmail.com</div>
-        </div>
+        )}
+        {phoneNumber && (
+          <div className="flex space-between">
+            <div className="text-muted">Phone number</div>
+            <div>
+              <span className="text-bold">+84</span> {phoneNumber}
+            </div>
+          </div>
+        )}
+
+        {email && (
+          <div className="flex space-between">
+            <div className="text-muted">Email</div>
+            <div>{email}</div>
+          </div>
+        )}
       </div>
-      <div className="mb-3">
-        <div className="text-title">Note</div>
-        <div className="text-muted">
-          Nếu không gọi được hãy gọi số 0778985271
+      {note && (
+        <div className="mb-3">
+          <div className="text-heading">Note</div>
+          <div className="text-muted">{note}</div>
         </div>
-      </div>
+      )}
+
       <div className="v-ticket mb-3">
         <div className="top">
-          <div className="flex space-between mb-3">
-            <MdOutlineIosShare />
-          </div>
           <div className="mb-4">
-            <div className="text-title">
-              {ticket.departure} - {ticket.arrival}
+            <div className="flex text-title">
+              {from} - {to}
+              <MdOutlineIosShare className="ml-auto" />
             </div>
             <div className="text-muted">Show this ticket at the entrance</div>
           </div>
           <div className="flex">
             <div className="w-50 mb-3">
               <div className="text-muted">Date</div>
-              <div>{moment(ticket.date).format('dddd, MM/DD, yyyy')}</div>
+              <div>{moment(date).format('dddd, MM/DD, yyyy')}</div>
             </div>
             <div className="w-50 mb-3">
               <div className="text-muted">Time</div>
-              <div>{moment(ticket.start, 'hh:mm:ss').format('hh:mm A')}</div>
+              <div>{moment(start, 'hh:mm:ss').format('hh:mm A')}</div>
             </div>
           </div>
           <div className="flex ">
             <div className="w-50 mb-3">
               <div className="text-muted">Bus</div>
-              <div>25-145.32</div>
+              <div>{busId}</div>
             </div>
             <div className="w-50 mb-3">
               <div className="text-muted">Seats</div>
-              <div>B03, B04, B05</div>
+              <div>{seats?.join(', ')}</div>
             </div>
           </div>
           <div className="flex">
             <div className="w-50 mb-3">
               <div className="text-muted">Cost</div>
-              <div>1,050,000đ</div>
+              <div>{pipe.currency(total)}đ</div>
             </div>
             <div className="w-50 mb-3">
               <div className="text-muted">Order</div>
@@ -141,11 +150,7 @@ const ReservationConfirm = () => {
           </div>
         </div>
         <div className="bottom">
-          <div className="barcode">
-            {bar.map((x, i) => (
-              <div key={i} style={{background: x}}></div>
-            ))}
-          </div>
+          <FakeBarCode />
         </div>
       </div>
 
