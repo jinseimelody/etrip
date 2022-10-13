@@ -1,0 +1,21 @@
+.checkbox-container {
+  display: flex;
+  align-items: center;
+
+  .checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin: auto 1.5rem;
+    border: 2px solid #cacaca;
+    border-radius: 999px;
+
+    &.selected {
+      border: none;
+      background: rgb(247, 142, 136);
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  padding: 0 2rem;
+  position: relative;
+
+  .title {
+    font-size: large;
+    font-weight: 700;
+  }
+
+  .action {
+    padding: 0 2rem;
+    position: absolute;
+    color: #808080;
+    font-size: large;
+    font-weight: 700;
+
+    &-left {
+      left: 0;
+    }
+
+    &-right {
+      right: 0;
+
+      button {
+        padding: 0;
+        border: none;
+        font-size: medium;
+      }
+    }
+  }
+}

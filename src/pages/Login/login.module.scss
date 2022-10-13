@@ -1,0 +1,38 @@
+.social-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  height: 5rem;
+  border-radius: 1rem;
+  font-size: x-large;
+  cursor: pointer;
+
+  &:first-child {
+    margin-right: 1rem;
+  }
+
+  &:last-child {
+    margin-left: 1rem;
+  }
+}
+
+.login-button {
+  width: 100%;
+  height: 5rem;
+  border-radius: 1rem;
+  color: #ffffff;
+  background: rgb(182, 23, 223);
+  background: linear-gradient(
+    90deg,
+    rgba(182, 23, 223, 1) 0%,
+    rgba(206, 55, 175, 1) 58%,
+    rgba(209, 59, 169, 1) 100%
+  );
+  cursor: pointer;
+
+  &:disabled {
+    color: #ffffff;
+    opacity: 0.8;
+  }
+}

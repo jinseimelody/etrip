@@ -1,0 +1,27 @@
+.group-widget {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+
+    .btn-toggle {
+      transition: all 300ms ease-out;
+      &.expand {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .body {
+    max-height: 100vh;
+    opacity: 1;
+    overflow: hidden;
+    transition: all 300ms ease-out;
+
+    &.collapsed {
+      max-height: 0vh !important;
+      opacity: 0;
+    }
+  }
+}

@@ -1,0 +1,56 @@
+.backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.toast {
+  width: 100%;
+  margin: auto 2rem;
+  padding: 1.75rem;
+  border-radius: 1.5rem;
+  background: #fff;
+  color: #000;
+
+  .toast-header {
+    font-weight: 700;
+    font-size: large;
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+  }
+
+  .toast-body {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #808080;
+    margin-bottom: 2rem;
+  }
+
+  .toast-footer {
+    button {
+      width: 100%;
+      height: 40px;
+      border: 1px solid var(--grey);
+      border-radius: 1.5rem;
+      font-weight: bold;
+    }
+
+    .btn {
+      &-close {
+        background: inherit;
+      }
+
+      &-confirm {
+        margin-bottom: 1rem;
+        background: #f9cf23;
+      }
+    }
+  }
+}

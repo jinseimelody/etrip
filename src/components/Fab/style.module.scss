@@ -1,0 +1,24 @@
+.fab-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 10;
+
+  .fab-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: #f78e88;
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+}

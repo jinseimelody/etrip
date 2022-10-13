@@ -1,0 +1,254 @@
+[
+  {
+    "value": "An Giang",
+    "display": "An Giang"
+  },
+  {
+    "value": "Ba Ria - Vung Tau",
+    "display": "Ba Ria - Vung Tau"
+  },
+  {
+    "value": "Bac Giang",
+    "display": "Bac Giang"
+  },
+  {
+    "value": "Bac Kan",
+    "display": "Bac Kan"
+  },
+  {
+    "value": "Bac Lieu",
+    "display": "Bac Lieu"
+  },
+  {
+    "value": "Bac Ninh",
+    "display": "Bac Ninh"
+  },
+  {
+    "value": "Ben Tre",
+    "display": "Ben Tre"
+  },
+  {
+    "value": "Binh Dinh",
+    "display": "Binh Dinh"
+  },
+  {
+    "value": "Binh Duong",
+    "display": "Binh Duong"
+  },
+  {
+    "value": "Binh Phuoc",
+    "display": "Binh Phuoc"
+  },
+  {
+    "value": "Binh Thuan",
+    "display": "Binh Thuan"
+  },
+  {
+    "value": "Ca Mau",
+    "display": "Ca Mau"
+  },
+  {
+    "value": "Can Tho",
+    "display": "Can Tho"
+  },
+  {
+    "value": "Cao Bang",
+    "display": "Cao Bang"
+  },
+  {
+    "value": "Da Nang",
+    "display": "Da Nang"
+  },
+  {
+    "value": "Dak Lak",
+    "display": "Dak Lak"
+  },
+  {
+    "value": "Dak Nong",
+    "display": "Dak Nong"
+  },
+  {
+    "value": "Dien Bien",
+    "display": "Dien Bien"
+  },
+  {
+    "value": "Dong Nai",
+    "display": "Dong Nai"
+  },
+  {
+    "value": "Dong Thap",
+    "display": "Dong Thap"
+  },
+  {
+    "value": "Gia Lai",
+    "display": "Gia Lai"
+  },
+  {
+    "value": "Ha Giang",
+    "display": "Ha Giang"
+  },
+  {
+    "value": "Ha Nam",
+    "display": "Ha Nam"
+  },
+  {
+    "value": "Ha Noi",
+    "display": "Ha Noi"
+  },
+  {
+    "value": "Ha Tinh",
+    "display": "Ha Tinh"
+  },
+  {
+    "value": "Hai Duong",
+    "display": "Hai Duong"
+  },
+  {
+    "value": "Hai Phong",
+    "display": "Hai Phong"
+  },
+  {
+    "value": "Hau Giang",
+    "display": "Hau Giang"
+  },
+  {
+    "value": "Ho Chi Minh City",
+    "display": "Ho Chi Minh City"
+  },
+  {
+    "value": "Hoa Binh",
+    "display": "Hoa Binh"
+  },
+  {
+    "value": "Hung Yen",
+    "display": "Hung Yen"
+  },
+  {
+    "value": "Khanh Hoa",
+    "display": "Khanh Hoa"
+  },
+  {
+    "value": "Kien Giang",
+    "display": "Kien Giang"
+  },
+  {
+    "value": "Kon Tum",
+    "display": "Kon Tum"
+  },
+  {
+    "value": "Lai Chau",
+    "display": "Lai Chau"
+  },
+  {
+    "value": "Lam Dong",
+    "display": "Lam Dong"
+  },
+  {
+    "value": "Lang Son",
+    "display": "Lang Son"
+  },
+  {
+    "value": "Lao Cai",
+    "display": "Lao Cai"
+  },
+  {
+    "value": "Long An",
+    "display": "Long An"
+  },
+  {
+    "value": "Nam Dinh",
+    "display": "Nam Dinh"
+  },
+  {
+    "value": "Nghe An",
+    "display": "Nghe An"
+  },
+  {
+    "value": "Ninh Binh",
+    "display": "Ninh Binh"
+  },
+  {
+    "value": "Ninh Thuan",
+    "display": "Ninh Thuan"
+  },
+  {
+    "value": "Phu Tho",
+    "display": "Phu Tho"
+  },
+  {
+    "value": "Phu Yen",
+    "display": "Phu Yen"
+  },
+  {
+    "value": "Quang Binh",
+    "display": "Quang Binh"
+  },
+  {
+    "value": "Quang Nam",
+    "display": "Quang Nam"
+  },
+  {
+    "value": "Quang Ngai",
+    "display": "Quang Ngai"
+  },
+  {
+    "value": "Quang Ninh",
+    "display": "Quang Ninh"
+  },
+  {
+    "value": "Quang Tri",
+    "display": "Quang Tri"
+  },
+  {
+    "value": "Soc Trang",
+    "display": "Soc Trang"
+  },
+  {
+    "value": "Son La",
+    "display": "Son La"
+  },
+  {
+    "value": "Tay Ninh",
+    "display": "Tay Ninh"
+  },
+  {
+    "value": "Thai Binh",
+    "display": "Thai Binh"
+  },
+  {
+    "value": "Thai Nguyen",
+    "display": "Thai Nguyen"
+  },
+  {
+    "value": "Thanh Hoa",
+    "display": "Thanh Hoa"
+  },
+  {
+    "value": "Thua Thien–Hue",
+    "display": "Thua Thien–Hue"
+  },
+  {
+    "value": "Tien Giang",
+    "display": "Tien Giang"
+  },
+  {
+    "value": "Tra Vinh",
+    "display": "Tra Vinh"
+  },
+  {
+    "value": "Tuyen Quang",
+    "display": "Tuyen Quang"
+  },
+  {
+    "value": "Vinh Long",
+    "display": "Vinh Long"
+  },
+  {
+    "value": "Vinh Phuc",
+    "display": "Vinh Phuc"
+  },
+  {
+    "value": "Yen Bai",
+    "display": "Yen Bai"
+  }
+]

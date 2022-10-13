@@ -1,0 +1,21 @@
+.alert {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--grey);
+  border-radius: 1rem;
+
+  .content {
+    flex-grow: 1;
+    padding: 1rem;
+  }
+
+  button {
+    border: none;
+    padding: 0 1rem;
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+    &:active {
+      background: #cecece;
+    }
+  }
+}

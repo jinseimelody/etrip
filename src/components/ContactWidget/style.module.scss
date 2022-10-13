@@ -1,0 +1,39 @@
+.contact-widget {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  .image {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: wheat;
+  }
+
+  .content {
+    margin-left: 1rem;
+    padding: 0.5rem 1rem;
+
+    .name {
+      display: flex;
+      align-items: center;
+      min-height: 27px;
+      font-size: large;
+      font-weight: 700;
+      cursor: pointer;
+
+      svg {
+        margin-left: 0.5rem;
+        font-size: medium;
+        color: #808080;
+      }
+    }
+
+    .title {
+      min-height: 19.5px;
+      font-size: 1.3rem;
+      color: #808080;
+    }
+  }
+}

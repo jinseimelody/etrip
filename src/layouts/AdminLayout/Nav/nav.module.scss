@@ -1,0 +1,16 @@
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: #808080;
+  cursor: pointer;
+
+  .icon {
+    margin-right: 0.5rem;
+  }
+
+  &.active {
+    border-radius: 1rem;
+    background: #f0eeed;
+  }
+}
