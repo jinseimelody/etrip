@@ -79,4 +79,5 @@ const Modal = forwardRef<ModalRef, ModalProps>(({title, isConfirm, onCancel, onC
     root
   );
 });
+
 export default memo(Modal);

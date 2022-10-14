@@ -1,5 +1,7 @@
 export {default as Alert} from './Alert';
+export {default as Calendar} from './Calendar';
 export {default as Button} from './Button';
+export {default as SwipeButton} from './SwipeButton';
 export {default as Checkbox} from './Checkbox';
 export {default as CardControl} from './CardControl';
 export {default as ContactWidget} from './ContactWidget';

@@ -1,0 +1,31 @@
+.swipe-button {
+  --button-width: calc(2.8rem * var(--line-height));
+  --button-height: calc(1.6rem * var(--line-height));
+  --stick-size: calc(var(--button-height) - 2px);
+
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  border: none;
+  border-radius: 1.2rem 1.2rem 1.2rem 1.2rem / 50% 50% 50% 50%;
+  background: #dee2e6;
+  width: var(--button-width);
+  height: var(--button-height);
+  transition: all 200ms ease-in-out;
+
+  span {
+    width: var(--stick-size);
+    height: var(--stick-size);
+    border-radius: 50%;
+    background: white;
+    transition: all 200ms ease-in-out;
+  }
+
+  &.on {
+    background: wheat;
+
+    span {
+      margin-left: calc(var(--button-width) - 2px - var(--stick-size));
+    }
+  }
+}

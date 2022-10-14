@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useEffect, useRef, useState} from 'react';
-import {MdFilterAlt} from 'react-icons/md';
+import {MdFilterAlt, MdOutlineAdd} from 'react-icons/md';
 
 import {Button, Modal, ModalRef} from '~/components';
 import {format} from '~/utils';
@@ -11,6 +11,8 @@ import ScheduleFilter from './ScheduleFilter';
 import ScheduleHistory from './ScheduleHistory';
 import ScheduleRecent from './ScheduleRecent';
 import tripApi from '~/apis/trip.api';
+import {GoKebabHorizontal} from 'react-icons/go';
+import ScheduleForm from './ScheduleForm';
 
 const RECENT = 'recent';
 const HISTORY = 'history';
@@ -28,6 +30,7 @@ const Schedule = () => {
     }
   ]);
   const modalRef = useRef<ModalRef>(null);
+  const addRef = useRef<ModalRef>(null);
 
   useEffect(() => {
     tripApi.getFirst().then(res => {
@@ -66,20 +69,39 @@ const Schedule = () => {
             </div>
           </div>
           <div>
-            <button className={classNames('btn', {'btn-default': tab.name !== RECENT})} onClick={() => goTo(RECENT)}>
-              Recent
-            </button>
-            <button className={classNames('btn', {'btn-default': tab.name !== HISTORY})} onClick={() => goTo(HISTORY)}>
-              History
-            </button>
+            <div className="flex" style={{minHeight: '28px'}}>
+              <button className={classNames('btn', {'btn-default': tab.name !== RECENT})} onClick={() => goTo(RECENT)}>
+                Recent
+              </button>
+              <button
+                className={classNames('btn', {'btn-default': tab.name !== HISTORY})}
+                onClick={() => goTo(HISTORY)}>
+                History
+              </button>
+              {tab.name === RECENT && (
+                <>
+                  <Button type="primary" customClass="ml-auto" onClick={() => addRef.current?.show()}>
+                    <MdOutlineAdd />
+                  </Button>
+                  <Button type="primary" customClass="ml-2">
+                    <GoKebabHorizontal />
+                  </Button>
+                </>
+              )}
+            </div>
+
             <hr />
             {tab.element}
           </div>
         </>
       )}
 
-      <Modal ref={modalRef} title="Some thing">
+      <Modal ref={modalRef} title="Select a trip">
         <ScheduleFilter trip={trip} onTripSelect={handleTripSelect} />
+      </Modal>
+
+      <Modal ref={addRef} title="New schedule">
+        <ScheduleForm />
       </Modal>
     </>
   );
